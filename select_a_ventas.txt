@@ -1,0 +1,28 @@
+SELECT ID FID
+                , regionalName2 GeoFID
+                , customer Customer
+                , product Product
+                , regionalType ProductCategoryFID
+                , positionName PlacementComment
+                , publication_date CoverDate
+                , CONCAT(width, 'x', height, '-', grid) FormatFID
+                , inches_width Width
+                , inches_high Height
+                , printColorDescription ColorFID
+                , version_name Slogan
+                , meanPaymentName AccountFID
+                , Username Creator
+                , positionName Note
+                , subtotal AdRate
+                , state StatusFID
+                , orderNumber PrintSystemFID
+                , regionalName
+                , printColorDescription
+                , position
+                , regionalName2
+                , regionalType
+                , positionName
+                , rate
+                , observations 
+            FROM vw_pauta_dataplan
+			WHERE publication_date ='2026-06-11';

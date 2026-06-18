@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://designflow.local/contracts/layout.schema.json",
+  "title": "DesignFlow Layout Contract",
+  "type": "object",
+  "required": ["metadata", "edition", "pages"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["version", "unit", "coordinateSystem", "origin"],
+      "properties": {
+        "version": { "type": "string" },
+        "unit": { "const": "mm" },
+        "coordinateSystem": { "const": "grid" },
+        "origin": { "const": "top-left" }
+      },
+      "additionalProperties": false
+    },
+    "edition": {
+      "type": "object",
+      "required": [
+        "id",
+        "no_paginas",
+        "ancho_mm",
+        "alto_mm",
+        "cuadros_ancho",
+        "cuadros_alto"
+      ],
+      "properties": {
+        "id": { "type": "number" },
+        "no_paginas": { "type": "number" },
+        "ancho_mm": { "type": "number" },
+        "alto_mm": { "type": "number" },
+        "cuadros_ancho": { "type": "number" },
+        "cuadros_alto": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "no_pagina", "pautas"],
+        "properties": {
+          "id": { "type": "number" },
+          "no_pagina": { "type": "number" },
+          "pautas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "descripcion_pauta",
+                "cuadros_alto",
+                "cuadros_ancho",
+                "ubicacion_cuadros_x",
+                "ubicacion_cuadros_y",
+                "indesignBounds"
+              ],
+              "properties": {
+                "id": { "type": "number" },
+                "descripcion_pauta": { "type": "string" },
+                "cuadros_alto": { "type": "number" },
+                "cuadros_ancho": { "type": "number" },
+                "ubicacion_cuadros_x": { "type": "number" },
+                "ubicacion_cuadros_y": { "type": "number" },
+                "indesignBounds": {
+                  "type": "object",
+                  "required": ["topMm", "leftMm", "bottomMm", "rightMm"],
+                  "properties": {
+                    "topMm": { "type": "number" },
+                    "leftMm": { "type": "number" },
+                    "bottomMm": { "type": "number" },
+                    "rightMm": { "type": "number" }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
