@@ -1,4 +1,8 @@
 import { DataSource } from "typeorm";
+import { EnvironmentConfig } from "../config/environment.config";
+import { MysqlAdDataSourceAdapter } from "../modules/esb/infraestructure/adapters/MysqlAdDataSourceAdapter";
+import { GetImportedAdsUseCase } from "../modules/esb/application/use-cases/GetImportedAdsUseCase";
+import { EsbController } from "../modules/esb/infraestructure/http/EsbController";
 import { GenerateEditionLayoutUseCase } from "../modules/layout/application/use-cases/GenerateEditionLayoutUseCase";
 import { GetAllEditionsLayoutUseCase } from "../modules/layout/application/use-cases/GetAllEditionsLayoutUseCase";
 import { GridLayoutCalculator } from "../modules/layout/domain/services/GridLayoutCalculator";
@@ -57,8 +61,16 @@ export function createDependencyContainer(dataSource: DataSource) {
     const layoutController = new LayoutController(generateEditionLayoutUseCase, getAllEditionsLayoutUseCase);
     const editionController = new EditionController(createEditionUseCase);
 
+    // ESB module — swap MysqlAdDataSourceAdapter for another adapter when needed
+    const esbDataSource = new MysqlAdDataSourceAdapter(
+        EnvironmentConfig.getInstance().getAppConfig().ventasDatabase
+    );
+    const getImportedAdsUseCase = new GetImportedAdsUseCase(esbDataSource);
+    const esbController = new EsbController(getImportedAdsUseCase);
+
     return {
         layoutController,
-        editionController
+        editionController,
+        esbController
     };
 }
