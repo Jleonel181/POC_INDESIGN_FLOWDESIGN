@@ -8,14 +8,6 @@ export interface DatabaseConfig {
     logging: boolean;
 }
 
-export interface VentasDbConfig {
-    host: string;
-    port: number;
-    username: string;
-    password: string;
-    database: string;
-}
-
 export interface CorsConfig {
     allowedOrigins: string[];
     allowedMethods: string[];
@@ -26,7 +18,7 @@ export interface CorsConfig {
 export interface AppConfig {
     port: number;
     database: DatabaseConfig;
-    ventasDatabase: VentasDbConfig;
+    esbUrl: string;
     cors: CorsConfig;
 }
 
@@ -46,7 +38,7 @@ export class EnvironmentConfig {
         return {
             port: this.getNumber('PORT', 3000),
             database: this.getDatabaseConfig(),
-            ventasDatabase: this.getVentasDbConfig(),
+            esbUrl: this.getString('ESB_URL', 'http://localhost:4000'),
             cors: this.getCorsConfig()
         };
     }
@@ -70,21 +62,6 @@ export class EnvironmentConfig {
             database: this.getString('DB_NAME', 'designflow_db'),
             synchronize: this.getBoolean('DB_SYNCHRONIZE', false),
             logging: this.getBoolean('DB_LOGGING', false)
-        };
-    }
-
-    private getVentasDbConfig(): VentasDbConfig {
-        const jdbcUrl = this.getString('DB_VENTAS_SERVER', '');
-        // Parse jdbc:mysql://host/database?params  →  host, database
-        const match = jdbcUrl.match(/jdbc:mysql:\/\/([^/]+)\/([^?]+)/);
-        const host = match?.[1] ?? '192.168.28.33';
-        const database = match?.[2] ?? 'ventas';
-        return {
-            host,
-            port: 3306,
-            username: this.getString('DB_VENTAS_USER', ''),
-            password: this.getString('DB_VENTAS_PASSWORD', ''),
-            database
         };
     }
 

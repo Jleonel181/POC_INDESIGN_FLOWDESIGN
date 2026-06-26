@@ -19,6 +19,52 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - flowdesign-network
+
+  esb:
+    build:
+      context: ./esb
+      dockerfile: Dockerfile
+    container_name: designflow-esb
+    restart: unless-stopped
+    env_file:
+      - ./esb/.env
+    ports:
+      - "4000:4000"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:4000/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    networks:
+      - flowdesign-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: designflow-backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    environment:
+      # Override ESB_URL to use internal service name instead of localhost
+      ESB_URL: http://esb:4000
+      DB_HOST: postgres
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      esb:
+        condition: service_healthy
+    networks:
+      - flowdesign-network
+
+networks:
+  flowdesign-network:
+    driver: bridge
 
 volumes:
   postgres_data:

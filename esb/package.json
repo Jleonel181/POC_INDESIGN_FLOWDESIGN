@@ -1,0 +1,26 @@
+{
+  "name": "esb",
+  "version": "1.0.0",
+  "description": "Enterprise Service Bus - FlowDesign integration layer",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsc --outDir dist",
+    "start": "node dist/main.js"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mysql2": "^3.14.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.9.1",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { GetImportedAdsUseCase } from "../../application/use-cases/GetImportedAdsUseCase";
 
-export class EsbController {
+export class VentasController {
     constructor(private readonly getImportedAds: GetImportedAdsUseCase) {}
 
     getAdsByDate = async (req: Request, res: Response, next: NextFunction): Promise<void> => {

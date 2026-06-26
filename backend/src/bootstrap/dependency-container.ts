@@ -1,8 +1,7 @@
 import { DataSource } from "typeorm";
 import { EnvironmentConfig } from "../config/environment.config";
-import { MysqlAdDataSourceAdapter } from "../modules/esb/infraestructure/adapters/MysqlAdDataSourceAdapter";
-import { GetImportedAdsUseCase } from "../modules/esb/application/use-cases/GetImportedAdsUseCase";
-import { EsbController } from "../modules/esb/infraestructure/http/EsbController";
+import { HttpEsbAdapter } from "../modules/ventas/infraestructure/http/HttpEsbAdapter";
+import { VentasController } from "../modules/ventas/infraestructure/http/VentasController";
 import { GenerateEditionLayoutUseCase } from "../modules/layout/application/use-cases/GenerateEditionLayoutUseCase";
 import { GetAllEditionsLayoutUseCase } from "../modules/layout/application/use-cases/GetAllEditionsLayoutUseCase";
 import { GridLayoutCalculator } from "../modules/layout/domain/services/GridLayoutCalculator";
@@ -61,16 +60,13 @@ export function createDependencyContainer(dataSource: DataSource) {
     const layoutController = new LayoutController(generateEditionLayoutUseCase, getAllEditionsLayoutUseCase);
     const editionController = new EditionController(createEditionUseCase);
 
-    // ESB module — swap MysqlAdDataSourceAdapter for another adapter when needed
-    const esbDataSource = new MysqlAdDataSourceAdapter(
-        EnvironmentConfig.getInstance().getAppConfig().ventasDatabase
-    );
-    const getImportedAdsUseCase = new GetImportedAdsUseCase(esbDataSource);
-    const esbController = new EsbController(getImportedAdsUseCase);
+    // Ventas module — consumes ESB via HTTP, no direct DB credentials here
+    const esbAdapter = new HttpEsbAdapter(EnvironmentConfig.getInstance().getAppConfig().esbUrl);
+    const ventasController = new VentasController(esbAdapter);
 
     return {
         layoutController,
         editionController,
-        esbController
+        ventasController
     };
 }
