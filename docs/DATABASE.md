@@ -333,4 +333,4 @@ docker compose logs postgres
 
 ---
 
-**Última actualización:** 2026-01-10
+**Última actualización:** 2026-06-30

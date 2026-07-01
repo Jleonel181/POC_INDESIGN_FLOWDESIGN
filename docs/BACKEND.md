@@ -300,4 +300,4 @@ Por ahora no hay tests (será implementado después). Ver [README.md](../README.
 
 ---
 
-**Última actualización:** 2026-01-10
+**Última actualización:** 2026-06-30
