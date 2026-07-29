@@ -1,0 +1,22 @@
+# golangci-lint v2 configuration for idmlbuild project
+# This configuration balances code quality with existing codebase compatibility
+
+version: "2"
+
+run:
+  timeout: 10m
+  tests: true
+  go: "1.23"
+
+# Enable essential linters while being permissive for existing code
+linters:
+  enable:
+    - govet         # Go vet (built-in static analyzer)
+    - misspell      # Check for misspelled words in comments and strings
+  
+  disable:
+    - errcheck      # Too many unchecked errors in existing code
+    - gosec         # Too many security warnings in test code
+    - ineffassign   # Can be enabled after cleanup
+    - unused        # Can be enabled after cleanup
+    - staticcheck   # Too many style suggestions for existing code

@@ -145,3 +145,5 @@ vite.config.ts.timestamp-*
 #Python Files
 __pycache__/
 .venv/
+
+idml_con_imagenes_texto_y_divisiones/
