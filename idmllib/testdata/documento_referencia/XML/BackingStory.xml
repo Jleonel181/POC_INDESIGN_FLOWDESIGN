@@ -1,0 +1,1155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:BackingStory xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="21.4">
+	<XmlStory Self="u8f" UserText="true" IsEndnoteStory="false" AppliedTOCStyle="n" TrackChanges="false" StoryTitle="$ID/" AppliedNamedGrid="n">
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/NormalParagraphStyle">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Content>﻿﻿﻿﻿</Content>
+			</CharacterStyleRange>
+			<XMLElement Self="di3" MarkupTag="XMLTag/Root">
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i4" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i4i5" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i6" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i6i7" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i8" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i8i9" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3ia" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3iaib" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3ic" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3icid" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3ie" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3ieif" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i10" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i10i11" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i12" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i12i13" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i14" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i14i15" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i16" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i16i17" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i18" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i18i19" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i1a" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i1ai1b" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i1c" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i1ci1d" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i1e" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i1ei1f" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i20" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i20i21" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i22" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i22i23" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i24" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i24i25" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i26" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i26i27" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i28" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i28i29" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i2a" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i2ai2b" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i2c" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i2ci2d" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i2e" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i2ei2f" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i30" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i30i31" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i32" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i32i33" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i34" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i34i35" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i36" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i36i37" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i38" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i38i39" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i3a" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i3ai3b" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i3c" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i3ci3d" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i3e" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i3ei3f" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>﻿Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i40" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i40i41" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>﻿Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i42" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i42i43" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>﻿Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i44" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i44i45" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>﻿Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i46" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i46i47" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i48" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i48i49" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i4a" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i4ai4b" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>﻿Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i4c" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i4ci4d" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>﻿Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i4e" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i4ei4f" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i50" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i50i51" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i52" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i52i53" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>﻿Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i54" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+					<XMLElement Self="di3i54i55" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>﻿Día</Content>
+						</CharacterStyleRange>
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>, 00 de mes de 0000</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i56" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+						<Content>Sábado, 19 </Content>
+					</CharacterStyleRange>
+					<XMLElement Self="di3i56i57" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>de octubre de 2024</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i58" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+						<Content>Sábado, 19 </Content>
+					</CharacterStyleRange>
+					<XMLElement Self="di3i58i59" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>de octubre de 2024</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i5a" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+						<Content>Sábado, 19 </Content>
+					</CharacterStyleRange>
+					<XMLElement Self="di3i5ai5b" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>de octubre de 2024</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i5c" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+						<Content>Sábado, 19 </Content>
+					</CharacterStyleRange>
+					<XMLElement Self="di3i5ci5d" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>de octubre de 2024</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i5e" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+						<Content>Sábado, 19 </Content>
+					</CharacterStyleRange>
+					<XMLElement Self="di3i5ei5f" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>de octubre de 2024</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i60" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+						<Content>Sábado, 19 </Content>
+					</CharacterStyleRange>
+					<XMLElement Self="di3i60i61" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>de octubre de 2024</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i62" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+						<Content>Sábado, 19 </Content>
+					</CharacterStyleRange>
+					<XMLElement Self="di3i62i63" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>de octubre de 2024</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i64" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+						<Content>Sábado, 19 </Content>
+					</CharacterStyleRange>
+					<XMLElement Self="di3i64i65" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>de octubre de 2024</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" />
+				<XMLElement Self="di3i66" MarkupTag="XMLTag/Story">
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+						<Content>Sábado, 19 </Content>
+					</CharacterStyleRange>
+					<XMLElement Self="di3i66i67" MarkupTag="XMLTag/PUBLICATIONDATE">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+							<Properties>
+								<Leading type="unit">22</Leading>
+								<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+								<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+							</Properties>
+							<Content>de octubre de 2024</Content>
+						</CharacterStyleRange>
+					</XMLElement>
+					<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Light" PointSize="10" KerningMethod="$ID/Optical" Ligatures="false" StrokeWeight="2" Tracking="-20" AppliedLanguage="$ID/Spanish: Castilian" UnderlineOffset="-32.364256903506046" UnderlineWeight="80" MiterLimit="4.315234253800806">
+						<Properties>
+							<Leading type="unit">22</Leading>
+							<AppliedFont type="string">TitlingGothicFB Cond</AppliedFont>
+							<UnderlineColor type="object">Color/C=0 M=85 Y=100 K=0</UnderlineColor>
+						</Properties>
+						<Content>  ●  Nuestro Diario  ●  </Content>
+					</CharacterStyleRange>
+				</XMLElement>
+			</XMLElement>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Capitalization="AllCaps">
+				<Content>﻿﻿</Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Content>﻿﻿﻿</Content>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+	</XmlStory>
+</idPkg:BackingStory>

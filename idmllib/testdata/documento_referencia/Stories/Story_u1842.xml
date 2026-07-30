@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Story xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="21.4">
+	<Story Self="u1842" UserText="true" IsEndnoteStory="false" AppliedTOCStyle="n" TrackChanges="true" StoryTitle="$ID/N2_06_cuerpo_texto" AppliedNamedGrid="n">
+		<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="12" FrameType="TextFrameType" StoryOrientation="Horizontal" StoryDirection="LeftToRightDirection" />
+		<MetadataPacketPreference>
+			<Properties>
+				<Contents><![CDATA[<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 10.0-c000 25.G.ef72e4e, 2025/06/27-18:54:05        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
+            xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:xmpRights="http://ns.adobe.com/xap/1.0/rights/"
+            xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/">
+         <xmp:CreateDate>2026-07-14T15:32:22-06:00</xmp:CreateDate>
+         <xmp:MetadataDate>2026-07-14T15:32:22-06:00</xmp:MetadataDate>
+         <xmp:ModifyDate>2026-07-14T15:32:22-06:00</xmp:ModifyDate>
+         <xmp:CreatorTool>Adobe InDesign CS6 (Macintosh)</xmp:CreatorTool>
+         <xmpMM:InstanceID>xmp.iid:EC942E120E206811822AC7920C232F3F</xmpMM:InstanceID>
+         <xmpMM:DocumentID>xmp.did:EC942E120E206811822AC7920C232F3F</xmpMM:DocumentID>
+         <xmpMM:OriginalDocumentID>xmp.did:EC942E120E206811822AC7920C232F3F</xmpMM:OriginalDocumentID>
+         <xmpMM:History>
+            <rdf:Seq>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>created</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:EC942E120E206811822AC7920C232F3F</stEvt:instanceID>
+                  <stEvt:when>2026-07-14T15:32:22-06:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe InDesign CS6 (Macintosh)</stEvt:softwareAgent>
+               </rdf:li>
+            </rdf:Seq>
+         </xmpMM:History>
+         <dc:format>application/x-incopy</dc:format>
+         <dc:title>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">N2_06_cuerpo_texto</rdf:li>
+            </rdf:Alt>
+         </dc:title>
+         <xmpRights:Marked>False</xmpRights:Marked>
+         <photoshop:ModifyDate>2026-07-14T17:43:10</photoshop:ModifyDate>
+         <photoshop:CreateDate>2026-07-14T16:30:49</photoshop:CreateDate>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="r"?>]]></Contents>
+			</Properties>
+		</MetadataPacketPreference>
+		<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false" />
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto 1er. Párrafo">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Regular">
+				<Properties>
+					<AppliedFont type="string">Minion Pro</AppliedFont>
+				</Properties>
+				<Change Date="2026-07-14T15:39:49" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>Capital, zona 12</Content>
+				</Change>
+			</CharacterStyleRange>
+			<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Regular">
+					<Properties>
+						<AppliedFont type="string">Minion Pro</AppliedFont>
+					</Properties>
+					<Content>.</Content>
+				</CharacterStyleRange>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+					<Content> Las intensas lluvias de los últimos días ya </Content>
+				</CharacterStyleRange>
+			</Change>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Change Date="2026-07-14T16:55:15" ChangeType="InsertedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<Content>causaron</Content>
+				</Change>
+				<Change Date="2026-07-14T16:55:15" ChangeType="DeletedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto 1er. Párrafo">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>provocan</Content>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content> </Content>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>daños en los campos de cultivo del norte del país</Content>
+				</Change>
+				<Change Date="2026-07-14T16:55:22" ChangeType="InsertedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<Content>,</Content>
+				</Change>
+				<Change Date="2026-07-14T16:55:22" ChangeType="DeletedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto 1er. Párrafo">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>;</Content>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content> </Content>
+				</Change>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+		<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+			<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto 1er. Párrafo">
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+					<Content>principalmente en Izabal, donde siembras de maíz se ahogan durante las inundaciones, mientras que los productores enfrentan el riesgo de perder sus cosechas.</Content>
+					<Br />
+				</CharacterStyleRange>
+			</ParagraphStyleRange>
+			<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-35">
+					<Content>De acuerdo con el Ministerio de Agricultura, Ganadería y Alimentación (MAGA), la cual se basa en reportes del Insivumeh, durante la segunda semana de julio las precipitaciones ocasionaron inundaciones, motivadas por el aumento en los caudales de los ríos y la saturación de los suelos.</Content>
+					<Br />
+				</CharacterStyleRange>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+					<Content>Hasta el momento, en El Estor se registran 56 hectáreas de milpa dañada</Content>
+				</CharacterStyleRange>
+			</ParagraphStyleRange>
+		</Change>
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Change Date="2026-07-14T16:55:46" ChangeType="DeletedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>,</Content>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content> </Content>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>y en L</Content>
+				</Change>
+				<Change Date="2026-07-14T16:55:51" ChangeType="InsertedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<Content>í</Content>
+				</Change>
+				<Change Date="2026-07-14T16:55:51" ChangeType="DeletedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>i</Content>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>v</Content>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>ingston</Content>
+				</Change>
+				<Change Date="2026-07-14T16:55:55" ChangeType="DeletedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>,</Content>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content> </Content>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>se reportan 50, daños que en conjunto perjudican a 150 familias productoras, señala la Dirección de Coordinación Regional y Extensión Rural (Dicorer).</Content>
+					<Br />
+					<Content>En El Estor también se reportan pérdidas en la producción pecuaria, ya que cientos de gallinas y patos resultaron afectados, perjudicando directamente a 132 familias.</Content>
+				</Change>
+				<Change Date="2026-07-14T16:40:02" ChangeType="InsertedText" UserName="oscar.garcia" AppliedDocumentUser="dDocumentUser5">
+					<Br />
+				</Change>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-35">
+				<Change Date="2026-07-14T16:40:01" ChangeType="DeletedText" UserName="oscar.garcia" AppliedDocumentUser="dDocumentUser5">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Br />
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Descanso ">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Granos básicos en riesgo</Content>
+							<Br />
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Bold">
+							<Properties>
+								<AppliedFont type="string">Popular</AppliedFont>
+							</Properties>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>L</Content>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>a emergencia también golpea a Alta Verapaz, donde el municipio de Fray Bartolomé de Las Casas está bajo el agua</Content>
+				</Change>
+				<Change Date="2026-07-14T16:56:15" ChangeType="DeletedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-35">
+							<Content>,</Content>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content> </Content>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>y se contabilizan hasta el momento 1 mil 952 familias afectadas, además de 1 mil 893 viviendas dañadas, señaló la Coordinadora Nacional para la Reducción de Desastres</Content>
+				</Change>
+				<Change Date="2026-07-14T16:41:39" ChangeType="InsertedText" UserName="oscar.garcia" AppliedDocumentUser="dDocumentUser5">
+					<Content>.</Content>
+				</Change>
+				<Change Date="2026-07-14T16:41:37" ChangeType="DeletedText" UserName="oscar.garcia" AppliedDocumentUser="dDocumentUser5">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-35">
+							<Content> (Conred).</Content>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Br />
+				</Change>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>Mientras tanto, en ese departament</Content>
+				</Change>
+				<Change Date="2026-07-14T16:42:53" ChangeType="InsertedText" UserName="oscar.garcia" AppliedDocumentUser="dDocumentUser5">
+					<Content>o, </Content>
+				</Change>
+				<Change Date="2026-07-14T16:42:35" ChangeType="DeletedText" UserName="oscar.garcia" AppliedDocumentUser="dDocumentUser5">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>o, </Content>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>e</Content>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>l MAGA mantiene monitoreo en</Content>
+				</Change>
+				<Change Date="2026-07-14T16:43:04" ChangeType="DeletedText" UserName="oscar.garcia" AppliedDocumentUser="dDocumentUser5">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content> áreas</Content>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T15:39:39" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content> </Content>
+				</Change>
+				<Change Date="2026-07-14T16:43:27" ChangeType="InsertedText" UserName="oscar.garcia" AppliedDocumentUser="dDocumentUser5">
+					<Content>variedad de cultivos.</Content>
+				</Change>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+		<Change Date="2026-07-14T16:43:27" ChangeType="DeletedText" UserName="oscar.garcia" AppliedDocumentUser="dDocumentUser5">
+			<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+					<Content>cultivos de tivadas con maíz, frijol, cardamomo, café, hortalizas, plátano y caña de azúcar en etapa de crecimiento, principalmente en San Cristóbal Verapaz, Chahal y Chisec, donde el exceso de humedad podría generar pérdidas.</Content>
+				</CharacterStyleRange>
+			</ParagraphStyleRange>
+		</Change>
+	</Story>
+</idPkg:Story>

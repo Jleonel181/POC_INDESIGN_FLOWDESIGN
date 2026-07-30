@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Story xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="21.4">
+	<Story Self="u1222" UserText="true" IsEndnoteStory="false" AppliedTOCStyle="n" TrackChanges="true" StoryTitle="$ID/" AppliedNamedGrid="n">
+		<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="12" FrameType="TextFrameType" StoryOrientation="Horizontal" StoryDirection="LeftToRightDirection" />
+		<MetadataPacketPreference>
+			<Properties>
+				<Contents><![CDATA[<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 10.0-c000 25.G.ef72e4e, 2025/06/27-18:54:05        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
+            xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"
+            xmlns:dc="http://purl.org/dc/elements/1.1/">
+         <xmp:CreateDate>2025-07-25T20:15:53-06:00</xmp:CreateDate>
+         <xmp:MetadataDate>2025-07-25T20:15:53-06:00</xmp:MetadataDate>
+         <xmp:ModifyDate>2025-07-25T20:15:53-06:00</xmp:ModifyDate>
+         <xmp:CreatorTool>Adobe InDesign CS6 (Macintosh)</xmp:CreatorTool>
+         <xmpMM:InstanceID>xmp.iid:CB10DE8C1D206811822A8807FAC5DC0F</xmpMM:InstanceID>
+         <xmpMM:DocumentID>xmp.did:CB10DE8C1D206811822A8807FAC5DC0F</xmpMM:DocumentID>
+         <xmpMM:OriginalDocumentID>xmp.did:CB10DE8C1D206811822A8807FAC5DC0F</xmpMM:OriginalDocumentID>
+         <xmpMM:History>
+            <rdf:Seq>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>created</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:CB10DE8C1D206811822A8807FAC5DC0F</stEvt:instanceID>
+                  <stEvt:when>2025-07-25T20:15:53-06:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe InDesign CS6 (Macintosh)</stEvt:softwareAgent>
+               </rdf:li>
+            </rdf:Seq>
+         </xmpMM:History>
+         <dc:format>application/x-incopy</dc:format>
+         <dc:title>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">body</rdf:li>
+            </rdf:Alt>
+         </dc:title>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="r"?>]]></Contents>
+			</Properties>
+		</MetadataPacketPreference>
+		<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false" />
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/NormalParagraphStyle" Hyphenation="false" HyphenationZone="64.13893335199819" RuleAboveLineWeight="1.7816370375555053" RuleBelowLineWeight="1.7816370375555053" Justification="CenterAlign" SplitColumnInsideGutter="10.689822225333028">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FillColor="Color/ND" FontStyle="Black" PointSize="56" KerningMethod="$ID/Optical" AppliedLanguage="$ID/English: USA" MiterLimit="7.126548150222021" RubyFontSize="-1.7816370375555053" KentenFontSize="-1.7816370375555053">
+				<Properties>
+					<Leading type="unit">40</Leading>
+					<AppliedFont type="string">Popular</AppliedFont>
+				</Properties>
+				<Change Date="2025-07-25T20:15:53" ChangeType="InsertedText" UserName="omar.vargas" AppliedDocumentUser="dDocumentUser0">
+					<Content>Noticias</Content>
+				</Change>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+	</Story>
+</idPkg:Story>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Story xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="21.4">
+	<Story Self="u18db" UserText="true" IsEndnoteStory="false" AppliedTOCStyle="n" TrackChanges="true" StoryTitle="$ID/N1_06_cuerpo_texto" AppliedNamedGrid="n">
+		<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="12" FrameType="TextFrameType" StoryOrientation="Horizontal" StoryDirection="LeftToRightDirection" />
+		<MetadataPacketPreference>
+			<Properties>
+				<Contents><![CDATA[<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 10.0-c000 25.G.ef72e4e, 2025/06/27-18:54:05        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
+            xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:xmpRights="http://ns.adobe.com/xap/1.0/rights/"
+            xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/">
+         <xmp:CreateDate>2026-07-14T15:32:22-06:00</xmp:CreateDate>
+         <xmp:MetadataDate>2026-07-14T15:32:22-06:00</xmp:MetadataDate>
+         <xmp:ModifyDate>2026-07-14T15:32:22-06:00</xmp:ModifyDate>
+         <xmp:CreatorTool>Adobe InDesign CS6 (Macintosh)</xmp:CreatorTool>
+         <xmpMM:InstanceID>xmp.iid:F2942E120E206811822AC7920C232F3F</xmpMM:InstanceID>
+         <xmpMM:DocumentID>xmp.did:F2942E120E206811822AC7920C232F3F</xmpMM:DocumentID>
+         <xmpMM:OriginalDocumentID>xmp.did:F2942E120E206811822AC7920C232F3F</xmpMM:OriginalDocumentID>
+         <xmpMM:History>
+            <rdf:Seq>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>created</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:F2942E120E206811822AC7920C232F3F</stEvt:instanceID>
+                  <stEvt:when>2026-07-14T15:32:22-06:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe InDesign CS6 (Macintosh)</stEvt:softwareAgent>
+               </rdf:li>
+            </rdf:Seq>
+         </xmpMM:History>
+         <dc:format>application/x-incopy</dc:format>
+         <dc:title>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">N1_06_cuerpo_texto</rdf:li>
+            </rdf:Alt>
+         </dc:title>
+         <xmpRights:Marked>False</xmpRights:Marked>
+         <photoshop:ModifyDate>2026-07-14T17:43:10</photoshop:ModifyDate>
+         <photoshop:CreateDate>2026-07-14T16:30:49</photoshop:CreateDate>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="r"?>]]></Contents>
+			</Properties>
+		</MetadataPacketPreference>
+		<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false" />
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto 1er. Párrafo">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Regular">
+				<Properties>
+					<AppliedFont type="string">Minion Pro</AppliedFont>
+				</Properties>
+				<Change Date="2026-07-14T16:01:13" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>Capital, zona 13</Content>
+				</Change>
+			</CharacterStyleRange>
+			<Change Date="2026-07-14T16:00:44" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Regular">
+					<Properties>
+						<AppliedFont type="string">Minion Pro</AppliedFont>
+					</Properties>
+					<Content>.</Content>
+				</CharacterStyleRange>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-15">
+					<Content> La actual época de lluvia ha dejado 13 personas fallecidas, 11 hospitalizadas y 3 herid</Content>
+				</CharacterStyleRange>
+			</Change>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-15">
+				<Change Date="2026-07-14T16:57:13" ChangeType="InsertedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<Content>a</Content>
+				</Change>
+				<Change Date="2026-07-14T16:57:13" ChangeType="DeletedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto 1er. Párrafo">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-15">
+							<Content>o</Content>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T16:00:44" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>s</Content>
+				</Change>
+				<Change Date="2026-07-14T16:00:44" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>, así como más de 33 mil personas afectadas en </Content>
+				</Change>
+				<Change Date="2026-07-14T16:57:19" ChangeType="DeletedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto 1er. Párrafo">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-15">
+							<Content>todo </Content>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T16:00:44" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>e</Content>
+				</Change>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+		<Change Date="2026-07-14T16:00:44" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+			<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto 1er. Párrafo">
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-15">
+					<Content>l país, revela un informe de la Coordinadora Nacional para la Reducción de Desastres (Conred).</Content>
+					<Br />
+				</CharacterStyleRange>
+			</ParagraphStyleRange>
+			<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-10">
+					<Content>Valeria Urízar, portavoz de la Conred, informó que en dicha época han sido evacuadas 13 mil 986 personas, de las cuales 1,052 se encuentran albergadas en refugios habilitados en </Content>
+				</CharacterStyleRange>
+			</ParagraphStyleRange>
+		</Change>
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-10">
+				<Change Date="2026-07-14T16:57:36" ChangeType="DeletedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-10">
+							<Content>todo </Content>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T16:00:44" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>e</Content>
+				</Change>
+			</CharacterStyleRange>
+			<Change Date="2026-07-14T16:00:44" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-10">
+					<Content>l país.</Content>
+					<Br />
+				</CharacterStyleRange>
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+					<Content>“Los departamentos más afectados por las lluvias son Alta Verapaz con 279 emergencias, Guatemala con 91 e Izabal con 64”, refirió Urízar.</Content>
+					<Br />
+					<Content>La portavoz de la Conred también comentó que la mayoría de las emergencias atendidas en </Content>
+				</CharacterStyleRange>
+			</Change>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Change Date="2026-07-14T16:57:52" ChangeType="DeletedText" UserName="orlando.rodas" AppliedDocumentUser="dDocumentUserc">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>todo </Content>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T16:00:44" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>e</Content>
+				</Change>
+				<Change Date="2026-07-14T16:00:44" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>l territorio nacional han sido por 310 inundaciones, seguidas por 174 caídas de árboles, fuertes vientos que suman 112, 107 deslizamientos, 40 socavamientos, 39 derrumbes y 36 flujos de lodo, entre otros.</Content>
+				</Change>
+				<Change Date="2026-07-14T16:36:11" ChangeType="InsertedText" UserName="oscar.garcia" AppliedDocumentUser="dDocumentUser5">
+					<Br />
+				</Change>
+				<Change Date="2026-07-14T16:36:10" ChangeType="DeletedText" UserName="oscar.garcia" AppliedDocumentUser="dDocumentUser5">
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Br />
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Descanso ">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+							<Content>Infraestructura</Content>
+							<Br />
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+					<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+						<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Bold">
+							<Properties>
+								<AppliedFont type="string">Popular</AppliedFont>
+							</Properties>
+						</CharacterStyleRange>
+					</ParagraphStyleRange>
+				</Change>
+				<Change Date="2026-07-14T16:00:44" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>L</Content>
+				</Change>
+				<Change Date="2026-07-14T16:00:44" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>os fuertes aguaceros también han dejado con daños 264 carreteras, 17 puentes y 25 escuelas, así como 121 viviendas con daño severo, 6 mil 494 casas con daño moderado y 235 con daño leve.</Content>
+					<Br />
+					<Content>De acuerdo con datos de la Conred, también se contabilizan tres edificios públicos dañados y un puente destruido.</Content>
+					<Br />
+					<Content>La portavoz de la Conred indica que es importante que los guatemaltecos preparen su mochila de las 72 hora</Content>
+				</Change>
+				<Change Date="2026-07-14T16:36:22" ChangeType="InsertedText" UserName="oscar.garcia" AppliedDocumentUser="dDocumentUser5">
+					<Content>s.</Content>
+				</Change>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+		<Change Date="2026-07-14T16:36:20" ChangeType="DeletedText" UserName="oscar.garcia" AppliedDocumentUser="dDocumentUser5">
+			<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Texto">
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+					<Content>s, así como su plan familiar de respuesta ante posibles emergencias a causa de las lluvias.</Content>
+					<Br />
+					<Content>“Se recomienda no cruzar ríos, ni calles inundadas; en caso de ser necesario, ponga en práctica la autoevacuación, y ante cualquier emergencia o desastre, llame a los cuerpos de socorro o al teléfono de emergencias a nivel nacional 119”, dijo Urízar.</Content>
+				</CharacterStyleRange>
+			</ParagraphStyleRange>
+		</Change>
+	</Story>
+</idPkg:Story>

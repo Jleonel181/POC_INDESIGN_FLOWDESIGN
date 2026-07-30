@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Story xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="21.4">
+	<Story Self="u1873" UserText="true" IsEndnoteStory="false" AppliedTOCStyle="n" TrackChanges="true" StoryTitle="$ID/N2_05_credito_nota" AppliedNamedGrid="n">
+		<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="12" FrameType="TextFrameType" StoryOrientation="Horizontal" StoryDirection="LeftToRightDirection" />
+		<MetadataPacketPreference>
+			<Properties>
+				<Contents><![CDATA[<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 10.0-c000 25.G.ef72e4e, 2025/06/27-18:54:05        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
+            xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:xmpRights="http://ns.adobe.com/xap/1.0/rights/"
+            xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/">
+         <xmp:CreateDate>2026-07-14T15:32:22-06:00</xmp:CreateDate>
+         <xmp:MetadataDate>2026-07-14T15:32:22-06:00</xmp:MetadataDate>
+         <xmp:ModifyDate>2026-07-14T15:32:22-06:00</xmp:ModifyDate>
+         <xmp:CreatorTool>Adobe InDesign CS6 (Macintosh)</xmp:CreatorTool>
+         <xmpMM:InstanceID>xmp.iid:EE942E120E206811822AC7920C232F3F</xmpMM:InstanceID>
+         <xmpMM:DocumentID>xmp.did:EE942E120E206811822AC7920C232F3F</xmpMM:DocumentID>
+         <xmpMM:OriginalDocumentID>xmp.did:EE942E120E206811822AC7920C232F3F</xmpMM:OriginalDocumentID>
+         <xmpMM:History>
+            <rdf:Seq>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>created</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:EE942E120E206811822AC7920C232F3F</stEvt:instanceID>
+                  <stEvt:when>2026-07-14T15:32:22-06:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe InDesign CS6 (Macintosh)</stEvt:softwareAgent>
+               </rdf:li>
+            </rdf:Seq>
+         </xmpMM:History>
+         <dc:format>application/x-incopy</dc:format>
+         <dc:title>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">N2_05_credito_nota</rdf:li>
+            </rdf:Alt>
+         </dc:title>
+         <xmpRights:Marked>False</xmpRights:Marked>
+         <photoshop:ModifyDate>2026-07-14T17:43:10</photoshop:ModifyDate>
+         <photoshop:CreateDate>2026-07-14T16:30:49</photoshop:CreateDate>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="r"?>]]></Contents>
+			</Properties>
+		</MetadataPacketPreference>
+		<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false" />
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/Impacto país%3a2.0 Credito nota">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Change Date="2026-07-14T15:39:26" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>Dirlyn González</Content>
+				</Change>
+				<Change Date="2026-07-14T15:32:22" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Br />
+				</Change>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/01. Notas%3a01. Sub Crédito">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Change Date="2026-07-14T15:39:31" ChangeType="InsertedText" UserName="gabriel.morataya" AppliedDocumentUser="dDocumentUser7">
+					<Content>Nuestro Diario</Content>
+				</Change>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+	</Story>
+</idPkg:Story>

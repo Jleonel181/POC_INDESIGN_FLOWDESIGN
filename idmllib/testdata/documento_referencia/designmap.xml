@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?aid style="50" type="document" readerVersion="6.0" featureSet="257" product="21.4(4)" ?>
+<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="21.4" Self="d" StoryList="u35d u374 u38b u3a2 u487 u49e u4b5 u4cc u1222 u172b u1743 u1797 u17af u17c8 u17fa u182a u1842 u1873 u18ab u18c3 u18db u18f4 u1977 u19be u19d8 u1aa9 u1b37 u1b4d u1b93 u1bb0 u8f" Name="ND 04 20260715.indd" ZeroPoint="0 0" ActiveLayer="uaf" CMYKProfile="U.S. Web Coated (SWOP) v2" RGBProfile="Adobe RGB (1998)" SolidColorIntent="UseColorSettings" AfterBlendingIntent="UseColorSettings" DefaultImageIntent="UseColorSettings" RGBPolicy="PreserveEmbeddedProfiles" CMYKPolicy="CombinationOfPreserveAndSafeCmyk" AccurateLABSpots="false" AppliedMathMLFontSize="10" AppliedMathMLRgbColor="0 0 0" TintValue="100" PreferMathMLInEpubExport="false">
+	<Properties>
+		<Label>
+			<KeyValuePair Key="kAdobeDPS_Version" Value="2" />
+		</Label>
+		<AppliedMathMLSwatch type="enumeration">Nothing</AppliedMathMLSwatch>
+	</Properties>
+	<Language Self="Language/$ID/[No Language]" Name="$ID/[No Language]" SingleQuotes="&apos;&apos;" DoubleQuotes="&quot;&quot;" PrimaryLanguageName="$ID/[No Language]" SublanguageName="$ID/[No Language]" Id="0" HyphenationVendor="$ID/" SpellingVendor="$ID/" />
+	<Language Self="Language/$ID/English%3a UK" Name="$ID/English: UK" SingleQuotes="‘’" DoubleQuotes="“”" PrimaryLanguageName="$ID/English" SublanguageName="$ID/UK" Id="525" HyphenationVendor="Hunspell" SpellingVendor="Hunspell" />
+	<Language Self="Language/$ID/English%3a USA" Name="$ID/English: USA" SingleQuotes="‘’" DoubleQuotes="“”" PrimaryLanguageName="$ID/English" SublanguageName="$ID/USA" Id="269" HyphenationVendor="Hunspell" SpellingVendor="Hunspell" />
+	<Language Self="Language/$ID/Spanish%3a Castilian" Name="$ID/Spanish: Castilian" SingleQuotes="‘’" DoubleQuotes="“”" PrimaryLanguageName="$ID/Spanish" SublanguageName="$ID/Castilian" Id="294" HyphenationVendor="Hunspell" SpellingVendor="Hunspell" />
+	<idPkg:Graphic src="Resources/Graphic.xml" />
+	<idPkg:Fonts src="Resources/Fonts.xml" />
+	<idPkg:Styles src="Resources/Styles.xml" />
+	<NumberingList Self="NumberingList/$ID/[Default]" Name="$ID/[Default]" ContinueNumbersAcrossStories="false" ContinueNumbersAcrossDocuments="false" />
+	<NamedGrid Self="NamedGrid/$ID/[Page Grid]" Name="$ID/[Page Grid]">
+		<GridDataInformation FontStyle="Regular" PointSize="12" CharacterAki="0" LineAki="9" HorizontalScale="100" VerticalScale="100" LineAlignment="LeftOrTopLineJustify" GridAlignment="AlignEmCenter" CharacterAlignment="AlignEmCenter">
+			<Properties>
+				<AppliedFont type="string">Minion Pro</AppliedFont>
+			</Properties>
+		</GridDataInformation>
+	</NamedGrid>
+	<ConditionalTextPreference ShowConditionIndicators="ShowIndicators" ActiveConditionSet="n" />
+	<idPkg:Preferences src="Resources/Preferences.xml" />
+	<EndnoteOption EndnoteTitle="Notas al final" EndnoteTitleStyle="ParagraphStyle/$ID/NormalParagraphStyle" StartEndnoteNumberAt="1" EndnoteMarkerStyle="CharacterStyle/$ID/[No character style]" EndnoteTextStyle="ParagraphStyle/$ID/NormalParagraphStyle" EndnoteSeparatorText="&#x9;" EndnotePrefix="" EndnoteSuffix="">
+		<Properties>
+			<EndnoteNumberingStyle type="enumeration">Arabic</EndnoteNumberingStyle>
+			<RestartEndnoteNumbering type="enumeration">Continuous</RestartEndnoteNumbering>
+			<EndnoteMarkerPositioning type="enumeration">SuperscriptMarker</EndnoteMarkerPositioning>
+			<ScopeValue type="enumeration">EndnoteDocumentScope</ScopeValue>
+			<FrameCreateOption type="enumeration">NewPage</FrameCreateOption>
+			<ShowEndnotePrefixSuffix type="enumeration">NoPrefixSuffix</ShowEndnotePrefixSuffix>
+		</Properties>
+	</EndnoteOption>
+	<TextFrameFootnoteOptionsObject EnableOverrides="false" SpanFootnotesAcross="false" MinimumSpacingOption="12" SpaceBetweenFootnotes="6" />
+	<LinkedStoryOption UpdateWhileSaving="false" WarnOnUpdateOfEditedStory="true" RemoveForcedLineBreaks="false" ApplyStyleMappings="false" />
+	<LinkedPageItemOption UpdateLinkWhileSaving="false" WarnOnUpdateOfEditedPageItem="true" PreserveSizeAndShape="false" PreserveAppearance="false" PreserveInteractivity="false" PreserveFrameContent="false" PreserveOthers="false" />
+	<WatermarkPreference WatermarkVisibility="false" WatermarkDoPrint="false" WatermarkDrawInBack="true" WatermarkText="" WatermarkFontFamily="Minion Pro" WatermarkFontStyle="Regular" WatermarkFontPointSize="48" WatermarkOpacity="50" WatermarkRotation="0" WatermarkHorizontalPosition="WatermarkHCenter" WatermarkHorizontalOffset="0" WatermarkVerticalPosition="WatermarkVCenter" WatermarkVerticalOffset="0">
+		<Properties>
+			<WatermarkFontColor type="enumeration">Black</WatermarkFontColor>
+		</Properties>
+	</WatermarkPreference>
+	<TaggedPDFPreference StructureOrder="UseXMLStructure" />
+	<AdjustLayoutPreference EnableAdjustLayout="false" AllowLockedObjectsToAdjust="true" AllowFontSizeAndLeadingAdjustment="false" ImposeFontSizeRestriction="false" MinimumFontSize="6" MaximumFontSize="324" EnableAutoAdjustMargins="false" />
+	<HTMLFXLExportPreference EpubPageRange="" EpubPageRangeFormat="ExportAllPages" />
+	<PublishExportPreference PublishCover="FirstPage" CoverImageFile="" PublishPageRange="" PublishPageRangeFormat="ExportAllPages" ImageConversion="Automatic" ImageExportResolution="Ppi96" PublishDescription="" PublishFileName="" PublishFormat="PublishByPages" CoverPage="$ID/" GIFOptionsPalette="AdaptivePalette" JPEGOptionsQuality="High" PublishPdf="false" />
+	<Html5ExportPreference TextExportFormat="HtmlTag" CopyFonts="false" />
+	<TextVariable Self="dTextVariablen&lt;?AID 001b?&gt;TV XRefChapterNumber" Name="&lt;?AID 001b?&gt;TV XRefChapterNumber" VariableType="XrefChapterNumberType" />
+	<TextVariable Self="dTextVariablen&lt;?AID 001b?&gt;TV XRefPageNumber" Name="&lt;?AID 001b?&gt;TV XRefPageNumber" VariableType="XrefPageNumberType" />
+	<TextVariable Self="dTextVariablenChapter Number" Name="Chapter Number" VariableType="ChapterNumberType">
+		<ChapterNumberVariablePreference TextBefore="" Format="Current" TextAfter="" />
+	</TextVariable>
+	<TextVariable Self="dTextVariablenCreation Date" Name="Creation Date" VariableType="CreationDateType">
+		<DateVariablePreference TextBefore="" Format="dd/MM/yy" TextAfter="" />
+	</TextVariable>
+	<TextVariable Self="dTextVariablenFile Name" Name="File Name" VariableType="FileNameType">
+		<FileNameVariablePreference TextBefore="" IncludePath="false" IncludeExtension="false" TextAfter="" />
+	</TextVariable>
+	<TextVariable Self="dTextVariablenImage Name" Name="Image Name" VariableType="LiveCaptionType">
+		<CaptionMetadataVariablePreference TextBefore="" MetadataProviderName="$ID/#LinkInfoNameStr" TextAfter="" />
+	</TextVariable>
+	<TextVariable Self="dTextVariablenLast Page Number" Name="Last Page Number" VariableType="LastPageNumberType">
+		<PageNumberVariablePreference TextBefore="" Format="Current" TextAfter="" Scope="SectionScope" />
+	</TextVariable>
+	<TextVariable Self="dTextVariablenModification Date" Name="Modification Date" VariableType="ModificationDateType">
+		<DateVariablePreference TextBefore="" Format="d MMMM yyyy h:mm aa" TextAfter="" />
+	</TextVariable>
+	<TextVariable Self="dTextVariablenOutput Date" Name="Output Date" VariableType="OutputDateType">
+		<DateVariablePreference TextBefore="" Format="dd/MM/yy" TextAfter="" />
+	</TextVariable>
+	<TextVariable Self="dTextVariablenRunning Header" Name="Running Header" VariableType="MatchParagraphStyleType">
+		<MatchParagraphStylePreference TextBefore="" TextAfter="" AppliedParagraphStyle="ParagraphStyle/$ID/NormalParagraphStyle" SearchStrategy="FirstOnPage" ChangeCase="None" DeleteEndPunctuation="false" />
+	</TextVariable>
+	<idPkg:Tags src="XML/Tags.xml" />
+	<Layer Self="u1f7" Name="APERTURA" Visible="true" Locked="false" IgnoreWrap="false" ShowGuides="true" LockGuides="true" UI="true" Expendable="true" Printable="true">
+		<Properties>
+			<LayerColor type="enumeration">Green</LayerColor>
+		</Properties>
+	</Layer>
+	<Layer Self="uaf" Name="ARTICULO" Visible="true" Locked="false" IgnoreWrap="false" ShowGuides="true" LockGuides="true" UI="true" Expendable="true" Printable="true">
+		<Properties>
+			<LayerColor type="enumeration">LightBlue</LayerColor>
+		</Properties>
+	</Layer>
+	<Layer Self="u1fc" Name="FOLIO" Visible="true" Locked="false" IgnoreWrap="false" ShowGuides="true" LockGuides="true" UI="true" Expendable="true" Printable="true">
+		<Properties>
+			<LayerColor type="enumeration">GrassGreen</LayerColor>
+		</Properties>
+	</Layer>
+	<Layer Self="u201" Name="FECHA COMPLETA" Visible="true" Locked="false" IgnoreWrap="false" ShowGuides="true" LockGuides="true" UI="true" Expendable="true" Printable="true">
+		<Properties>
+			<LayerColor type="enumeration">Teal</LayerColor>
+		</Properties>
+	</Layer>
+	<Layer Self="u206" Name="Margenes" Visible="true" Locked="false" IgnoreWrap="false" ShowGuides="true" LockGuides="false" UI="true" Expendable="true" Printable="true">
+		<Properties>
+			<LayerColor type="enumeration">Red</LayerColor>
+		</Properties>
+	</Layer>
+	<Layer Self="u20b" Name="Lunas" Visible="true" Locked="false" IgnoreWrap="false" ShowGuides="true" LockGuides="false" UI="true" Expendable="true" Printable="true">
+		<Properties>
+			<LayerColor type="enumeration">Orange</LayerColor>
+		</Properties>
+	</Layer>
+	<Layer Self="u210" Name="FECHA CORTA" Visible="false" Locked="false" IgnoreWrap="false" ShowGuides="true" LockGuides="true" UI="true" Expendable="true" Printable="true">
+		<Properties>
+			<LayerColor type="enumeration">Tan</LayerColor>
+		</Properties>
+	</Layer>
+	<idPkg:MasterSpread src="MasterSpreads/MasterSpread_ub0.xml" />
+	<idPkg:MasterSpread src="MasterSpreads/MasterSpread_u2dd.xml" />
+	<idPkg:MasterSpread src="MasterSpreads/MasterSpread_u409.xml" />
+	<idPkg:Spread src="Spreads/Spread_uce7.xml" />
+	<Section Self="uab" Length="1" Name="ND-" ContinueNumbering="false" IncludeSectionPrefix="false" PageNumberStart="4" Marker="" PageStart="ucf9" SectionPrefix="ND-" AlternateLayoutLength="1" AlternateLayout="Custom V">
+		<Properties>
+			<PageNumberStyle type="enumeration">Arabic</PageNumberStyle>
+		</Properties>
+	</Section>
+	<DocumentUser Self="dDocumentUser0" UserName="omar.vargas">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUser1" UserName="Joel">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUser2" UserName="Unknown User Name">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUser3" UserName="emilio.caxaj">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUser4" UserName="sonia.ardon">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUser5" UserName="oscar.garcia">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUser6" UserName="mynor.reyes">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUser7" UserName="gabriel.morataya">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUser8" UserName="joel.torres">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUser9" UserName="martha.grajeda">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUsera" UserName="fredie.obregon">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUserb" UserName="erick.cotzajay">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUserc" UserName="orlando.rodas">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUserd" UserName="heidy.sontay">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<DocumentUser Self="dDocumentUsere" UserName="$ID/Unknown User Name">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<CrossReferenceFormat Self="ud7f" Name="Full Paragraph &amp; Page Number" AppliedCharacterStyle="n">
+		<BuildingBlock Self="ud7fBuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud7fBuildingBlock1" BlockType="FullParagraphBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud7fBuildingBlock2" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot; on page " AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud7fBuildingBlock3" BlockType="PageNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="ud80" Name="Full Paragraph" AppliedCharacterStyle="n">
+		<BuildingBlock Self="ud80BuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud80BuildingBlock1" BlockType="FullParagraphBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud80BuildingBlock2" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="ud81" Name="Paragraph Text &amp; Page Number" AppliedCharacterStyle="n">
+		<BuildingBlock Self="ud81BuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud81BuildingBlock1" BlockType="ParagraphTextBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud81BuildingBlock2" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot; on page " AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud81BuildingBlock3" BlockType="PageNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="ud82" Name="Paragraph Text" AppliedCharacterStyle="n">
+		<BuildingBlock Self="ud82BuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud82BuildingBlock1" BlockType="ParagraphTextBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud82BuildingBlock2" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="ud83" Name="Paragraph Number &amp; Page Number" AppliedCharacterStyle="n">
+		<BuildingBlock Self="ud83BuildingBlock0" BlockType="ParagraphNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud83BuildingBlock1" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText=" on page " AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud83BuildingBlock2" BlockType="PageNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="ud84" Name="Paragraph Number" AppliedCharacterStyle="n">
+		<BuildingBlock Self="ud84BuildingBlock0" BlockType="ParagraphNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="ud85" Name="Text Anchor Name &amp; Page Number" AppliedCharacterStyle="n">
+		<BuildingBlock Self="ud85BuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud85BuildingBlock1" BlockType="BookmarkNameBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud85BuildingBlock2" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot; on page " AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud85BuildingBlock3" BlockType="PageNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="ud86" Name="Text Anchor Name" AppliedCharacterStyle="n">
+		<BuildingBlock Self="ud86BuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud86BuildingBlock1" BlockType="BookmarkNameBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud86BuildingBlock2" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="ud87" Name="Page Number" AppliedCharacterStyle="n">
+		<BuildingBlock Self="ud87BuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="page " AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+		<BuildingBlock Self="ud87BuildingBlock1" BlockType="PageNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false" />
+	</CrossReferenceFormat>
+	<idPkg:BackingStory src="XML/BackingStory.xml" />
+	<idPkg:Story src="Stories/Story_u1bb0.xml" />
+	<idPkg:Story src="Stories/Story_u1b93.xml" />
+	<idPkg:Story src="Stories/Story_u1b4d.xml" />
+	<idPkg:Story src="Stories/Story_u1b37.xml" />
+	<idPkg:Story src="Stories/Story_u1aa9.xml" />
+	<idPkg:Story src="Stories/Story_u19d8.xml" />
+	<idPkg:Story src="Stories/Story_u19be.xml" />
+	<idPkg:Story src="Stories/Story_u1977.xml" />
+	<idPkg:Story src="Stories/Story_u18f4.xml" />
+	<idPkg:Story src="Stories/Story_u18db.xml" />
+	<idPkg:Story src="Stories/Story_u18c3.xml" />
+	<idPkg:Story src="Stories/Story_u18ab.xml" />
+	<idPkg:Story src="Stories/Story_u1873.xml" />
+	<idPkg:Story src="Stories/Story_u1842.xml" />
+	<idPkg:Story src="Stories/Story_u182a.xml" />
+	<idPkg:Story src="Stories/Story_u17fa.xml" />
+	<idPkg:Story src="Stories/Story_u17c8.xml" />
+	<idPkg:Story src="Stories/Story_u17af.xml" />
+	<idPkg:Story src="Stories/Story_u1797.xml" />
+	<idPkg:Story src="Stories/Story_u1743.xml" />
+	<idPkg:Story src="Stories/Story_u172b.xml" />
+	<idPkg:Story src="Stories/Story_u1222.xml" />
+	<idPkg:Story src="Stories/Story_u4cc.xml" />
+	<idPkg:Story src="Stories/Story_u4b5.xml" />
+	<idPkg:Story src="Stories/Story_u49e.xml" />
+	<idPkg:Story src="Stories/Story_u487.xml" />
+	<idPkg:Story src="Stories/Story_u3a2.xml" />
+	<idPkg:Story src="Stories/Story_u38b.xml" />
+	<idPkg:Story src="Stories/Story_u374.xml" />
+	<idPkg:Story src="Stories/Story_u35d.xml" />
+	<ColorGroup Self="ColorGroup/[Root Color Group]" Name="[Root Color Group]" IsRootColorGroup="true">
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch0" SwatchItemRef="Swatch/None" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch1" SwatchItemRef="Color/Registration" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch2" SwatchItemRef="Color/Paper" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch3" SwatchItemRef="Color/Black" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch4" SwatchItemRef="Color/Black 100%25" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch5" SwatchItemRef="Color/Black 100%25 3" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch6" SwatchItemRef="Color/Black 100%25 4" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch7" SwatchItemRef="Color/Black 100%25 6" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch8" SwatchItemRef="Color/C=0 M=0 Y=0 K=40" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch9" SwatchItemRef="Color/C=0 M=0 Y=0 K=65" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatcha" SwatchItemRef="Color/C=0 M=0 Y=0 K=80" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatchb" SwatchItemRef="Color/C=0 M=0 Y=100 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatchc" SwatchItemRef="Color/C=0 M=0 Y=100 K=60" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatchd" SwatchItemRef="Color/C=0 M=0 Y=98 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatche" SwatchItemRef="Color/C=0 M=10 Y=100 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatchf" SwatchItemRef="Color/C=0 M=10 Y=90 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch10" SwatchItemRef="Color/C=0 M=100 Y=0 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch11" SwatchItemRef="Color/C=0 M=100 Y=0 K=50" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch12" SwatchItemRef="Color/C=0 M=100 Y=100 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch13" SwatchItemRef="Color/C=0 M=100 Y=100 K=40" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch14" SwatchItemRef="Color/C=0 M=100 Y=60 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch15" SwatchItemRef="Color/C=0 M=20 Y=100 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch16" SwatchItemRef="Color/C=0 M=20 Y=82 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch17" SwatchItemRef="Color/C=0 M=30 Y=100 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch18" SwatchItemRef="Color/C=0 M=40 Y=100 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch19" SwatchItemRef="Color/C=0 M=6 Y=15 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch1a" SwatchItemRef="Color/C=0 M=80 Y=100 K=20" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch1b" SwatchItemRef="Color/C=0 M=80 Y=40 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch1c" SwatchItemRef="Color/C=0 M=85 Y=100 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch1d" SwatchItemRef="Color/C=0 M=99 Y=99 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch1e" SwatchItemRef="Color/C=100 M=0 Y=0 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch1f" SwatchItemRef="Color/C=100 M=0 Y=0 K=60" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch20" SwatchItemRef="Color/C=100 M=0 Y=30 K=70" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch21" SwatchItemRef="Color/C=100 M=30 Y=0 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch22" SwatchItemRef="Color/C=100 M=30 Y=0 K=70" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch23" SwatchItemRef="Color/C=100 M=50 Y=0 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch24" SwatchItemRef="Color/C=100 M=70 Y=10 K=10" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch25" SwatchItemRef="Color/C=2 M=19 Y=87 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch26" SwatchItemRef="Color/C=20 M=0 Y=100 K=20" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch27" SwatchItemRef="Color/C=20 M=100 Y=100 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch28" SwatchItemRef="Color/C=23 M=0 Y=100 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch29" SwatchItemRef="Color/C=23 M=18 Y=19 K=16" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch2a" SwatchItemRef="Color/C=24 M=18 Y=20 K=15" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch2b" SwatchItemRef="Color/C=25 M=0 Y=100 K=20" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch2c" SwatchItemRef="Color/C=25 M=91 Y=28 K=37" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch2d" SwatchItemRef="Color/C=3 M=29 Y=87 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch2e" SwatchItemRef="Color/C=30 M=0 Y=100 K=30" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch2f" SwatchItemRef="Color/C=35 M=0 Y=100 K=30" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch30" SwatchItemRef="Color/C=39 M=85 Y=0 K=11" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch31" SwatchItemRef="Color/C=4 M=93 Y=85 K=5" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch32" SwatchItemRef="Color/C=40 M=82 Y=10 K=11" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch33" SwatchItemRef="Color/C=43 M=4 Y=91 K=1" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch34" SwatchItemRef="Color/C=43 M=85 Y=13 K=8" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch35" SwatchItemRef="Color/C=45 M=0 Y=100 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch36" SwatchItemRef="Color/C=58 M=0 Y=100 K=22" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch37" SwatchItemRef="Color/C=6 M=98 Y=66 K=5" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch38" SwatchItemRef="Color/C=60 M=0 Y=100 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch39" SwatchItemRef="Color/C=60 M=100 Y=0 K=60" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch3a" SwatchItemRef="Color/C=64 M=15 Y=96 K=9" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch3b" SwatchItemRef="Color/C=80 M=0 Y=100 K=60" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch3c" SwatchItemRef="Color/C=86 M=30 Y=7 K=2" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch3d" SwatchItemRef="Color/C=90 M=0 Y=10 K=0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch3e" SwatchItemRef="Color/Deportes" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch3f" SwatchItemRef="Color/Deportes 2" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch40" SwatchItemRef="Color/Estrellas" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch41" SwatchItemRef="Color/Estrellas 2" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch42" SwatchItemRef="Color/Familia" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch43" SwatchItemRef="Color/Familia 2" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch44" SwatchItemRef="Color/Fitness" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch45" SwatchItemRef="Color/Fitness2" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch46" SwatchItemRef="Color/Mundo" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch47" SwatchItemRef="Color/ND" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch48" SwatchItemRef="Color/Tendero" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch49" SwatchItemRef="Color/c0m0y0k30" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch4a" SwatchItemRef="Color/c12m8y9k0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch4b" SwatchItemRef="Color/c19m7y0k81" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch4c" SwatchItemRef="Color/c2m6y91k0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch4d" SwatchItemRef="Color/c73m2y9k0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch4e" SwatchItemRef="Color/c94m37y0k3" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch4f" SwatchItemRef="Color/r0g0b0" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch50" SwatchItemRef="Color/r2g2b2" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch51" SwatchItemRef="Gradient/00" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch52" SwatchItemRef="Gradient/G Fanatica" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch53" SwatchItemRef="Gradient/REG_Promo" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch54" SwatchItemRef="Gradient/REG_Promo 2" />
+		<ColorGroupSwatch Self="u1de1ColorGroupSwatch55" SwatchItemRef="Color/c38m28y28k7" />
+	</ColorGroup>
+	<IndexingSortOption Self="dIndexingSortOptionnkIndexGroup_Symbol" Name="$ID/kIndexGroup_Symbol" Include="true" Priority="0" HeaderType="Nothing" />
+	<IndexingSortOption Self="dIndexingSortOptionnkIndexGroup_Alphabet" Name="$ID/kIndexGroup_Alphabet" Include="true" Priority="1" HeaderType="BasicLatin" />
+	<IndexingSortOption Self="dIndexingSortOptionnkIndexGroup_Numeric" Name="$ID/kIndexGroup_Numeric" Include="false" Priority="2" HeaderType="Nothing" />
+	<IndexingSortOption Self="dIndexingSortOptionnkWRIndexGroup_GreekAlphabet" Name="$ID/kWRIndexGroup_GreekAlphabet" Include="false" Priority="3" HeaderType="Nothing" />
+	<IndexingSortOption Self="dIndexingSortOptionnkWRIndexGroup_CyrillicAlphabet" Name="$ID/kWRIndexGroup_CyrillicAlphabet" Include="false" Priority="4" HeaderType="Russian" />
+	<IndexingSortOption Self="dIndexingSortOptionnkIndexGroup_Kana" Name="$ID/kIndexGroup_Kana" Include="false" Priority="5" HeaderType="HiraganaAll" />
+	<IndexingSortOption Self="dIndexingSortOptionnkIndexGroup_Chinese" Name="$ID/kIndexGroup_Chinese" Include="false" Priority="6" HeaderType="ChinesePinyin" />
+	<IndexingSortOption Self="dIndexingSortOptionnkIndexGroup_Korean" Name="$ID/kIndexGroup_Korean" Include="false" Priority="7" HeaderType="KoreanConsonant" />
+	<IndexingSortOption Self="dIndexingSortOptionnkWRIndexGroup_ArabicAlphabet" Name="$ID/kWRIndexGroup_ArabicAlphabet" Include="false" Priority="8" HeaderType="Nothing" />
+	<IndexingSortOption Self="dIndexingSortOptionnkWRIndexGroup_HebrewAlphabet" Name="$ID/kWRIndexGroup_HebrewAlphabet" Include="false" Priority="9" HeaderType="Nothing" />
+	<ABullet Self="dABullet0" CharacterType="UnicodeOnly" CharacterValue="8226">
+		<Properties>
+			<BulletsFont type="string">$ID/</BulletsFont>
+			<BulletsFontStyle type="string">$ID/</BulletsFontStyle>
+		</Properties>
+	</ABullet>
+	<ABullet Self="dABullet1" CharacterType="UnicodeOnly" CharacterValue="42">
+		<Properties>
+			<BulletsFont type="string">$ID/</BulletsFont>
+			<BulletsFontStyle type="string">$ID/</BulletsFontStyle>
+		</Properties>
+	</ABullet>
+	<ABullet Self="dABullet2" CharacterType="UnicodeOnly" CharacterValue="9674">
+		<Properties>
+			<BulletsFont type="string">$ID/</BulletsFont>
+			<BulletsFontStyle type="string">$ID/</BulletsFontStyle>
+		</Properties>
+	</ABullet>
+	<ABullet Self="dABullet3" CharacterType="UnicodeWithFont" CharacterValue="187">
+		<Properties>
+			<BulletsFont type="string">Myriad Pro</BulletsFont>
+			<BulletsFontStyle type="string">$ID/Regular</BulletsFontStyle>
+		</Properties>
+	</ABullet>
+	<ABullet Self="dABullet4" CharacterType="GlyphWithFont" CharacterValue="503">
+		<Properties>
+			<BulletsFont type="string">Minion Pro</BulletsFont>
+			<BulletsFontStyle type="string">$ID/Regular</BulletsFontStyle>
+		</Properties>
+	</ABullet>
+	<ABullet Self="dABullet5" CharacterType="UnicodeWithFont" CharacterValue="9679">
+		<Properties>
+			<BulletsFont type="string">Zapf Dingbats</BulletsFont>
+			<BulletsFontStyle type="string">Regular</BulletsFontStyle>
+		</Properties>
+	</ABullet>
+	<Assignment Self="ube" Name="$ID/UnassignedInCopy" UserName="$ID/" ExportOptions="AssignedSpreads" IncludeLinksWhenPackage="true" FilePath="$ID/">
+		<Properties>
+			<FrameColor type="enumeration">Nothing</FrameColor>
+		</Properties>
+	</Assignment>
+</Document>

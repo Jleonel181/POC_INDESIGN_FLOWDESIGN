@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Story xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="21.4">
+	<Story Self="u3a2" UserText="true" IsEndnoteStory="false" AppliedTOCStyle="n" TrackChanges="false" StoryTitle="$ID/" AppliedNamedGrid="n">
+		<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="12" FrameType="TextFrameType" StoryOrientation="Horizontal" StoryDirection="LeftToRightDirection" />
+		<MetadataPacketPreference>
+			<Properties>
+				<Contents><![CDATA[<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 10.0-c000 25.G.ef72e4e, 2025/06/27-18:54:05        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
+            xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"
+            xmlns:dc="http://purl.org/dc/elements/1.1/">
+         <xmp:CreateDate>2025-07-10T19:58:33-06:00</xmp:CreateDate>
+         <xmp:MetadataDate>2025-07-10T19:58:33-06:00</xmp:MetadataDate>
+         <xmp:ModifyDate>2025-07-10T19:58:33-06:00</xmp:ModifyDate>
+         <xmp:CreatorTool>Adobe InDesign CS6 (Macintosh)</xmp:CreatorTool>
+         <xmpMM:InstanceID>xmp.iid:3239CFEB31206811822ABC0908C74455</xmpMM:InstanceID>
+         <xmpMM:DocumentID>xmp.did:3239CFEB31206811822ABC0908C74455</xmpMM:DocumentID>
+         <xmpMM:OriginalDocumentID>xmp.did:3239CFEB31206811822ABC0908C74455</xmpMM:OriginalDocumentID>
+         <xmpMM:History>
+            <rdf:Seq>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>created</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:3239CFEB31206811822ABC0908C74455</stEvt:instanceID>
+                  <stEvt:when>2025-07-10T19:58:33-06:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe InDesign CS6 (Macintosh)</stEvt:softwareAgent>
+               </rdf:li>
+            </rdf:Seq>
+         </xmpMM:History>
+         <dc:format>application/x-incopy</dc:format>
+         <dc:title>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">body</rdf:li>
+            </rdf:Alt>
+         </dc:title>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="r"?>]]></Contents>
+			</Properties>
+		</MetadataPacketPreference>
+		<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false" />
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/NormalParagraphStyle" Hyphenation="false" HyphenationZone="28.10812570977341" RuleAboveLineWeight="0.7807812697159281" RuleBelowLineWeight="0.7807812697159281" Justification="RightAlign" SplitColumnInsideGutter="4.684687618295568" GridAlignment="AlignBaseline">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Bold" PointSize="10" KerningMethod="$ID/Optical" StrokeWeight="0.7807812697159281" Tracking="6.938893903907228e-15" AppliedLanguage="$ID/English: USA" MiterLimit="3.1231250788637124" RubyFontSize="-0.7807812697159281" KentenFontSize="-0.7807812697159281">
+				<Properties>
+					<Leading type="unit">13.549484638437264</Leading>
+					<AppliedFont type="string">Popular</AppliedFont>
+				</Properties>
+				<Content>Miércoles, 15 de julio de 2026 | </Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FillColor="Color/C=100 M=0 Y=0 K=0" FontStyle="Bold" PointSize="10" KerningMethod="$ID/Optical" StrokeWeight="0.7807812697159281" Tracking="6.938893903907228e-15" AppliedLanguage="$ID/English: USA" MiterLimit="3.1231250788637124" RubyFontSize="-0.7807812697159281" KentenFontSize="-0.7807812697159281">
+				<Properties>
+					<Leading type="unit">13.549484638437264</Leading>
+					<AppliedFont type="string">Popular</AppliedFont>
+				</Properties>
+				<Content>Noticias. </Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Bold" PointSize="10" KerningMethod="$ID/Optical" StrokeWeight="0.7807812697159281" Tracking="6.938893903907228e-15" AppliedLanguage="$ID/English: USA" MiterLimit="3.1231250788637124" RubyFontSize="-0.7807812697159281" KentenFontSize="-0.7807812697159281">
+				<Properties>
+					<Leading type="unit">13.549484638437264</Leading>
+					<AppliedFont type="string">Popular</AppliedFont>
+				</Properties>
+				<Content><?ACE 18?></Content>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+	</Story>
+</idPkg:Story>

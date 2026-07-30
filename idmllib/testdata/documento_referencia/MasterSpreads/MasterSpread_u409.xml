@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:MasterSpread xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="21.4">
+	<MasterSpread Self="u409" Name="02-Noticias" NamePrefix="02" BaseName="Noticias" ShowMasterItems="true" PageCount="2" OverriddenPageItemProps="" PrimaryTextFrame="n" ItemTransform="1 0 0 1 0 0">
+		<Properties>
+			<PageColor type="enumeration">Yellow</PageColor>
+		</Properties>
+		<Page Self="u41a" TabOrder="" AppliedMaster="ub0" OverrideList="" MasterPageTransform="1 0 0 1 0 -9" Name="02" AppliedTrapPreset="TrapPreset/$ID/kDefaultTrapStyleName" GeometricBounds="9 0 963 774" ItemTransform="1 0 0 1 -774 -486" AppliedAlternateLayout="n" LayoutRule="Off" SnapshotBlendingMode="IgnoreLayoutSnapshots" OptionalPage="false" GridStartingPoint="TopOutside" UseMasterGrid="true">
+			<Properties>
+				<PageColor type="enumeration">Yellow</PageColor>
+			</Properties>
+			<Guide Self="u42f" OverriddenPageItemProps="" Orientation="Vertical" Location="733" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u42e" OverriddenPageItemProps="" Orientation="Vertical" Location="628.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u42d" OverriddenPageItemProps="" Orientation="Vertical" Location="586.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u42c" OverriddenPageItemProps="" Orientation="Vertical" Location="481.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u42b" OverriddenPageItemProps="" Orientation="Vertical" Location="439.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u42a" OverriddenPageItemProps="" Orientation="Vertical" Location="334.59999999999997" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u429" OverriddenPageItemProps="" Orientation="Vertical" Location="292.59999999999997" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u428" OverriddenPageItemProps="" Orientation="Vertical" Location="187.79999999999995" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u427" OverriddenPageItemProps="" Orientation="Vertical" Location="145.79999999999995" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u426" OverriddenPageItemProps="" Orientation="Vertical" Location="41" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u425" OverriddenPageItemProps="" Orientation="Vertical" Location="733" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u424" OverriddenPageItemProps="" Orientation="Vertical" Location="628.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u423" OverriddenPageItemProps="" Orientation="Vertical" Location="586.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u422" OverriddenPageItemProps="" Orientation="Vertical" Location="481.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u421" OverriddenPageItemProps="" Orientation="Vertical" Location="439.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u420" OverriddenPageItemProps="" Orientation="Vertical" Location="334.59999999999997" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u41f" OverriddenPageItemProps="" Orientation="Vertical" Location="292.59999999999997" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u41e" OverriddenPageItemProps="" Orientation="Vertical" Location="187.79999999999995" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u41d" OverriddenPageItemProps="" Orientation="Vertical" Location="145.79999999999995" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u41c" OverriddenPageItemProps="" Orientation="Vertical" Location="41" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u439" OverriddenPageItemProps="" Orientation="Vertical" Location="733" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u438" OverriddenPageItemProps="" Orientation="Vertical" Location="628.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u437" OverriddenPageItemProps="" Orientation="Vertical" Location="586.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u436" OverriddenPageItemProps="" Orientation="Vertical" Location="481.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u435" OverriddenPageItemProps="" Orientation="Vertical" Location="439.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u434" OverriddenPageItemProps="" Orientation="Vertical" Location="334.59999999999997" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u433" OverriddenPageItemProps="" Orientation="Vertical" Location="292.59999999999997" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u432" OverriddenPageItemProps="" Orientation="Vertical" Location="187.79999999999995" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u431" OverriddenPageItemProps="" Orientation="Vertical" Location="145.79999999999995" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u430" OverriddenPageItemProps="" Orientation="Vertical" Location="41" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u445" OverriddenPageItemProps="" Orientation="Vertical" Location="733" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u444" OverriddenPageItemProps="" Orientation="Vertical" Location="628.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u443" OverriddenPageItemProps="" Orientation="Vertical" Location="586.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u442" OverriddenPageItemProps="" Orientation="Vertical" Location="481.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u441" OverriddenPageItemProps="" Orientation="Vertical" Location="439.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u440" OverriddenPageItemProps="" Orientation="Vertical" Location="334.59999999999997" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u43f" OverriddenPageItemProps="" Orientation="Vertical" Location="292.59999999999997" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u43e" OverriddenPageItemProps="" Orientation="Vertical" Location="187.79999999999995" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u43d" OverriddenPageItemProps="" Orientation="Vertical" Location="145.79999999999995" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u43c" OverriddenPageItemProps="" Orientation="Vertical" Location="41" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u43b" OverriddenPageItemProps="" Orientation="Horizontal" Location="47.920000000000016" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">Cyan</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u43a" OverriddenPageItemProps="" Orientation="Horizontal" Location="916.9200000000001" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">Cyan</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u44f" OverriddenPageItemProps="" Orientation="Vertical" Location="733" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u44e" OverriddenPageItemProps="" Orientation="Vertical" Location="628.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u44d" OverriddenPageItemProps="" Orientation="Vertical" Location="586.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u44c" OverriddenPageItemProps="" Orientation="Vertical" Location="481.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u44b" OverriddenPageItemProps="" Orientation="Vertical" Location="439.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u44a" OverriddenPageItemProps="" Orientation="Vertical" Location="334.59999999999997" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u449" OverriddenPageItemProps="" Orientation="Vertical" Location="292.59999999999997" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u448" OverriddenPageItemProps="" Orientation="Vertical" Location="187.79999999999995" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u447" OverriddenPageItemProps="" Orientation="Vertical" Location="145.79999999999995" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u446" OverriddenPageItemProps="" Orientation="Vertical" Location="41" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="1" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<MarginPreference ColumnCount="10" ColumnGutter="12" Top="27" Bottom="27" Left="27" Right="27" ColumnDirection="Horizontal" ColumnsPositions="0 59.4 73.39999999999999 132.79999999999998 146.79999999999998 206.2 220.2 279.59999999999997 293.59999999999997 352.99999999999994 366.99999999999994 426.3999999999999 440.3999999999999 499.7999999999999 513.7999999999998 573.1999999999998 587.1999999999998 646.5999999999998 660.5999999999998 719.9999999999998" />
+			<GridDataInformation FontStyle="Regular" PointSize="12" CharacterAki="0" LineAki="9" HorizontalScale="100" VerticalScale="100" LineAlignment="LeftOrTopLineJustify" GridAlignment="AlignEmCenter" CharacterAlignment="AlignEmCenter">
+				<Properties>
+					<AppliedFont type="string">Minion Pro</AppliedFont>
+				</Properties>
+			</GridDataInformation>
+		</Page>
+		<Page Self="u41b" TabOrder="" AppliedMaster="ub0" OverrideList="" MasterPageTransform="1 0 0 1 0 -9" Name="02" AppliedTrapPreset="TrapPreset/$ID/kDefaultTrapStyleName" GeometricBounds="9 0 963 774" ItemTransform="1 0 0 1 0 -486" AppliedAlternateLayout="n" LayoutRule="Off" SnapshotBlendingMode="IgnoreLayoutSnapshots" OptionalPage="false" GridStartingPoint="TopOutside" UseMasterGrid="true">
+			<Properties>
+				<PageColor type="enumeration">Yellow</PageColor>
+			</Properties>
+			<Guide Self="u463" OverriddenPageItemProps="" Orientation="Vertical" Location="1507" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u462" OverriddenPageItemProps="" Orientation="Vertical" Location="1402.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u461" OverriddenPageItemProps="" Orientation="Vertical" Location="1360.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u460" OverriddenPageItemProps="" Orientation="Vertical" Location="1255.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u45f" OverriddenPageItemProps="" Orientation="Vertical" Location="1213.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u45e" OverriddenPageItemProps="" Orientation="Vertical" Location="1108.6" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u45d" OverriddenPageItemProps="" Orientation="Vertical" Location="1066.6" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u45c" OverriddenPageItemProps="" Orientation="Vertical" Location="961.8" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u45b" OverriddenPageItemProps="" Orientation="Vertical" Location="919.8" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u45a" OverriddenPageItemProps="" Orientation="Vertical" Location="815" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1f7" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u459" OverriddenPageItemProps="" Orientation="Vertical" Location="1507" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u458" OverriddenPageItemProps="" Orientation="Vertical" Location="1402.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u457" OverriddenPageItemProps="" Orientation="Vertical" Location="1360.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u456" OverriddenPageItemProps="" Orientation="Vertical" Location="1255.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u455" OverriddenPageItemProps="" Orientation="Vertical" Location="1213.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u454" OverriddenPageItemProps="" Orientation="Vertical" Location="1108.6" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u453" OverriddenPageItemProps="" Orientation="Vertical" Location="1066.6" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u452" OverriddenPageItemProps="" Orientation="Vertical" Location="961.8" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u451" OverriddenPageItemProps="" Orientation="Vertical" Location="919.8" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u450" OverriddenPageItemProps="" Orientation="Vertical" Location="815" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="uaf" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u46d" OverriddenPageItemProps="" Orientation="Vertical" Location="1507" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u46c" OverriddenPageItemProps="" Orientation="Vertical" Location="1402.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u46b" OverriddenPageItemProps="" Orientation="Vertical" Location="1360.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u46a" OverriddenPageItemProps="" Orientation="Vertical" Location="1255.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u469" OverriddenPageItemProps="" Orientation="Vertical" Location="1213.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u468" OverriddenPageItemProps="" Orientation="Vertical" Location="1108.6" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u467" OverriddenPageItemProps="" Orientation="Vertical" Location="1066.6" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u466" OverriddenPageItemProps="" Orientation="Vertical" Location="961.8" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u465" OverriddenPageItemProps="" Orientation="Vertical" Location="919.8" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u464" OverriddenPageItemProps="" Orientation="Vertical" Location="815" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u1fc" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u479" OverriddenPageItemProps="" Orientation="Vertical" Location="1507" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u478" OverriddenPageItemProps="" Orientation="Vertical" Location="1402.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u477" OverriddenPageItemProps="" Orientation="Vertical" Location="1360.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u476" OverriddenPageItemProps="" Orientation="Vertical" Location="1255.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u475" OverriddenPageItemProps="" Orientation="Vertical" Location="1213.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u474" OverriddenPageItemProps="" Orientation="Vertical" Location="1108.6" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u473" OverriddenPageItemProps="" Orientation="Vertical" Location="1066.6" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u472" OverriddenPageItemProps="" Orientation="Vertical" Location="961.8" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u471" OverriddenPageItemProps="" Orientation="Vertical" Location="919.8" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u470" OverriddenPageItemProps="" Orientation="Vertical" Location="815" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u46f" OverriddenPageItemProps="" Orientation="Horizontal" Location="47.920000000000016" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">Cyan</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u46e" OverriddenPageItemProps="" Orientation="Horizontal" Location="916.9200000000001" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u201" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">Cyan</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u483" OverriddenPageItemProps="" Orientation="Vertical" Location="1507" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u482" OverriddenPageItemProps="" Orientation="Vertical" Location="1402.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u481" OverriddenPageItemProps="" Orientation="Vertical" Location="1360.1999999999998" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u480" OverriddenPageItemProps="" Orientation="Vertical" Location="1255.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u47f" OverriddenPageItemProps="" Orientation="Vertical" Location="1213.3999999999999" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u47e" OverriddenPageItemProps="" Orientation="Vertical" Location="1108.6" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u47d" OverriddenPageItemProps="" Orientation="Vertical" Location="1066.6" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u47c" OverriddenPageItemProps="" Orientation="Vertical" Location="961.8" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u47b" OverriddenPageItemProps="" Orientation="Vertical" Location="919.8" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u47a" OverriddenPageItemProps="" Orientation="Vertical" Location="815" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="u210" PageIndex="2" GuideType="Ruler" GuideZone="1">
+				<Properties>
+					<GuideColor type="enumeration">LightGray</GuideColor>
+				</Properties>
+			</Guide>
+			<MarginPreference ColumnCount="10" ColumnGutter="12" Top="27" Bottom="27" Left="27" Right="27" ColumnDirection="Horizontal" ColumnsPositions="0 59.4 73.39999999999999 132.79999999999998 146.79999999999998 206.2 220.2 279.59999999999997 293.59999999999997 352.99999999999994 366.99999999999994 426.3999999999999 440.3999999999999 499.7999999999999 513.7999999999998 573.1999999999998 587.1999999999998 646.5999999999998 660.5999999999998 719.9999999999998" />
+			<GridDataInformation FontStyle="Regular" PointSize="12" CharacterAki="0" LineAki="9" HorizontalScale="100" VerticalScale="100" LineAlignment="LeftOrTopLineJustify" GridAlignment="AlignEmCenter" CharacterAlignment="AlignEmCenter">
+				<Properties>
+					<AppliedFont type="string">Minion Pro</AppliedFont>
+				</Properties>
+			</GridDataInformation>
+		</Page>
+		<GraphicLine Self="u484" ContentType="Unassigned" LockState="None" OverriddenPageItemProps="" AllowOverrides="true" FlexItemWidthMode="FlexFixed" FlexItemHeightMode="FlexFixed" Visible="true" Name="$ID/" HorizontalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" VerticalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" StrokeWeight="0.5" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="u1fc" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Graphics Frame]" ItemTransform="1 0 0 1 0 -3446.7500000000005" BeforeGroupingLayerPosition="-1" ParentInterfaceChangeCount="" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="true">
+						<PathPointArray>
+							<PathPointType Anchor="-747 2997" LeftDirection="-747 2997" RightDirection="-747 2997" />
+							<PathPointType Anchor="-27.000000000000227 2997" LeftDirection="-27.000000000000227 2997" RightDirection="-27.000000000000227 2997" />
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<ObjectExportOption AltTextSourceType="SourceXMLStructure" ActualTextSourceType="SourceXMLStructure" CustomAltText="$ID/" CustomActualText="$ID/" ApplyTagType="TagFromStructure" ImageConversionType="JPEG" ImageExportResolution="Ppi300" GIFOptionsPalette="AdaptivePalette" GIFOptionsInterlaced="true" JPEGOptionsQuality="High" JPEGOptionsFormat="BaselineEncoding" ImageAlignment="AlignLeft" ImageSpaceBefore="0" ImageSpaceAfter="0" UseImagePageBreak="false" ImagePageBreak="PageBreakBefore" CustomImageAlignment="false" SpaceUnit="CssPixel" CustomLayout="false" CustomLayoutType="AlignmentAndSpacing" EpubType="$ID/" SizeType="DefaultSize" CustomSize="$ID/" PreserveAppearanceFromLayout="PreserveAppearanceDefault" EpubAriaRole="$ID/" EpubAriaLabel="$ID/" EpubAriaLabelSourceType="AutomaticARIALabel" AltTextGenerationError="false" AltTextCropSyncRect="" AIGeneratedAltText="false">
+				<Properties>
+					<AltMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+					<ActualMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+				</Properties>
+			</ObjectExportOption>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+				</Properties>
+			</TextWrapPreference>
+		</GraphicLine>
+		<GraphicLine Self="u485" ContentType="Unassigned" LockState="None" OverriddenPageItemProps="" AllowOverrides="true" FlexItemWidthMode="FlexFixed" FlexItemHeightMode="FlexFixed" Visible="true" Name="$ID/" HorizontalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" VerticalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" StrokeWeight="0.5" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="u1fc" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Graphics Frame]" ItemTransform="1 0 0 1 774 -3446.7500000000005" BeforeGroupingLayerPosition="-1" ParentInterfaceChangeCount="" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="true">
+						<PathPointArray>
+							<PathPointType Anchor="-747 2997" LeftDirection="-747 2997" RightDirection="-747 2997" />
+							<PathPointType Anchor="-27.000000000000227 2997" LeftDirection="-27.000000000000227 2997" RightDirection="-27.000000000000227 2997" />
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<ObjectExportOption AltTextSourceType="SourceXMLStructure" ActualTextSourceType="SourceXMLStructure" CustomAltText="$ID/" CustomActualText="$ID/" ApplyTagType="TagFromStructure" ImageConversionType="JPEG" ImageExportResolution="Ppi300" GIFOptionsPalette="AdaptivePalette" GIFOptionsInterlaced="true" JPEGOptionsQuality="High" JPEGOptionsFormat="BaselineEncoding" ImageAlignment="AlignLeft" ImageSpaceBefore="0" ImageSpaceAfter="0" UseImagePageBreak="false" ImagePageBreak="PageBreakBefore" CustomImageAlignment="false" SpaceUnit="CssPixel" CustomLayout="false" CustomLayoutType="AlignmentAndSpacing" EpubType="$ID/" SizeType="DefaultSize" CustomSize="$ID/" PreserveAppearanceFromLayout="PreserveAppearanceDefault" EpubAriaRole="$ID/" EpubAriaLabel="$ID/" EpubAriaLabelSourceType="AutomaticARIALabel" AltTextGenerationError="false" AltTextCropSyncRect="" AIGeneratedAltText="false">
+				<Properties>
+					<AltMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+					<ActualMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+				</Properties>
+			</ObjectExportOption>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+				</Properties>
+			</TextWrapPreference>
+		</GraphicLine>
+		<TextFrame Self="u499" ParentStory="u487" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" OverriddenPageItemProps="" AllowOverrides="true" FlexItemWidthMode="FlexFixed" FlexItemHeightMode="FlexFixed" Visible="true" Name="$ID/" HorizontalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" VerticalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="u1fc" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 -710.30016 -444.0000000000006" BeforeGroupingLayerPosition="-1" ParentInterfaceChangeCount="" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-36.699839999999995 -5.999999999999364" LeftDirection="-36.699839999999995 -5.999999999999364" RightDirection="-36.699839999999995 -5.999999999999364" />
+							<PathPointType Anchor="-36.699839999999995 5.920000000000644" LeftDirection="-36.699839999999995 5.920000000000644" RightDirection="-36.699839999999995 5.920000000000644" />
+							<PathPointType Anchor="270.90015999999997 5.920000000000644" LeftDirection="270.90015999999997 5.920000000000644" RightDirection="270.90015999999997 5.920000000000644" />
+							<PathPointType Anchor="270.90015999999997 -5.999999999999364" LeftDirection="270.90015999999997 -5.999999999999364" RightDirection="270.90015999999997 -5.999999999999364" />
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<ObjectExportOption AltTextSourceType="SourceXMLStructure" ActualTextSourceType="SourceXMLStructure" CustomAltText="$ID/" CustomActualText="$ID/" ApplyTagType="TagFromStructure" ImageConversionType="JPEG" ImageExportResolution="Ppi300" GIFOptionsPalette="AdaptivePalette" GIFOptionsInterlaced="true" JPEGOptionsQuality="High" JPEGOptionsFormat="BaselineEncoding" ImageAlignment="AlignLeft" ImageSpaceBefore="0" ImageSpaceAfter="0" UseImagePageBreak="false" ImagePageBreak="PageBreakBefore" CustomImageAlignment="false" SpaceUnit="CssPixel" CustomLayout="false" CustomLayoutType="AlignmentAndSpacing" EpubType="$ID/" SizeType="DefaultSize" CustomSize="$ID/" PreserveAppearanceFromLayout="PreserveAppearanceDefault" EpubAriaRole="$ID/" EpubAriaLabel="$ID/" EpubAriaLabelSourceType="AutomaticARIALabel" AltTextGenerationError="false" AltTextCropSyncRect="" AIGeneratedAltText="false">
+				<Properties>
+					<AltMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+					<ActualMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+				</Properties>
+			</ObjectExportOption>
+			<TextFramePreference FootnotesEnableOverrides="false" FootnotesSpanAcrossColumns="false" FootnotesMinimumSpacing="12" FootnotesSpaceBetween="6" TextColumnCount="1" TextColumnFixedWidth="307.59999999999997" VerticalJustification="BottomAlign" TextColumnMaxWidth="0" ColumnRuleOverride="false" ColumnRuleOffset="0" ColumnRuleTopInset="0" ColumnRuleInsetChainOverride="true" ColumnRuleBottomInset="0" ColumnRuleStrokeWidth="1" ColumnRuleStrokeColor="Color/Black" ColumnRuleStrokeType="StrokeStyle/$ID/Solid" ColumnRuleStrokeTint="100" ColumnRuleOverprintOverride="false">
+				<Properties>
+					<InsetSpacing type="list">
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+					</InsetSpacing>
+				</Properties>
+			</TextFramePreference>
+			<TextFrameFootnoteOptionsObject EnableOverrides="false" SpanFootnotesAcross="false" MinimumSpacingOption="12" SpaceBetweenFootnotes="6" />
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<TextFrame Self="u4b0" ParentStory="u49e" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" OverriddenPageItemProps="" AllowOverrides="true" FlexItemWidthMode="FlexFixed" FlexItemHeightMode="FlexFixed" Visible="true" Name="$ID/" HorizontalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" VerticalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="u1fc" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 -96.50016000000005 -444.0000000000006" BeforeGroupingLayerPosition="-1" ParentInterfaceChangeCount="" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-36.699839999999995 -5.999999999999971" LeftDirection="-36.699839999999995 -5.999999999999971" RightDirection="-36.699839999999995 -5.999999999999971" />
+							<PathPointType Anchor="-36.699839999999995 4.999999999999689" LeftDirection="-36.699839999999995 4.999999999999689" RightDirection="-36.699839999999995 4.999999999999689" />
+							<PathPointType Anchor="69.50015999999994 4.999999999999689" LeftDirection="69.50015999999994 4.999999999999689" RightDirection="69.50015999999994 4.999999999999689" />
+							<PathPointType Anchor="69.50015999999994 -5.999999999999971" LeftDirection="69.50015999999994 -5.999999999999971" RightDirection="69.50015999999994 -5.999999999999971" />
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<ObjectExportOption AltTextSourceType="SourceXMLStructure" ActualTextSourceType="SourceXMLStructure" CustomAltText="$ID/" CustomActualText="$ID/" ApplyTagType="TagFromStructure" ImageConversionType="JPEG" ImageExportResolution="Ppi300" GIFOptionsPalette="AdaptivePalette" GIFOptionsInterlaced="true" JPEGOptionsQuality="High" JPEGOptionsFormat="BaselineEncoding" ImageAlignment="AlignLeft" ImageSpaceBefore="0" ImageSpaceAfter="0" UseImagePageBreak="false" ImagePageBreak="PageBreakBefore" CustomImageAlignment="false" SpaceUnit="CssPixel" CustomLayout="false" CustomLayoutType="AlignmentAndSpacing" EpubType="$ID/" SizeType="DefaultSize" CustomSize="$ID/" PreserveAppearanceFromLayout="PreserveAppearanceDefault" EpubAriaRole="$ID/" EpubAriaLabel="$ID/" EpubAriaLabelSourceType="AutomaticARIALabel" AltTextGenerationError="false" AltTextCropSyncRect="" AIGeneratedAltText="false">
+				<Properties>
+					<AltMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+					<ActualMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+				</Properties>
+			</ObjectExportOption>
+			<TextFramePreference FootnotesEnableOverrides="false" FootnotesSpanAcrossColumns="false" FootnotesMinimumSpacing="12" FootnotesSpaceBetween="6" TextColumnCount="1" TextColumnFixedWidth="106.19999999999993" VerticalJustification="BottomAlign" TextColumnMaxWidth="0" ColumnRuleOverride="false" ColumnRuleOffset="0" ColumnRuleTopInset="0" ColumnRuleInsetChainOverride="true" ColumnRuleBottomInset="0" ColumnRuleStrokeWidth="1" ColumnRuleStrokeColor="Color/Black" ColumnRuleStrokeType="StrokeStyle/$ID/Solid" ColumnRuleStrokeTint="100" ColumnRuleOverprintOverride="false">
+				<Properties>
+					<InsetSpacing type="list">
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+					</InsetSpacing>
+				</Properties>
+			</TextFramePreference>
+			<TextFrameFootnoteOptionsObject EnableOverrides="false" SpanFootnotesAcross="false" MinimumSpacingOption="12" SpaceBetweenFootnotes="6" />
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<TextFrame Self="u4c7" ParentStory="u4b5" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" OverriddenPageItemProps="" AllowOverrides="true" FlexItemWidthMode="FlexFixed" FlexItemHeightMode="FlexFixed" Visible="true" Name="$ID/" HorizontalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" VerticalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="u1fc" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 63.699839999999995 -444.0000000000006" BeforeGroupingLayerPosition="-1" ParentInterfaceChangeCount="" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-36.699839999999995 -5.999999999999365" LeftDirection="-36.699839999999995 -5.999999999999365" RightDirection="-36.699839999999995 -5.999999999999365" />
+							<PathPointType Anchor="-36.699839999999995 5.000000000000295" LeftDirection="-36.699839999999995 5.000000000000295" RightDirection="-36.699839999999995 5.000000000000295" />
+							<PathPointType Anchor="69.50015999999994 5.000000000000295" LeftDirection="69.50015999999994 5.000000000000295" RightDirection="69.50015999999994 5.000000000000295" />
+							<PathPointType Anchor="69.50015999999994 -5.999999999999365" LeftDirection="69.50015999999994 -5.999999999999365" RightDirection="69.50015999999994 -5.999999999999365" />
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<ObjectExportOption AltTextSourceType="SourceXMLStructure" ActualTextSourceType="SourceXMLStructure" CustomAltText="$ID/" CustomActualText="$ID/" ApplyTagType="TagFromStructure" ImageConversionType="JPEG" ImageExportResolution="Ppi300" GIFOptionsPalette="AdaptivePalette" GIFOptionsInterlaced="true" JPEGOptionsQuality="High" JPEGOptionsFormat="BaselineEncoding" ImageAlignment="AlignLeft" ImageSpaceBefore="0" ImageSpaceAfter="0" UseImagePageBreak="false" ImagePageBreak="PageBreakBefore" CustomImageAlignment="false" SpaceUnit="CssPixel" CustomLayout="false" CustomLayoutType="AlignmentAndSpacing" EpubType="$ID/" SizeType="DefaultSize" CustomSize="$ID/" PreserveAppearanceFromLayout="PreserveAppearanceDefault" EpubAriaRole="$ID/" EpubAriaLabel="$ID/" EpubAriaLabelSourceType="AutomaticARIALabel" AltTextGenerationError="false" AltTextCropSyncRect="" AIGeneratedAltText="false">
+				<Properties>
+					<AltMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+					<ActualMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+				</Properties>
+			</ObjectExportOption>
+			<TextFramePreference FootnotesEnableOverrides="false" FootnotesSpanAcrossColumns="false" FootnotesMinimumSpacing="12" FootnotesSpaceBetween="6" TextColumnCount="1" TextColumnFixedWidth="106.19999999999993" VerticalJustification="BottomAlign" TextColumnMaxWidth="0" ColumnRuleOverride="false" ColumnRuleOffset="0" ColumnRuleTopInset="0" ColumnRuleInsetChainOverride="true" ColumnRuleBottomInset="0" ColumnRuleStrokeWidth="1" ColumnRuleStrokeColor="Color/Black" ColumnRuleStrokeType="StrokeStyle/$ID/Solid" ColumnRuleStrokeTint="100" ColumnRuleOverprintOverride="false">
+				<Properties>
+					<InsetSpacing type="list">
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+					</InsetSpacing>
+				</Properties>
+			</TextFramePreference>
+			<TextFrameFootnoteOptionsObject EnableOverrides="false" SpanFootnotesAcross="false" MinimumSpacingOption="12" SpaceBetweenFootnotes="6" />
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<TextFrame Self="u4de" ParentStory="u4cc" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" OverriddenPageItemProps="" AllowOverrides="true" FlexItemWidthMode="FlexFixed" FlexItemHeightMode="FlexFixed" Visible="true" Name="$ID/" HorizontalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" VerticalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="u1fc" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 650.89728 -444.0000000000006" BeforeGroupingLayerPosition="-1" ParentInterfaceChangeCount="" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-169.49728000000016 -5.999999999999364" LeftDirection="-169.49728000000016 -5.999999999999364" RightDirection="-169.49728000000016 -5.999999999999364" />
+							<PathPointType Anchor="-169.49728000000016 5.920000000000642" LeftDirection="-169.49728000000016 5.920000000000642" RightDirection="-169.49728000000016 5.920000000000642" />
+							<PathPointType Anchor="96.1027199999999 5.920000000000642" LeftDirection="96.1027199999999 5.920000000000642" RightDirection="96.1027199999999 5.920000000000642" />
+							<PathPointType Anchor="96.1027199999999 -5.999999999999364" LeftDirection="96.1027199999999 -5.999999999999364" RightDirection="96.1027199999999 -5.999999999999364" />
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<ObjectExportOption AltTextSourceType="SourceXMLStructure" ActualTextSourceType="SourceXMLStructure" CustomAltText="$ID/" CustomActualText="$ID/" ApplyTagType="TagFromStructure" ImageConversionType="JPEG" ImageExportResolution="Ppi300" GIFOptionsPalette="AdaptivePalette" GIFOptionsInterlaced="true" JPEGOptionsQuality="High" JPEGOptionsFormat="BaselineEncoding" ImageAlignment="AlignLeft" ImageSpaceBefore="0" ImageSpaceAfter="0" UseImagePageBreak="false" ImagePageBreak="PageBreakBefore" CustomImageAlignment="false" SpaceUnit="CssPixel" CustomLayout="false" CustomLayoutType="AlignmentAndSpacing" EpubType="$ID/" SizeType="DefaultSize" CustomSize="$ID/" PreserveAppearanceFromLayout="PreserveAppearanceDefault" EpubAriaRole="$ID/" EpubAriaLabel="$ID/" EpubAriaLabelSourceType="AutomaticARIALabel" AltTextGenerationError="false" AltTextCropSyncRect="" AIGeneratedAltText="false">
+				<Properties>
+					<AltMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+					<ActualMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+				</Properties>
+			</ObjectExportOption>
+			<TextFramePreference FootnotesEnableOverrides="false" FootnotesSpanAcrossColumns="false" FootnotesMinimumSpacing="12" FootnotesSpaceBetween="6" TextColumnCount="1" TextColumnFixedWidth="265.6000000000001" VerticalJustification="BottomAlign" TextColumnMaxWidth="0" ColumnRuleOverride="false" ColumnRuleOffset="0" ColumnRuleTopInset="0" ColumnRuleInsetChainOverride="true" ColumnRuleBottomInset="0" ColumnRuleStrokeWidth="1" ColumnRuleStrokeColor="Color/Black" ColumnRuleStrokeType="StrokeStyle/$ID/Solid" ColumnRuleStrokeTint="100" ColumnRuleOverprintOverride="false">
+				<Properties>
+					<InsetSpacing type="list">
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+					</InsetSpacing>
+				</Properties>
+			</TextFramePreference>
+			<TextFrameFootnoteOptionsObject EnableOverrides="false" SpanFootnotesAcross="false" MinimumSpacingOption="12" SpaceBetweenFootnotes="6" />
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<GraphicLine Self="u10c1" ContentType="Unassigned" LockState="None" OverriddenPageItemProps="" AllowOverrides="true" FlexItemWidthMode="FlexFixed" FlexItemHeightMode="FlexFixed" Visible="true" Name="$ID/" HorizontalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" VerticalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" StrokeWeight="0.5" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="u1fc" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Graphics Frame]" ItemTransform="1 0 0 1 0 -2547.25" BeforeGroupingLayerPosition="-1" ParentInterfaceChangeCount="" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="true">
+						<PathPointArray>
+							<PathPointType Anchor="-747 2997" LeftDirection="-747 2997" RightDirection="-747 2997" />
+							<PathPointType Anchor="-27.000000000000227 2997" LeftDirection="-27.000000000000227 2997" RightDirection="-27.000000000000227 2997" />
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<ObjectExportOption AltTextSourceType="SourceXMLStructure" ActualTextSourceType="SourceXMLStructure" CustomAltText="$ID/" CustomActualText="$ID/" ApplyTagType="TagFromStructure" ImageConversionType="JPEG" ImageExportResolution="Ppi300" GIFOptionsPalette="AdaptivePalette" GIFOptionsInterlaced="true" JPEGOptionsQuality="High" JPEGOptionsFormat="BaselineEncoding" ImageAlignment="AlignLeft" ImageSpaceBefore="0" ImageSpaceAfter="0" UseImagePageBreak="false" ImagePageBreak="PageBreakBefore" CustomImageAlignment="false" SpaceUnit="CssPixel" CustomLayout="false" CustomLayoutType="AlignmentAndSpacing" EpubType="$ID/" SizeType="DefaultSize" CustomSize="$ID/" PreserveAppearanceFromLayout="PreserveAppearanceDefault" EpubAriaRole="$ID/" EpubAriaLabel="$ID/" EpubAriaLabelSourceType="AutomaticARIALabel" AltTextGenerationError="false" AltTextCropSyncRect="" AIGeneratedAltText="false">
+				<Properties>
+					<AltMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+					<ActualMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+				</Properties>
+			</ObjectExportOption>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+				</Properties>
+			</TextWrapPreference>
+		</GraphicLine>
+		<GraphicLine Self="u10c2" ContentType="Unassigned" LockState="None" OverriddenPageItemProps="" AllowOverrides="true" FlexItemWidthMode="FlexFixed" FlexItemHeightMode="FlexFixed" Visible="true" Name="$ID/" HorizontalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" VerticalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" StrokeWeight="0.5" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="u1fc" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Graphics Frame]" ItemTransform="1 0 0 1 774 -2547.25" BeforeGroupingLayerPosition="-1" ParentInterfaceChangeCount="" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="true">
+						<PathPointArray>
+							<PathPointType Anchor="-747 2997" LeftDirection="-747 2997" RightDirection="-747 2997" />
+							<PathPointType Anchor="-27.000000000000227 2997" LeftDirection="-27.000000000000227 2997" RightDirection="-27.000000000000227 2997" />
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<ObjectExportOption AltTextSourceType="SourceXMLStructure" ActualTextSourceType="SourceXMLStructure" CustomAltText="$ID/" CustomActualText="$ID/" ApplyTagType="TagFromStructure" ImageConversionType="JPEG" ImageExportResolution="Ppi300" GIFOptionsPalette="AdaptivePalette" GIFOptionsInterlaced="true" JPEGOptionsQuality="High" JPEGOptionsFormat="BaselineEncoding" ImageAlignment="AlignLeft" ImageSpaceBefore="0" ImageSpaceAfter="0" UseImagePageBreak="false" ImagePageBreak="PageBreakBefore" CustomImageAlignment="false" SpaceUnit="CssPixel" CustomLayout="false" CustomLayoutType="AlignmentAndSpacing" EpubType="$ID/" SizeType="DefaultSize" CustomSize="$ID/" PreserveAppearanceFromLayout="PreserveAppearanceDefault" EpubAriaRole="$ID/" EpubAriaLabel="$ID/" EpubAriaLabelSourceType="AutomaticARIALabel" AltTextGenerationError="false" AltTextCropSyncRect="" AIGeneratedAltText="false">
+				<Properties>
+					<AltMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+					<ActualMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+				</Properties>
+			</ObjectExportOption>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+				</Properties>
+			</TextWrapPreference>
+		</GraphicLine>
+	</MasterSpread>
+</idPkg:MasterSpread>

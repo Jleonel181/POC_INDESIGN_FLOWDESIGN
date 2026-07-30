@@ -146,4 +146,13 @@ vite.config.ts.timestamp-*
 __pycache__/
 .venv/
 
-idml_con_imagenes_texto_y_divisiones/
+# Kiro Files
+.kiro/
+
+# macOS files
+.DS_Store
+
+# Documentos fuente de InDesign: binarios grandes, ninguna prueba los necesita.
+# El fixture de imagenes (idmllib/testdata/archivo_evidencia_imagenes.idml) se
+# regenera exportando desde imagenes_idml.indd en la maquina del usuario.
+*.indd
