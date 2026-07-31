@@ -4,6 +4,7 @@ import { use } from "react";
 import { useDiagramador } from "@/modules/diagramacion/presentation/hooks/useDiagramador";
 import { DiagramadorCanvas } from "@/modules/diagramacion/presentation/components/DiagramadorCanvas";
 import { LayoutJsonPreview } from "@/modules/diagramacion/presentation/components/LayoutJsonPreview";
+import { PromptPanel } from "@/modules/diagramacion/presentation/components/PromptPanel";
 import { Edition } from "@/modules/diagramacion/domain/entities/Edition";
 import { Page } from "@/modules/diagramacion/domain/entities/Page";
 
@@ -130,6 +131,7 @@ export default function DiagramadorPage({ params }: PageProps) {
         </div>
       )}
 
+      <PromptPanel edition={edition} pages={pages} />
       <LayoutJsonPreview dto={rawDTO} />
     </div>
   );
