@@ -16,20 +16,23 @@
 
 ## Estado
 
-⚠️ **Funcional, con pérdida de fidelidad medida** - Parseo completo, API de modificación y exportación IDMS, pero el ciclo de lectura y escritura **descarta atributos que la librería todavía no modela**.
+✅ **Funcional, sin pérdida de contenido** - Parseo completo, API de modificación y exportación IDMS. El ciclo de lectura y escritura **no pierde nada de contenido**: ni un atributo, ni un elemento, ni un carácter.
 
-Cuánto: **13.995 atributos** sobre un corpus de cinco documentos de InDesign. Las cifras, cómo reproducirlas y los defectos conocidos están en **[`docs/FIDELIDAD.md`](docs/FIDELIDAD.md)**.
+Medido sobre un corpus de cinco documentos de InDesign, 136 archivos XML. Ocho de las nueve categorías de diferencia están en cero y protegidas con una guarda que falla si reaparecen.
 
-Qué implica en la práctica: abrir un IDML y volver a guardarlo produce un documento válido y abrible, pero pierde información de InDesign que la librería no entiende. Si el caso de uso es **leer y analizar**, no afecta. Si es **abrir, modificar y guardar**, sí.
+⚠️ **Lo que sí queda:** en 71 nodos los hijos se emiten en otro **orden** del que traían. Los elementos están todos y con todos sus datos, pero reagrupados por tipo. Afecta a los elementos de página de los spreads, a los hijos de las stories y a dos tipos más.
 
-Lo que **no** ocurre, también medido: no se corrompe ningún valor, no se pierde ni se duplica ningún elemento, y no falla ningún parseo.
+Qué implica en la práctica: abrir un IDML y volver a guardarlo conserva toda la información, y el documento es válido y abrible. Si el orden de apilamiento de los elementos de una página importa para tu caso, todavía no se conserva.
+
+Las cifras, cómo reproducirlas y lo que sigue pendiente están en **[`docs/FIDELIDAD.md`](docs/FIDELIDAD.md)**.
 
 ### Capacidades actuales
 
 - ✅ Leer archivos IDML (manejo de archivos ZIP)
 - ✅ Parsear `designmap.xml` con estructura completa del documento
 - ✅ Parsear Stories, Spreads y Resources (Styles, Fonts, Graphics)
-- ⚠️ Marshal de todos los tipos a XML — **los atributos no modelados se descartan** (ver [`docs/FIDELIDAD.md`](docs/FIDELIDAD.md))
+- ✅ Marshal de todos los tipos a XML conservando los atributos que la librería no modela
+- ⚠️ El **orden documental** de los hijos no se conserva en 71 nodos (ver [`docs/FIDELIDAD.md`](docs/FIDELIDAD.md))
 - ✅ API de modificación de contenido (agregar/actualizar/eliminar stories y resources)
 - ✅ Seguimiento de dependencias y gestión de recursos
 - ✅ Selection API para acceso programático a elementos

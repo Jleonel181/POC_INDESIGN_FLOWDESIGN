@@ -16,7 +16,26 @@ import (
 // rather than raw bytes, since ZIP metadata (like timestamps in Extra fields)
 // may differ between reads/writes while the actual content remains identical.
 func TestRoundtrip_ByteComparison(t *testing.T) {
-	t.Skip("Skipping - element order changes due to Go's xml.Marshal. See TestRoundtripWithParsing for functional validation.")
+	// DORMIDO POR EL ORDEN DOCUMENTAL, NO POR DISEÑO.
+	//
+	// Este test está desactivado porque la salida difería del original, y la causa
+	// concreta ya está medida: los hijos de algunos elementos se emitían agrupados por
+	// el orden de los campos del struct en lugar de en el orden del documento. No es
+	// una limitación de `xml.Marshal` como decía el mensaje anterior, es un defecto del
+	// modelo, y se está corrigiendo.
+	//
+	// Estado del arnés de fidelidad (`golden_test.go`, `IDMLLIB_MAX_DIFFS=0`):
+	//   - contenido: 0 diferencias. Ni atributos, ni elementos, ni texto. Ocho
+	//     categorías cerradas con guarda de regresión
+	//   - orden: 71 diferencias en 71 nodos, pendientes de las tareas del contenedor
+	//     ordenado de `SpreadElement` y `StoryElement`
+	//
+	// CUÁNDO LEVANTAR EL SKIP: cuando `orden-elementos-distinto` llegue a 0 en el
+	// arnés. Entonces hay que intentar reactivarlo, porque compara a nivel de contenido
+	// de archivo y puede delatar algo que el arnés no ve. Si tras el orden sigue
+	// fallando, lo que reporte es información nueva y hay que investigarla, no volver a
+	// desactivarlo.
+	t.Skip("dormido: pendiente del orden documental, ver el comentario de arriba y docs/FIDELIDAD.md")
 	tests := []struct {
 		name     string
 		filename string
@@ -166,7 +185,12 @@ func TestMimetypeFirst_RequiredBySpec(t *testing.T) {
 // byte-perfect identity. ZIP files can differ in timestamps and other
 // metadata while being functionally identical.
 func TestRoundtripStructure_StructuralComparison(t *testing.T) {
-	t.Skip("Skipping - byte-level comparison fails due to element/attribute order changes. See TestRoundtripWithParsing.")
+	// DORMIDO POR EL ORDEN DOCUMENTAL, igual que TestRoundtrip_ByteComparison.
+	// Ver el comentario largo de ese test para el estado medido y la condición de
+	// reactivación. El orden de **atributos** que menciona el mensaje anterior ya no es
+	// un problema: el comparador del arnés los compara sin importar el orden, y el
+	// orden en que se emiten es estable desde que se ordenan alfabéticamente.
+	t.Skip("dormido: pendiente del orden documental, ver TestRoundtrip_ByteComparison y docs/FIDELIDAD.md")
 	tests := []struct {
 		name     string
 		filename string

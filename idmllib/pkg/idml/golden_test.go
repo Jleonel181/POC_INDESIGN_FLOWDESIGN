@@ -343,9 +343,12 @@ func reportCorpusTotal(t *testing.T, tallies []*fidelityTally) {
 // un log. Se cierra cada categoría en cuanto llega a cero, en lugar de esperar a la
 // tarea de cierre del plan para cerrarlas todas de golpe.
 //
-// Las que siguen abiertas, y por eso no están aquí:
+// La única que sigue abierta, y por eso no está aquí:
 //   - orden-elementos-distinto: 71, pendiente de las tareas del contenedor ordenado
-//   - texto-distinto: 2, las instrucciones de proceso `<?ACE 18?>` dentro de <Content>
+//
+// Con `texto-distinto` cerrada, el corpus **no pierde nada de contenido**: ni un
+// atributo, ni un elemento, ni un carácter. Lo único que aún no se reproduce es el
+// orden de los hijos en 71 nodos.
 var categoriasCerradas = []string{
 	xmlutil.CategoryAttributeMissing,
 	xmlutil.CategoryAttributeValue,
@@ -354,6 +357,7 @@ var categoriasCerradas = []string{
 	xmlutil.CategoryElementExtra,
 	xmlutil.CategoryTag,
 	xmlutil.CategoryNamespace,
+	xmlutil.CategoryText,
 }
 
 // assertCategoriasCerradas falla si una categoría ya cerrada vuelve a aparecer.

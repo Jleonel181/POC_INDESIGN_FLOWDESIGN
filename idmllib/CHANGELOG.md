@@ -8,8 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 Trabajo de fidelidad: medir cuánta información sobrevive al ciclo de lectura y
-escritura, y empezar a corregirlo. Ver [`docs/FIDELIDAD.md`](docs/FIDELIDAD.md) para
-las cifras, cómo reproducirlas y los defectos conocidos.
+escritura, y corregirlo. **El ciclo ya no pierde nada de contenido**: los atributos
+perdidos sobre el corpus de cinco documentos pasaron de **13.995 a 0**, y la pérdida de
+texto de **2 a 0**. Queda abierto el **orden documental** de 71 nodos.
+
+Ocho de las nueve categorías de diferencia están cerradas con una guarda que hace
+fallar el arnés si reaparecen. Ver [`docs/FIDELIDAD.md`](docs/FIDELIDAD.md) para las
+cifras, cómo reproducirlas y lo que sigue pendiente.
 
 ### Added
 
@@ -54,10 +59,11 @@ las cifras, cómo reproducirlas y los defectos conocidos.
 
 ### Known issues
 
-- **13995 atributos se pierden** en el ciclo sobre el corpus de cinco documentos, porque los tipos del modelo todavía no declaran el campo comodín. Las funciones que lo resuelven existen; conectarlas es trabajo pendiente
-- **71 nodos** conservan sus hijos pero en otro orden: los spreads, las stories, y los tipos `Properties` y `ObjectStyleGroup`
+- **71 nodos** conservan sus hijos pero en otro orden documental: los elementos de página de los spreads, los hijos de las stories, y los tipos `Properties` y `ObjectStyleGroup`. Es la única categoría de diferencia que queda abierta
+- Dos tests de `pkg/idml/roundtrip_test.go` siguen **dormidos por ese mismo defecto**: `TestRoundtrip_ByteComparison` y `TestRoundtripStructure_StructuralComparison`. Se intentará reactivarlos cuando el orden llegue a cero; la condición está escrita en el comentario de cada uno
 - Los archivos bajo `MasterSpreads/` no se parsean, se copian tal cual
 - Solo se ha verificado en InDesign un documento **generado desde cero**, no un documento existente reescrito por la librería
+- El orden de los hijos de los `ObjectStyle` se reordena y el arnés no lo detecta, porque `ObjectStyle` está en la lista `SortElements` del comparador
 
 ### Security
 

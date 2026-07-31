@@ -2,6 +2,8 @@ package story
 
 import (
 	"encoding/xml"
+	"errors"
+	"io"
 	"strings"
 
 	"github.com/dimelords/idmllib/v2/pkg/common"
@@ -160,11 +162,107 @@ type CharacterChild struct {
 // Content representa el contenido de texto real.
 type Content struct {
 	XMLName xml.Name `xml:"Content"`
-	Text    string   `xml:",chardata"`
+
+	// Text es el texto legible, ya sin escapes. Es lo que leen los consumidores y lo
+	// que escriben los métodos de la API, y sigue siendo la fuente de verdad del
+	// contenido.
+	Text string `xml:",chardata"`
+
+	// Raw es el contenido interno literal, tal como venía en el archivo. Existe porque
+	// un Content puede llevar **instrucciones de proceso** intercaladas con el texto, y
+	// esas no son datos de carácter: `Text` no puede representarlas.
+	//
+	// InDesign las usa para los marcadores de carácter especial. En el
+	// Documento_Referencia hay 4 apariciones de `<?ACE 18?>`, y las cuatro con una
+	// forma distinta: la instrucción sola, antes del texto, antes de un texto con
+	// espacios finales, y después de un espacio.
+	//
+	// Solo se usa para re-emitir lo que se parseó. Ver MarshalXML.
+	Raw string `xml:",innerxml"`
 
 	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
 	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
 	OtherAttrs []xml.Attr `xml:",any,attr"`
+}
+
+// MarshalXML emite el Content conservando las instrucciones de proceso que traía, sin
+// perder la seguridad del escapado.
+//
+// La decisión, y el motivo de que no sea «emitir siempre Raw»: si un llamador cambió
+// `Text` después de parsear, `Raw` quedó obsoleto, y emitirlo descartaría ese cambio
+// **en silencio**. Perder un marcador de InDesign es malo; escribir un texto que no es
+// el que pidió el llamador es peor. Así que `Text` manda, y `Raw` solo se usa mientras
+// siga siendo coherente con él.
+func (c Content) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	start.Name = xml.Name{Local: "Content"}
+	start.Attr = c.OtherAttrs
+
+	if err := e.EncodeToken(start); err != nil {
+		return err
+	}
+
+	tokens, texto, err := tokensDeRaw(c.Raw)
+	if err == nil && texto == c.Text && tieneInstruccionDeProceso(tokens) {
+		// El contenido parseado traía marcado que Text no puede representar, y Text no
+		// se ha modificado desde entonces: se reemiten los tokens originales. El
+		// encoder escapa los datos de carácter y deja pasar las instrucciones, así que
+		// el escapado sigue siendo correcto.
+		for _, tok := range tokens {
+			if err := e.EncodeToken(tok); err != nil {
+				return err
+			}
+		}
+	} else if c.Text != "" {
+		// Camino normal: el texto se emite escapado por el encoder.
+		if err := e.EncodeToken(xml.CharData(c.Text)); err != nil {
+			return err
+		}
+	}
+
+	if err := e.EncodeToken(xml.EndElement{Name: start.Name}); err != nil {
+		return err
+	}
+	return e.Flush()
+}
+
+// tokensDeRaw decodifica el contenido literal en tokens y devuelve además el texto que
+// resulta de concatenar sus datos de carácter, que es lo que debería coincidir con
+// Text si nadie lo ha modificado.
+func tokensDeRaw(raw string) (tokens []xml.Token, texto string, err error) {
+	if raw == "" {
+		return nil, "", nil
+	}
+
+	var sb strings.Builder
+	dec := xml.NewDecoder(strings.NewReader(raw))
+	for {
+		tok, err := dec.Token()
+		if errors.Is(err, io.EOF) {
+			break
+		}
+		if err != nil {
+			return nil, "", err
+		}
+		// xml.CopyToken es necesario: el decoder reutiliza el buffer de CharData entre
+		// llamadas, así que guardar el token sin copiar deja basura.
+		tok = xml.CopyToken(tok)
+		if cd, ok := tok.(xml.CharData); ok {
+			sb.Write(cd)
+		}
+		tokens = append(tokens, tok)
+	}
+	return tokens, sb.String(), nil
+}
+
+// tieneInstruccionDeProceso indica si los tokens llevan algo que `Text` no puede
+// representar. Si no lo llevan, no hace falta el camino de re-emisión literal.
+func tieneInstruccionDeProceso(tokens []xml.Token) bool {
+	for _, tok := range tokens {
+		if _, ok := tok.(xml.ProcInst); ok {
+			return true
+		}
+	}
+	return false
 }
 
 // Br representa un elemento de salto de línea.
