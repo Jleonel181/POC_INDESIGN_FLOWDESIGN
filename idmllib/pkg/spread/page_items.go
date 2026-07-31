@@ -298,3 +298,96 @@ type PDFAttribute struct {
 	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
 	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
+
+// PageItem es el tipo común de los elementos de página que pueden ser hijos directos
+// de un <Spread>: marcos de texto, rectángulos, elipses, polígonos, líneas gráficas,
+// grupos y el contenido colocado suelto (Image, PDF).
+//
+// Por qué se declara aquí y no se reutiliza la de pkg/idml/interfaces.go: pkg/idml
+// importa pkg/spread, así que usar la suya crearía un ciclo de importación.
+//
+// Los métodos llevan **receptor puntero** a propósito. Es la barrera automática contra
+// el fallo silencioso de guardar una copia: con receptores valor, un `Rectangle` (valor)
+// satisface la interfaz y el compilador acepta `Items = append(Items, rect)`, con lo que
+// mutar el elemento a través de Items no afectaría a nada. Con receptor puntero eso no
+// compila y hay que escribir `&rect`.
+//
+// xmlTag no está exportado, así que la interfaz queda sellada: ningún paquete de fuera
+// puede declarar un tipo que la satisfaga, y la lista de tipos posibles es la de este
+// archivo.
+type PageItem interface {
+	GetSelf() string
+	GetItemLayer() string
+	GetItemTransform() string
+	GetGeometricBounds() string
+	GetVisible() string
+	GetName() string
+
+	// xmlTag es el nombre del elemento XML de este tipo, que es lo que decide en qué
+	// campo por tipo se guarda y con qué nombre se emite.
+	xmlTag() string
+}
+
+// Nombres de elemento de los elementos de página. Están como constantes porque los usan
+// tres sitios que tienen que coincidir: el reparto al parsear, la emisión y el registro
+// de orden. Una errata entre ellos haría desaparecer elementos en silencio.
+const (
+	TagTextFrame   = "TextFrame"
+	TagRectangle   = "Rectangle"
+	TagImage       = "Image"
+	TagOval        = "Oval"
+	TagPolygon     = "Polygon"
+	TagGraphicLine = "GraphicLine"
+	TagGroup       = "Group"
+	TagPDF         = "PDF"
+)
+
+func (f *SpreadTextFrame) xmlTag() string { return TagTextFrame }
+func (r *Rectangle) xmlTag() string       { return TagRectangle }
+func (i *Image) xmlTag() string           { return TagImage }
+func (o *Oval) xmlTag() string            { return TagOval }
+func (p *Polygon) xmlTag() string         { return TagPolygon }
+func (g *GraphicLine) xmlTag() string     { return TagGraphicLine }
+func (g *Group) xmlTag() string           { return TagGroup }
+func (p *PDF) xmlTag() string             { return TagPDF }
+
+// Los seis accesores de PageItem para el contenido colocado (Image y PDF), que embeben
+// FrameContentBase en lugar de PageItemBase.
+//
+// ItemLayer y GeometricBounds devuelven cadena vacía porque el XML de InDesign no los
+// pone en estos elementos: la capa y el bounding box son del marco que los contiene. Se
+// devuelve el cero en lugar de omitir los métodos para que Image y PDF puedan estar en
+// un []PageItem cuando aparecen como hijos directos de un <Spread>.
+
+// GetSelf retorna el identificador único de este contenido.
+func (f *FrameContentBase) GetSelf() string { return f.Self }
+
+// GetName retorna el nombre de visualización.
+func (f *FrameContentBase) GetName() string { return f.Name }
+
+// GetItemTransform retorna la matriz de transformación de 6 valores.
+func (f *FrameContentBase) GetItemTransform() string { return f.ItemTransform }
+
+// GetVisible retorna el estado de visibilidad ("true" o "false").
+func (f *FrameContentBase) GetVisible() string { return f.Visible }
+
+// GetItemLayer retorna siempre cadena vacía: la capa la declara el marco contenedor.
+func (f *FrameContentBase) GetItemLayer() string { return "" }
+
+// GetGeometricBounds retorna siempre cadena vacía: el bounding box lo declara el marco
+// contenedor.
+func (f *FrameContentBase) GetGeometricBounds() string { return "" }
+
+// Comprobaciones en tiempo de compilación de que los ocho tipos satisfacen PageItem con
+// receptor puntero, y de que un valor **no** la satisface. Si alguien añade un tipo de
+// elemento de página y olvida su xmlTag, esto es lo que falla.
+var (
+	_ PageItem = (*SpreadTextFrame)(nil)
+	_ PageItem = (*Rectangle)(nil)
+	_ PageItem = (*Image)(nil)
+	_ PageItem = (*Oval)(nil)
+	_ PageItem = (*Polygon)(nil)
+	_ PageItem = (*GraphicLine)(nil)
+	_ PageItem = (*Group)(nil)
+	_ PageItem = (*PDF)(nil)
+)

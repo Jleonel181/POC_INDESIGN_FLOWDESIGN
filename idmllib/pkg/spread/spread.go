@@ -3,6 +3,7 @@ package spread
 import (
 	"encoding/xml"
 
+	"github.com/dimelords/idmllib/v2/internal/xmlutil"
 	"github.com/dimelords/idmllib/v2/pkg/common"
 )
 
@@ -135,6 +136,35 @@ type SpreadElement struct {
 	AllowPageShuffle        string `xml:"AllowPageShuffle,attr,omitempty"`
 	ItemTransform           string `xml:"ItemTransform,attr,omitempty"`
 	FlattenerOverride       string `xml:"FlattenerOverride,attr,omitempty"`
+
+	// Items es la secuencia de elementos de página en Orden_Documental, con punteros a
+	// los elementos guardados en los campos por tipo de abajo.
+	//
+	// Qué manda cada uno en esta fase: **Items manda el orden, los campos por tipo
+	// mandan el contenido.** Al emitir, la secuencia sale del orden registrado al
+	// parsear y el contenido se lee de los campos por tipo.
+	//
+	// La razón de ese reparto es un conflicto medido, no una preferencia. El criterio 1
+	// de la Tarea 7 pide que Items sea la fuente de verdad de la serialización, y el
+	// criterio 3 pide que las 18 escrituras existentes a los campos por tipo sigan
+	// funcionando sin tocarlas. Las dos cosas no pueden ser ciertas a la vez:
+	// `removeItemFromSpread` de pkg/idml borra del slice `TextFrames` de un spread ya
+	// parseado, y si el contenido saliera de Items ese borrado no llegaría al archivo
+	// escrito. Peor aún, `TestRemoveTextFrame_Basic` solo comprueba el slice en memoria,
+	// así que la regresión sería silenciosa. La fase 2 migra esas escrituras a Append y
+	// Remove, y entonces Items pasa a ser también el contenido.
+	//
+	// ponytail: en esta fase Items es una vista ordenada, no el contenedor. Un llamador
+	// que haga `append` a un campo por tipo puede invalidar los punteros de Items, que
+	// apuntan al array de ese slice. No afecta a lo que se emite, porque la emisión lee
+	// del campo; sí afecta a quien lea Items después. La vía de mejora es la fase 2, que
+	// convierte Items en el contenedor y deja los campos como valores derivados.
+	Items []PageItem `xml:"-"`
+
+	// childOrder recuerda la secuencia de hijos leída, para reproducirla al emitir.
+	// Incluye FlattenerPreference, las Page, los elementos de página y los hijos no
+	// modelados. Sin este registro el ciclo reagrupa los hijos por tipo.
+	childOrder xmlutil.ChildOrder
 
 	// Elementos hijo
 	FlattenerPreference *FlattenerPreference `xml:"FlattenerPreference,omitempty"`

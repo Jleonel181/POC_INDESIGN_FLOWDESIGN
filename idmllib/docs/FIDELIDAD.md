@@ -170,14 +170,16 @@ Con `IDMLLIB_MAX_DIFFS=0`. La columna «inicio» es la primera medición, cuando
 
 | Origen | Archivos | atributos: inicio → ahora | texto: inicio → ahora | orden: inicio → ahora |
 |---|---|---|---|---|
-| `documento_referencia` | 43 | 3868 → **0** | 2 → **0** | 35 → 35 |
+| `documento_referencia` | 43 | 3868 → **0** | 2 → **0** | 35 → 34 |
 | `archivo_evidencia_imagenes` | 11 | 949 → **0** | 0 | 0 |
 | `plain` | 12 | 730 → **0** | 0 | 0 |
-| `example` | 26 | 4031 → **0** | 0 | 10 → 10 |
-| `tripple` | 44 | 4417 → **0** | 0 | 26 → 26 |
-| **TOTAL** | **136** | **13.995 → 0** | **2 → 0** | **71 → 71** |
+| `example` | 26 | 4031 → **0** | 0 | 10 → 9 |
+| `tripple` | 44 | 4417 → **0** | 0 | 26 → 23 |
+| **TOTAL** | **136** | **13.995 → 0** | **2 → 0** | **71 → 66** |
 
 Archivos sin ninguna diferencia: **53 → 66** de 136. `archivo_evidencia_imagenes` y `plain` quedan completos.
+
+Los 5 desórdenes que bajaron son los de los elementos de página de los spreads, cerrados por la Tarea 7. El número de archivos limpios no subió con ellos porque esos mismos spreads arrastran además el desorden de `Page/Properties`, que es de la Tarea 2e.
 
 **Cero fallos** de parseo o serialización en los cinco documentos, antes y ahora.
 
@@ -213,9 +215,13 @@ La solución es `internal/xmlutil/childorder.go`: un registro de la secuencia le
 
 `ChildOrder.Replay` emite en dos pasadas: primero el orden registrado, y después los hijos que el registro no menciona. La segunda pasada es lo que hace el mecanismo seguro: sin ella, agregar un hijo sin actualizar el registro lo haría **desaparecer** al serializar, y perder un elemento es peor que emitirlo en una posición rara. Tiene un efecto secundario útil: un modelo construido desde cero, sin registro, cae entero en la segunda pasada y sale en el orden de los campos, que es el comportamiento anterior. No hay dos caminos que mantener.
 
-**Aplicado a:** `designmap.xml` (el elemento `Document`), `Resources/Styles.xml` y `Resources/Graphic.xml`.
+**Aplicado a:** `designmap.xml` (el elemento `Document`), `Resources/Styles.xml`, `Resources/Graphic.xml` y, desde la Tarea 7, los **spreads** (el elemento `Spread`).
 
-**Pendiente en:** los spreads, las stories, y dos tipos más —`Properties`, que es un tipo compartido usado en 32 sitios, y `ObjectStyleGroup`— que se descubrieron al ampliar el corpus.
+En los spreads el registro va acompañado de `SpreadElement.Items`, la secuencia de elementos de página en orden documental con punteros a los elementos guardados en los campos por tipo. El reparto de responsabilidades es deliberado y viene de un conflicto medido: **`Items` manda el orden y los campos por tipo mandan el contenido**, porque hay código que borra elementos escribiendo directamente en esos campos —`removeItemFromSpread` de `pkg/idml`— y si el contenido saliera de `Items` ese borrado no llegaría al archivo escrito, sin que ningún test lo delatara. Las fases 2 y 3 migran esas escrituras a `Append` y `Remove`, y entonces `Items` pasa a ser también el contenido.
+
+Para decidir la forma se midieron los **54** `Spread` y `MasterSpread` de los cinco documentos: en **0** casos aparece un hijo que no es elemento de página después de un elemento de página. La forma es siempre `[FlattenerPreference o Properties][Page…][elementos de página…]`, así que el prefijo no necesita contenedor.
+
+**Pendiente en:** las stories, y dos tipos más —`Properties`, que es un tipo compartido usado en 32 sitios, y `ObjectStyleGroup`— que se descubrieron al ampliar el corpus.
 
 Los 71 desórdenes que quedan, por elemento padre. Medido con `IDMLLIB_MAX_DIFFS=0`; la receta para reproducir esta tabla está más arriba, en «Recetas de medición»:
 
@@ -224,14 +230,14 @@ Los 71 desórdenes que quedan, por elemento padre. Medido con `IDMLLIB_MAX_DIFFS
 | `root/Story` | 30 | `MetadataPacketPreference` se emite al final | Tarea 10, criterio 4 lo dice con esta cifra |
 | `root/Story/ParagraphStyleRange` | 23 | `Change` entre dos `CharacterStyleRange` se va al final | **hueco**, ver abajo |
 | `root/Spread/Page/Properties` | 8 | `Label` se adelanta a lo que cae en el comodín | Tarea 2e |
-| `root/Spread` | 5 | los elementos de página | Tareas 7 a 9 |
 | `root/Section/Properties` | 2 | igual que `Page/Properties` | Tarea 2e |
 | `root/RootObjectStyleGroup` | 2 | los estilos se adelantan a los grupos anidados | Tarea 2e |
 | `root/Spread/GraphicLine` | 1 | `ObjectExportOption` y `TextWrapPreference` se intercambian | **hueco**, ver abajo |
+| ~~`root/Spread`~~ | ~~5~~ → **0** | los elementos de página, reagrupados por tipo | **cerrado por la Tarea 7** |
 
 Tres lecturas de esta tabla.
 
-**53 de los 71 están en las stories**, no en los spreads. La Tarea 10 y el hueco de `ParagraphStyleRange` pesan más que las Tareas 7 a 9 juntas, que solo tienen 5.
+**53 de los 66 que quedan están en las stories.** La Tarea 10 y el hueco de `ParagraphStyleRange` son ahora el grueso de lo que falta. La fila de los spreads ya está cerrada: la Tarea 7 dio a `SpreadElement` lectura y escritura propias, con `Items` guardando la secuencia de elementos de página y `xmlutil.ChildOrder` reproduciéndola al emitir.
 
 **Dos filas no las cubre ninguna tarea del plan.** Los 23 de `ParagraphStyleRange` son el mismo patrón y el mismo archivo que la Tarea 10, pero un nivel más abajo: la Tarea 10 da contenedor ordenado a `StoryElement`, y esto lo necesita `ParagraphStyleRange` para intercalar `Change` entre los `CharacterStyleRange`. Está anotado como criterio adicional de la Tarea 10 en lugar de tarea nueva, porque es el mismo archivo y el mismo patrón. El de `GraphicLine` es el orden de los hijos de un elemento de página, que tampoco tiene dueño: las Tareas 13 y 14 hablan de `ObjectExportOption` y `TextWrapPreference` pero para **añadirlos cuando faltan**, no para ordenarlos, y aquí ya están los dos, solo intercambiados.
 

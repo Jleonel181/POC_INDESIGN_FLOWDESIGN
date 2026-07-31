@@ -312,45 +312,6 @@
 		</Properties>
 	</Layer>
 	<Spread Self="u210">
-		<TextFrame Self="u300" Name="$ID/" ItemLayer="uba" Visible="true" ItemTransform="1 0 0 1 -788.7007874015749 -561.929133858268" ParentStory="u2ee" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" OverriddenPageItemProps="" HorizontalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" VerticalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" GradientFillStart="43.189000000000874 245.57302599999184" GradientFillLength="130.394" GradientFillAngle="0" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeStart="43.189000000000874 245.57302599999184" GradientStrokeLength="130.394" GradientStrokeAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" Locked="false" LocalDisplaySetting="Default" AppliedObjectStyle="ObjectStyle/Naviga%3aStandard%3apreamble-TEK ingress" ParentInterfaceChangeCount="138508 1852609731 138558 753165864" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
-			<Properties>
-				<PathGeometry>
-					<GeometryPathType PathOpen="false">
-						<PathPointArray>
-							<PathPointType Anchor="43.189000000000874 142.97302599999148" LeftDirection="43.189000000000874 142.97302599999148" RightDirection="43.189000000000874 142.97302599999148" />
-							<PathPointType Anchor="43.189000000000874 245.57302599999184" LeftDirection="43.189000000000874 245.57302599999184" RightDirection="43.189000000000874 245.57302599999184" />
-							<PathPointType Anchor="173.58300000000088 245.57302599999184" LeftDirection="173.58300000000088 245.57302599999184" RightDirection="173.58300000000088 245.57302599999184" />
-							<PathPointType Anchor="173.58300000000088 142.97302599999148" LeftDirection="173.58300000000088 142.97302599999148" RightDirection="173.58300000000088 142.97302599999148" />
-						</PathPointArray>
-					</GeometryPathType>
-				</PathGeometry>
-				<Label>
-					<KeyValuePair Key="Label" Value="{&#34;laydownData&#34;:{&#34;x&#34;:0,&#34;y&#34;:8,&#34;width&#34;:1,&#34;height&#34;:9},&#34;storyData&#34;:{&#34;storyPriority&#34;:&#34;A&#34;,&#34;categoryName&#34;:&#34;Reportasje_A&#34;,&#34;title&#34;:&#34;Nfnd&#34;,&#34;authors&#34;:[{&#34;author&#34;:&#34;NPK-Heidi Molstad Andresen&#34;,&#34;authorEmail&#34;:&#34;Nfnd&#34;,&#34;authorPhone&#34;:&#34;Nfnd&#34;,&#34;shortDescription&#34;:&#34;Nfnd&#34;}]},&#34;pageBuilderData&#34;:{&#xA;&#xA;},&#34;elements&#34;:[&#xA;&#xA;],&#34;imageElements&#34;:[&#xA;&#xA;],&#34;notes&#34;:&#34; priority=A pStyle=Naviga:Standard:preamble-TEK ingress&#34;,&#34;storyGuid&#34;:&#34;53510e98-eb3f-4afc-a0f7-abaa8fe8458f&#34;,&#34;type&#34;:&#34;deck&#34;}" />
-				</Label>
-			</Properties>
-			<ObjectExportOption AltTextSourceType="SourceXMLStructure" ActualTextSourceType="SourceXMLStructure" CustomAltText="$ID/" CustomActualText="$ID/" ApplyTagType="TagFromStructure" ImageConversionType="JPEG" ImageExportResolution="Ppi300" GIFOptionsPalette="AdaptivePalette" GIFOptionsInterlaced="true" JPEGOptionsQuality="High" JPEGOptionsFormat="BaselineEncoding" ImageAlignment="AlignLeft" ImageSpaceBefore="0" ImageSpaceAfter="0" UseImagePageBreak="false" ImagePageBreak="PageBreakBefore" CustomImageAlignment="false" SpaceUnit="CssPixel" CustomLayout="false" CustomLayoutType="AlignmentAndSpacing" EpubType="$ID/" SizeType="DefaultSize" CustomSize="$ID/" PreserveAppearanceFromLayout="PreserveAppearanceDefault">
-&#x9;&#x9;&#x9;&#x9;<Properties>
-&#x9;&#x9;&#x9;&#x9;&#x9;<AltMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
-&#x9;&#x9;&#x9;&#x9;&#x9;<ActualMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
-&#x9;&#x9;&#x9;&#x9;</Properties>
-&#x9;&#x9;&#x9;</ObjectExportOption>
-			<TextFramePreference FootnotesEnableOverrides="false" FootnotesSpanAcrossColumns="false" FootnotesMinimumSpacing="12" FootnotesSpaceBetween="6" TextColumnCount="1" TextColumnFixedWidth="130.394" TextColumnMaxWidth="0">
-&#x9;&#x9;&#x9;&#x9;<Properties>
-&#x9;&#x9;&#x9;&#x9;&#x9;<InsetSpacing type="list">
-&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;<ListItem type="unit">3</ListItem>
-&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;<ListItem type="unit">0</ListItem>
-&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;<ListItem type="unit">5</ListItem>
-&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;<ListItem type="unit">0</ListItem>
-&#x9;&#x9;&#x9;&#x9;&#x9;</InsetSpacing>
-&#x9;&#x9;&#x9;&#x9;</Properties>
-&#x9;&#x9;&#x9;</TextFramePreference>
-			<TextFrameFootnoteOptionsObject EnableOverrides="false" SpanFootnotesAcross="false" MinimumSpacingOption="12" SpaceBetweenFootnotes="6" />
-			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="BoundingBoxTextWrap">
-&#x9;&#x9;&#x9;&#x9;<Properties>
-&#x9;&#x9;&#x9;&#x9;&#x9;<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
-&#x9;&#x9;&#x9;&#x9;</Properties>
-&#x9;&#x9;&#x9;</TextWrapPreference>
-		</TextFrame>
 		<Rectangle Self="u264" Name="$ID/" ItemLayer="uba" Visible="true" ItemTransform="1 0 0 1 -788.7007874015749 -561.929133858268" ContentType="GraphicType" StoryTitle="$ID/" OverriddenPageItemProps="" HorizontalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" VerticalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" GradientFillStart="468.38800000000026 804.1730260000095" GradientFillLength="782.3649999999999" GradientFillAngle="0" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeStart="468.38800000000026 804.1730260000095" GradientStrokeLength="782.3649999999999" GradientStrokeAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" Locked="false" LocalDisplaySetting="Default" AppliedObjectStyle="ObjectStyle/Naviga%3aStandard%3aimage-Bilde" ParentInterfaceChangeCount="138508 260025942 138558 2021940159" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
 			<Properties>
 				<PathGeometry>
@@ -397,6 +358,45 @@
 				<Link Self="u269" AssetURL="$ID/" AssetID="$ID/" LinkResourceURI="file:/Users/fredrik/Projects/github.com/dimelords/indesign/y0iCjgVeMPy8bMp4vha7oL0VKv8.jpg" LinkResourceFormat="$ID/JPEG" StoredState="Normal" LinkClassID="35906" LinkClientID="257" LinkResourceModified="false" LinkObjectModified="false" ShowInUI="true" CanEmbed="true" CanUnembed="true" CanPackage="true" ImportPolicy="NoAutoImport" ExportPolicy="NoAutoExport" LinkImportStamp="file 134054425436652064 16384482" LinkImportModificationTime="2025-10-20T16:02:23" LinkImportTime="2025-11-14T12:28:54" LinkResourceSize="0~fa01e2" RenditionData="Actual" />
 			</Image>
 		</Rectangle>
+		<TextFrame Self="u300" Name="$ID/" ItemLayer="uba" Visible="true" ItemTransform="1 0 0 1 -788.7007874015749 -561.929133858268" ParentStory="u2ee" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" OverriddenPageItemProps="" HorizontalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" VerticalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" GradientFillStart="43.189000000000874 245.57302599999184" GradientFillLength="130.394" GradientFillAngle="0" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeStart="43.189000000000874 245.57302599999184" GradientStrokeLength="130.394" GradientStrokeAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" Locked="false" LocalDisplaySetting="Default" AppliedObjectStyle="ObjectStyle/Naviga%3aStandard%3apreamble-TEK ingress" ParentInterfaceChangeCount="138508 1852609731 138558 753165864" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="43.189000000000874 142.97302599999148" LeftDirection="43.189000000000874 142.97302599999148" RightDirection="43.189000000000874 142.97302599999148" />
+							<PathPointType Anchor="43.189000000000874 245.57302599999184" LeftDirection="43.189000000000874 245.57302599999184" RightDirection="43.189000000000874 245.57302599999184" />
+							<PathPointType Anchor="173.58300000000088 245.57302599999184" LeftDirection="173.58300000000088 245.57302599999184" RightDirection="173.58300000000088 245.57302599999184" />
+							<PathPointType Anchor="173.58300000000088 142.97302599999148" LeftDirection="173.58300000000088 142.97302599999148" RightDirection="173.58300000000088 142.97302599999148" />
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+				<Label>
+					<KeyValuePair Key="Label" Value="{&#34;laydownData&#34;:{&#34;x&#34;:0,&#34;y&#34;:8,&#34;width&#34;:1,&#34;height&#34;:9},&#34;storyData&#34;:{&#34;storyPriority&#34;:&#34;A&#34;,&#34;categoryName&#34;:&#34;Reportasje_A&#34;,&#34;title&#34;:&#34;Nfnd&#34;,&#34;authors&#34;:[{&#34;author&#34;:&#34;NPK-Heidi Molstad Andresen&#34;,&#34;authorEmail&#34;:&#34;Nfnd&#34;,&#34;authorPhone&#34;:&#34;Nfnd&#34;,&#34;shortDescription&#34;:&#34;Nfnd&#34;}]},&#34;pageBuilderData&#34;:{&#xA;&#xA;},&#34;elements&#34;:[&#xA;&#xA;],&#34;imageElements&#34;:[&#xA;&#xA;],&#34;notes&#34;:&#34; priority=A pStyle=Naviga:Standard:preamble-TEK ingress&#34;,&#34;storyGuid&#34;:&#34;53510e98-eb3f-4afc-a0f7-abaa8fe8458f&#34;,&#34;type&#34;:&#34;deck&#34;}" />
+				</Label>
+			</Properties>
+			<ObjectExportOption AltTextSourceType="SourceXMLStructure" ActualTextSourceType="SourceXMLStructure" CustomAltText="$ID/" CustomActualText="$ID/" ApplyTagType="TagFromStructure" ImageConversionType="JPEG" ImageExportResolution="Ppi300" GIFOptionsPalette="AdaptivePalette" GIFOptionsInterlaced="true" JPEGOptionsQuality="High" JPEGOptionsFormat="BaselineEncoding" ImageAlignment="AlignLeft" ImageSpaceBefore="0" ImageSpaceAfter="0" UseImagePageBreak="false" ImagePageBreak="PageBreakBefore" CustomImageAlignment="false" SpaceUnit="CssPixel" CustomLayout="false" CustomLayoutType="AlignmentAndSpacing" EpubType="$ID/" SizeType="DefaultSize" CustomSize="$ID/" PreserveAppearanceFromLayout="PreserveAppearanceDefault">
+&#x9;&#x9;&#x9;&#x9;<Properties>
+&#x9;&#x9;&#x9;&#x9;&#x9;<AltMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+&#x9;&#x9;&#x9;&#x9;&#x9;<ActualMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
+&#x9;&#x9;&#x9;&#x9;</Properties>
+&#x9;&#x9;&#x9;</ObjectExportOption>
+			<TextFramePreference FootnotesEnableOverrides="false" FootnotesSpanAcrossColumns="false" FootnotesMinimumSpacing="12" FootnotesSpaceBetween="6" TextColumnCount="1" TextColumnFixedWidth="130.394" TextColumnMaxWidth="0">
+&#x9;&#x9;&#x9;&#x9;<Properties>
+&#x9;&#x9;&#x9;&#x9;&#x9;<InsetSpacing type="list">
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;<ListItem type="unit">3</ListItem>
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;<ListItem type="unit">0</ListItem>
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;<ListItem type="unit">5</ListItem>
+&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;<ListItem type="unit">0</ListItem>
+&#x9;&#x9;&#x9;&#x9;&#x9;</InsetSpacing>
+&#x9;&#x9;&#x9;&#x9;</Properties>
+&#x9;&#x9;&#x9;</TextFramePreference>
+			<TextFrameFootnoteOptionsObject EnableOverrides="false" SpanFootnotesAcross="false" MinimumSpacingOption="12" SpaceBetweenFootnotes="6" />
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="BoundingBoxTextWrap">
+&#x9;&#x9;&#x9;&#x9;<Properties>
+&#x9;&#x9;&#x9;&#x9;&#x9;<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+&#x9;&#x9;&#x9;&#x9;</Properties>
+&#x9;&#x9;&#x9;</TextWrapPreference>
+		</TextFrame>
 	</Spread>
 	<Story Self="u2ee" UserText="true" IsEndnoteStory="false" AppliedTOCStyle="n" TrackChanges="false" StoryTitle="$ID/" AppliedNamedGrid="n">
 		<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="12" FrameType="TextFrameType" StoryOrientation="Horizontal" StoryDirection="LeftToRightDirection" />
