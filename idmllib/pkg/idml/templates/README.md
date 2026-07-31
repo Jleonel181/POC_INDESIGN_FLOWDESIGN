@@ -10,12 +10,58 @@ Estos templates proveen estructuras XML mínimas válidas que InDesign acepta. S
 
 ### `minimal/`
 
-Contiene los archivos mínimos requeridos para un documento IDML válido:
+Contiene los **13 archivos** de un documento IDML mínimo: una página con un marco de
+texto. Es el mismo conjunto de entradas que `testdata/plain.idml`, que es una
+exportación de InDesign de esa misma forma y sirve de oráculo.
 
-- **designmap.xml** - Estructura mínima del documento con una página
-- **Preferences.xml** - Preferencias mínimas con valores por defecto razonables
+| Archivo | Contenido | Lleva valores calculados |
+|---|---|---|
+| `mimetype` | Identificador del formato. Primera entrada del ZIP y sin comprimir | no |
+| `designmap.xml` | Manifiesto: capa, sección, y las referencias a los demás archivos | sí |
+| `container.xml` | `META-INF/container.xml`, señala cuál es el archivo raíz | no |
+| `metadata.xml` | `META-INF/metadata.xml`, paquete XMP | sí |
+| `Graphic.xml` | Colores y muestras | no |
+| `Fonts.xml` | Fuentes | no |
+| `Styles.xml` | Estilos | no |
+| `Preferences.xml` | Preferencias, incluido `DocumentPreference` con el tamaño de página | sí |
+| `Tags.xml` | Etiquetas XML | no |
+| `MasterSpread_ub4.xml` | Página maestra | sí |
+| `Spread_ud3.xml` | El spread con su página y su marco de texto | sí |
+| `BackingStory.xml` | Story de respaldo de la estructura XML | sí |
+| `Story_ue1.xml` | El texto del marco | sí |
 
-Estos templates se embeben en el binario de Go en tiempo de compilación usando directivas `go:embed`, haciéndolos disponibles sin dependencias de archivos externos.
+Los que llevan valores calculados son plantillas de `text/template`; el resto se copia
+tal cual. Todos se embeben en el binario en tiempo de compilación con `go:embed`.
+
+> **Si añades o quitas un archivo de `minimal/`, actualiza `templates.go`.** Un
+> `//go:embed` que apunte a un archivo inexistente **rompe la compilación**, no solo
+> los tests.
+
+### Identificadores y cierre referencial
+
+Los identificadores están **fijos** en las plantillas, y el documento solo es válido si
+coinciden entre archivos. Estas cinco referencias tienen que cerrar:
+
+| Referencia | Apunta a | Valor |
+|---|---|---|
+| `TextFrame@ItemLayer` | la `Layer` del designmap | `uba` |
+| `TextFrame@ParentStory` | la story emitida | `ue1` |
+| `Section@PageStart` | la página del spread | `ud8` |
+| `Page@AppliedMaster` | el master spread | `ub4` |
+| `Document@StoryList` | la story y la backing story | `ue1 u98` |
+
+`TestNewFromTemplate_CierreReferencial` resuelve cada una contra el elemento al que
+apunta, así que cambiar un identificador en una plantilla y olvidarlo en otra deja el
+test en rojo.
+
+### Geometría
+
+No está fija: se calcula de `TemplateOptions`. El marco de texto se coloca en la caja de
+márgenes, y `ColumnsPositions` se deriva del ancho útil, el número de columnas y el
+medianil.
+
+`NewFromTemplate()` devuelve error si los márgenes no dejan área utilizable o si el
+número de columnas no cabe en el ancho disponible.
 
 ## Uso
 
@@ -23,12 +69,15 @@ Estos templates se embeben en el binario de Go en tiempo de compilación usando 
 
 ```go
 // Crear un nuevo documento IDML desde templates
-pkg, err := idml.NewFromTemplate(nil) // usa valores por defecto
+pkg, err := idml.NewFromTemplate(nil) // usa valores por defecto: US Letter, 1 columna
 
 // O con opciones personalizadas
 pkg, err := idml.NewFromTemplate(&idml.TemplateOptions{
-    DOMVersion:          "20.4",
-    UseMinimalTemplates: true,
+    DOMVersion:   "20.4",
+    Preset:       idml.PresetA4,
+    Orientation:  "Portrait",
+    ColumnCount:  5,
+    ColumnGutter: 12,
 })
 
 // Modificar el documento según sea necesario
@@ -85,17 +134,46 @@ var standardStyles []byte
 
 ## Validación
 
-Todos los archivos de template deben validarse:
+### Resultado registrado
 
-1. Creando un IDML usando los templates
-2. Abriéndolo en Adobe InDesign
-3. Verificando que no aparezcan errores ni advertencias
+**Verificado en Adobe InDesign.** Dos sondas A4, una de 1 columna y otra de 5, abren
+**sin aviso de daño y sin petición de recuperación**, y muestran la página con su marco
+de texto dentro de los márgenes. Abren también en **Affinity Publisher**, así que la
+forma emitida no depende de una tolerancia particular de InDesign.
 
-Si InDesign rechaza un template, probablemente significa:
+De esa verificación salieron dos conclusiones útiles:
+
+- **El subconjunto curado de `Preferences.xml` es suficiente.** No hizo falta copiar el archivo completo de un documento real. Confirma el principio de esta plantilla: el subconjunto necesita ser **válido, no completo**, porque InDesign aplica sus propios valores por defecto a lo que falte.
+- **InDesign respeta el `ColumnsPositions` emitido y no lo recalcula.** Con 5 columnas y medianil 12 se emiten huecos de 12 y se miden 12 al abrir. El cálculo directo es la derivación correcta.
+
+### Regenerar las sondas
+
+```bash
+IDMLLIB_PROBE_DIR=~/Desktop/sondas_idml go test ./pkg/idml/ -run SondaParaInDesign -v -count=1
+```
+
+Sin la variable, el test se omite: emite archivos para inspección humana, no comprueba
+nada por sí mismo.
+
+### Si un cambio rompe la validación
+
+Al modificar una plantilla hay que repetir la verificación manual. Si InDesign la
+rechaza, las causas probables son:
+
 - Elementos requeridos faltantes
 - Valores de atributos inválidos
 - Declaraciones de namespace incorrectas
-- Recursos referenciados faltantes
+- Recursos referenciados faltantes, o un identificador que dejó de cerrar
+
+Para el último caso hay un atajo que no necesita InDesign:
+
+```bash
+go test ./pkg/idml/ -run TestNewFromTemplate -v
+```
+
+Comprueba el conjunto de rutas contra `testdata/plain.idml`, las tres referencias
+`idPkg:` del designmap, el cierre referencial de las cinco referencias cruzadas, y que
+los 13 XML son bien formados.
 
 ## Buenas prácticas
 

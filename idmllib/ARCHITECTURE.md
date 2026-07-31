@@ -356,28 +356,146 @@ type Properties struct {
 - Maneja propiedades conocidas (Label) + desconocidas
 - Fácil de extender
 
+**Límite conocido:** el orden de los hijos de `Properties` no se conserva, porque
+`Label` es un campo y el resto cae en el comodín, así que `Label` se emite primero
+aunque en el documento viniera después. Afecta a los 32 sitios que usan este tipo. Ver
+[`docs/FIDELIDAD.md`](docs/FIDELIDAD.md).
+
+---
+
+### 5. Patrón OtherAttrs
+
+**Problema:** `encoding/xml` asigna a los campos del struct los atributos que el struct
+declara y **descarta el resto en silencio**. Un `Rectangle` del corpus trae 33
+atributos, el modelo declara 21 y emite 22 tras aplicar `omitempty`: 11 se pierden en
+cada ciclo. Sobre el corpus completo son 13.995 atributos.
+
+**Solución:** un campo comodín, más dos funciones genéricas que hacen el reparto
+leyendo del propio struct qué campos declara.
+
+```go
+type Rectangle struct {
+    PageItemBase                     // aporta Self, Name, ItemLayer, ...
+    ContentType string `xml:"ContentType,attr,omitempty"`
+    // ...
+    OtherAttrs []xml.Attr            // el comodín
+}
+
+// En UnmarshalXML, mediante un tipo alias para no invocarse a sí mismo:
+if err := xmlutil.UnmarshalAttrs(start.Attr, r); err != nil { return err }
+
+// En MarshalXML:
+start.Attr, err = xmlutil.MarshalAttrs(r)
+```
+
+**Detalles que importan:**
+- **Recorre los structs embebidos.** `Rectangle` hereda 6 atributos de `PageItemBase`. Sin recorrerlos, esos 6 irían al comodín y se emitirían **dos veces**
+- **Vacía el comodín antes de rellenarlo.** Sin eso, decodificar dos veces sobre el mismo struct acumula atributos
+- **Un nombre repetido se emite una vez**, y gana el campo declarado
+- **Respeta `omitempty`**, con la misma regla que `encoding/xml`
+- Un struct **sin** comodín se acepta sin error y descarta lo no declarado, como antes
+
+**La trampa del alias.** Si dentro del `UnmarshalXML` de un tipo se le pide al decodificador
+que decodifique ese mismo tipo, se llama a sí mismo indefinidamente. Se evita
+decodificando mediante un tipo alias que no hereda el método.
+
+**Implementación:** `internal/xmlutil/attrs.go`
+
+---
+
+### 6. Patrón ChildOrder
+
+**Problema:** un struct declara sus hijos en campos por tipo —una lista de capas, otra
+de secciones— y al serializar los emite en el orden de esos campos. Pero en el XML de
+entrada venían intercalados. El resultado tiene los mismos elementos en otro orden.
+
+**Solución:** registrar la secuencia leída y reproducirla al emitir. **No es un
+contenedor:** el contenido sigue viviendo en su campo por tipo, que es su fuente de
+verdad; el registro solo guarda el orden.
+
+```go
+type Document struct {
+    Layers   []Layer   `xml:"Layer,omitempty"`
+    Sections []Section `xml:"Section,omitempty"`
+    // ...
+    childOrder xmlutil.ChildOrder   // sin exportar: solo el parseo lo escribe
+}
+
+// Al parsear, cada rama anota su clase junto al append:
+d.Layers = append(d.Layers, layer)
+d.childOrder.Record(childLayer)
+
+// Al serializar:
+return d.childOrder.Replay(documentChildOrder, d.childrenByKind(encoder))
+```
+
+**Por qué esto y no un contenedor ordenado con interfaz:** la medición dice que en los
+nodos desordenados el multiconjunto de hijos **coincide siempre**. No se pierde ni se
+inventa ningún elemento, solo se reagrupan. Para eso basta recordar la secuencia, y así
+los campos por tipo se quedan donde están: los 158 accesos a los campos de `Document`
+no se tocaron.
+
+**Los tipos que sí necesitan un contenedor de verdad** son aquellos donde el orden *se
+construye*, no solo se lee y se devuelve: los elementos de página de un spread y los
+párrafos de una story, porque un constructor de documentos inserta en posiciones
+concretas.
+
+**`Replay` emite en dos pasadas**, y la segunda es la que hace el mecanismo seguro:
+primero el orden registrado, y después los hijos que el registro no menciona. Sin esa
+segunda pasada, agregar un hijo sin actualizar el registro lo haría **desaparecer** al
+serializar. Con ella, sale al final de su grupo. Efecto secundario útil: un modelo
+construido desde cero, sin registro, cae entero en la segunda pasada y se emite en el
+orden de los campos, que es el comportamiento anterior; no hay dos caminos que
+mantener.
+
+**Requisito al usarlo:** la lista de orden de campos tiene que nombrar **todas** las
+clases de hijo que el tipo puede producir. Una clase ausente solo se emitiría si el
+registro la menciona, así que desaparecería en un modelo nuevo. Lo comprueba
+`testutil.AssertFieldOrderCovers`, con un test por tipo.
+
+**Aplicado a:** `document.Document`, `resources.StylesFile`, `resources.GraphicFile`.
+
+**Implementación:** `internal/xmlutil/childorder.go`
+
 ---
 
 ## Estrategia de Pruebas
 
 ### Cobertura de Pruebas
 
-**30+ funciones de prueba que cubren:**
+**Categorías de prueba:**
 
 1. **Pruebas de Parseo** - Verifican la población de structs
 2. **Pruebas de Roundtrip** - Igualdad Parse → Marshal → Parse
-3. **Pruebas de Golden Files** - Preservación byte a byte del ZIP
+3. **Pruebas de Golden Files** - Comparan la salida contra un archivo de referencia versionado
 4. **Pruebas de Estructura XML** - Comparación del árbol XML
 5. **Pruebas por Elemento** - Validación de cada tipo de elemento
+6. **Arnés de Fidelidad** - Mide, por categoría, cuánta información se pierde en el ciclo sobre cinco documentos reales de InDesign
+
+> **Corrección de una afirmación anterior de este documento.** Aquí se describían las
+> pruebas de golden files como «preservación byte a byte del ZIP». No es lo que hacen
+> ni lo que pueden hacer: reescribir un IDML nunca produce un ZIP idéntico, porque
+> cambian las marcas de tiempo de las entradas y el orden de los atributos. Lo que se
+> compara es la **equivalencia estructural** del XML. La comparación byte a byte solo
+> aplica a los archivos que el paquete copia sin parsear.
 
 ### Datos de Prueba
 
 **testdata/ contiene:**
-- `plain.idml` - IDML válido mínimo
+
+*Corpus de fidelidad* (los cinco documentos que recorre el arnés):
+- `documento_referencia/` - Página de periódico real, versionada **descomprimida** (43 XML más `mimetype`). Es el documento que define el alcance del proyecto
+- `archivo_evidencia_imagenes.idml` - Única fuente de verdad del formato de imagen embebida: dos imágenes embebidas y una enlazada de control en un mismo spread
+- `plain.idml` - IDML válido mínimo. Es también el **oráculo del conjunto mínimo de archivos**: 13 entradas, 1 página, 1 marco de texto
 - `example.idml` - IDML complejo del mundo real
-- `designmap.xml` - XML de manifiesto completo
-- `designmap_minimal.xml` - Manifiesto mínimo
-- Archivos XML individuales para pruebas específicas
+- `tripple.idml` - Tres spreads
+
+*Otros:*
+- `designmap.xml`, `designmap_minimal.xml`, `Spread_u210.xml`, `story_u1d8.xml` - Archivos XML individuales para pruebas específicas
+- `Snippet_*.idms` - Cinco snippets IDMS
+
+Ver **[`docs/FIDELIDAD.md`](docs/FIDELIDAD.md)** para la línea base medida y las
+variables de entorno que permiten apuntar el arnés a otra copia del corpus.
 
 ### Ejecutar Pruebas
 
@@ -397,21 +515,37 @@ go test -cover ./pkg/idml/
 
 ### Pruebas con Golden Files
 
-Los golden files garantizan roundtrips byte a byte:
+Un golden file es una salida de referencia versionada. El test genera la salida y la
+compara contra el archivo guardado:
 
-```go
-func TestGoldenRoundtrip(t *testing.T) {
-    // Leer IDML original
-    original := readIDML("plain.idml")
-    
-    // Parsear y reescribir
-    pkg, _ := idml.OpenIDML("plain.idml")
-    idml.WriteIDML(pkg, "output.idml")
-    
-    // Comparar byte a byte
-    assertIdentical(t, original, output)
-}
+```bash
+# Actualizar los golden files cuando el cambio de salida es intencionado
+go test ./pkg/idms/ -run TestGoldenMarshal -update
 ```
+
+Regenerar un golden file cambia una expectativa versionada, así que exige justificarlo.
+El criterio que se ha usado: **comparar la salida nueva contra el documento de
+entrada**, no contra el golden anterior. Si la salida nueva coincide con la entrada y
+la del golden no, el golden estaba fijando un defecto. Fue exactamente el caso de los
+dos fixtures de `pkg/idms/testdata/golden/`, que fijaban la salida con los hijos del
+elemento `Document` reordenados.
+
+### El Arnés de Fidelidad
+
+`pkg/idml/golden_test.go` aplica a cada XML del corpus el ciclo **parseo →
+serialización → comparación estructural** y clasifica cada diferencia en una categoría
+con nombre, contable una por una.
+
+Las diferencias **se registran, no hacen fallar el test**. Hoy son la medición que las
+tareas de modelo tienen que llevar a cero; convertirlas en fallo es lo último que se
+hace, cuando la cifra ya sea cero.
+
+```bash
+IDMLLIB_MAX_DIFFS=0 go test ./pkg/idml/ -run TestGoldenRoundtrip_ExampleIDML -v -count=1 2>&1 | grep 'resumen \['
+```
+
+Detalle completo, línea base y variables de entorno en
+**[`docs/FIDELIDAD.md`](docs/FIDELIDAD.md)**.
 
 ---
 

@@ -16,19 +16,27 @@
 
 ## Estado
 
-✅ **Listo para producción** - Parseo completo, API de modificación y exportación IDMS
+⚠️ **Funcional, con pérdida de fidelidad medida** - Parseo completo, API de modificación y exportación IDMS, pero el ciclo de lectura y escritura **descarta atributos que la librería todavía no modela**.
+
+Cuánto: **13.995 atributos** sobre un corpus de cinco documentos de InDesign. Las cifras, cómo reproducirlas y los defectos conocidos están en **[`docs/FIDELIDAD.md`](docs/FIDELIDAD.md)**.
+
+Qué implica en la práctica: abrir un IDML y volver a guardarlo produce un documento válido y abrible, pero pierde información de InDesign que la librería no entiende. Si el caso de uso es **leer y analizar**, no afecta. Si es **abrir, modificar y guardar**, sí.
+
+Lo que **no** ocurre, también medido: no se corrompe ningún valor, no se pierde ni se duplica ningún elemento, y no falla ningún parseo.
 
 ### Capacidades actuales
 
 - ✅ Leer archivos IDML (manejo de archivos ZIP)
 - ✅ Parsear `designmap.xml` con estructura completa del documento
 - ✅ Parsear Stories, Spreads y Resources (Styles, Fonts, Graphics)
-- ✅ Marshal de todos los tipos a XML con roundtrip perfecto
+- ⚠️ Marshal de todos los tipos a XML — **los atributos no modelados se descartan** (ver [`docs/FIDELIDAD.md`](docs/FIDELIDAD.md))
 - ✅ API de modificación de contenido (agregar/actualizar/eliminar stories y resources)
 - ✅ Seguimiento de dependencias y gestión de recursos
 - ✅ Selection API para acceso programático a elementos
 - ✅ Funcionalidad de exportación de IDMS snippets
+- ✅ Crear documentos desde cero con `NewFromTemplate()` — **verificado abriendo la salida en Adobe InDesign y en Affinity Publisher**
 - ✅ Arquitectura domain-driven para mantenibilidad
+- ✅ Arnés de fidelidad que mide la pérdida por categoría sobre cinco documentos reales
 
 ## Descripción general
 
@@ -333,6 +341,32 @@ go test ./pkg/idml -v
 # Update golden files when intentionally changing output
 UPDATE_GOLDEN=1 go test ./pkg/idml
 ```
+
+> **Cuidado con la caché de tests de Go.** `go test` reutiliza el resultado de una
+> ejecución anterior si nada cambió, y muestra `(cached)`. Eso ha ocultado un test en
+> rojo en este repositorio. Para una verificación de verdad, `go clean -testcache`
+> antes, o `-count=1` en el comando.
+
+#### Arnés de fidelidad
+
+Mide cuánta información sobrevive al ciclo de lectura y escritura, sobre cinco
+documentos reales de InDesign. Es el marcador de progreso del trabajo de fidelidad.
+
+```bash
+# Resumen por documento y total agregado
+go test ./pkg/idml/ -run TestGoldenRoundtrip_ExampleIDML -v -count=1 2>&1 | grep 'resumen \['
+
+# Cifras de referencia: sin el tope de 100 diferencias por archivo
+IDMLLIB_MAX_DIFFS=0 go test ./pkg/idml/ -run TestGoldenRoundtrip_ExampleIDML -v -count=1 2>&1 | grep 'resumen \['
+
+# Medir contra un IDML propio (la ruta debe ser ABSOLUTA)
+IDMLLIB_MAX_DIFFS=0 IDMLLIB_IMAGES_FIXTURE="/ruta/absoluta/a/tu.idml" \
+  go test ./pkg/idml/ -run 'TestGoldenRoundtrip_ExampleIDML/archivo_evidencia_imagenes' -v -count=1
+```
+
+Las diferencias se registran, no hacen fallar el test: hoy son la medición que hay que
+llevar a cero. Detalle completo, variables de entorno y línea base en
+**[`docs/FIDELIDAD.md`](docs/FIDELIDAD.md)**.
 
 #### Patrones de limpieza en tests
 

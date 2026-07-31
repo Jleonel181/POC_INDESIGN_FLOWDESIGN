@@ -14,7 +14,7 @@ type Rectangle struct {
 	// Contenido y visualización
 	ContentType             string `xml:"ContentType,attr,omitempty"` // "TextType", "GraphicType", "Unassigned"
 	StoryTitle              string `xml:"StoryTitle,attr,omitempty"`
-	OverriddenPageItemProps string `xml:"OverriddenPageItemProps,attr,omitempty"`
+	OverriddenPageItemProps string `xml:"OverriddenPageItemProps,attr"`
 
 	// Restricciones de layout
 	HorizontalLayoutConstraints string `xml:"HorizontalLayoutConstraints,attr,omitempty"` // ej: "FlexibleDimension FixedDimension FlexibleDimension"
@@ -40,9 +40,9 @@ type Rectangle struct {
 	AppliedObjectStyle string `xml:"AppliedObjectStyle,attr,omitempty"`
 
 	// Seguimiento de versión (para documentos complejos)
-	ParentInterfaceChangeCount      string `xml:"ParentInterfaceChangeCount,attr,omitempty"`
-	TargetInterfaceChangeCount      string `xml:"TargetInterfaceChangeCount,attr,omitempty"`
-	LastUpdatedInterfaceChangeCount string `xml:"LastUpdatedInterfaceChangeCount,attr,omitempty"`
+	ParentInterfaceChangeCount      string `xml:"ParentInterfaceChangeCount,attr"`
+	TargetInterfaceChangeCount      string `xml:"TargetInterfaceChangeCount,attr"`
+	LastUpdatedInterfaceChangeCount string `xml:"LastUpdatedInterfaceChangeCount,attr"`
 
 	// Elementos hijo
 	Properties         *common.Properties  `xml:"Properties,omitempty"`
@@ -54,6 +54,17 @@ type Rectangle struct {
 	PDF                *PDF                `xml:"PDF,omitempty"`
 
 	// Comodín para otros elementos
+
+	// OtherAttrs recoge los atributos que este tipo todavía no declara, para que no
+	// se pierdan en el ciclo de lectura y escritura. La etiqueta `,any,attr` es de
+	// encoding/xml: al leer recoge solo los atributos que no encajaron en ningún otro
+	// campo, en su orden, y al escribir los emite después de los declarados.
+	//
+	// Límite conocido: encoding/xml corrompe los atributos con prefijo de namespace al
+	// re-emitirlos. No aplica aquí: se inspeccionaron los 590 elementos de estos tipos
+	// en los cinco documentos del corpus y ninguno lleva un atributo con prefijo. Si
+	// algún día aparece uno, este es el sitio que hay que mirar.
+	OtherAttrs    []xml.Attr             `xml:",any,attr"`
 	OtherElements []common.RawXMLElement `xml:",any"`
 }
 
@@ -77,7 +88,7 @@ type FrameContentBase struct {
 	Name string `xml:"Name,attr,omitempty"`
 
 	// Visualización y estilo
-	OverriddenPageItemProps string `xml:"OverriddenPageItemProps,attr,omitempty"`
+	OverriddenPageItemProps string `xml:"OverriddenPageItemProps,attr"`
 	LocalDisplaySetting     string `xml:"LocalDisplaySetting,attr,omitempty"`
 	ImageTypeName           string `xml:"ImageTypeName,attr,omitempty"` // ej: "$ID/Portable Network Graphics (PNG)" o "$ID/Adobe Portable Document Format (PDF)"
 	AppliedObjectStyle      string `xml:"AppliedObjectStyle,attr,omitempty"`
@@ -91,9 +102,9 @@ type FrameContentBase struct {
 	ItemTransform string `xml:"ItemTransform,attr,omitempty"`
 
 	// Seguimiento de versión
-	ParentInterfaceChangeCount      string `xml:"ParentInterfaceChangeCount,attr,omitempty"`
-	TargetInterfaceChangeCount      string `xml:"TargetInterfaceChangeCount,attr,omitempty"`
-	LastUpdatedInterfaceChangeCount string `xml:"LastUpdatedInterfaceChangeCount,attr,omitempty"`
+	ParentInterfaceChangeCount      string `xml:"ParentInterfaceChangeCount,attr"`
+	TargetInterfaceChangeCount      string `xml:"TargetInterfaceChangeCount,attr"`
+	LastUpdatedInterfaceChangeCount string `xml:"LastUpdatedInterfaceChangeCount,attr"`
 }
 
 // Image representa una imagen colocada dentro de un frame (típicamente un Rectangle).
@@ -122,6 +133,17 @@ type Image struct {
 	Link                 *Link                 `xml:"Link,omitempty"`
 
 	// Comodín para otros elementos
+
+	// OtherAttrs recoge los atributos que este tipo todavía no declara, para que no
+	// se pierdan en el ciclo de lectura y escritura. La etiqueta `,any,attr` es de
+	// encoding/xml: al leer recoge solo los atributos que no encajaron en ningún otro
+	// campo, en su orden, y al escribir los emite después de los declarados.
+	//
+	// Límite conocido: encoding/xml corrompe los atributos con prefijo de namespace al
+	// re-emitirlos. No aplica aquí: se inspeccionaron los 590 elementos de estos tipos
+	// en los cinco documentos del corpus y ninguno lleva un atributo con prefijo. Si
+	// algún día aparece uno, este es el sitio que hay que mirar.
+	OtherAttrs    []xml.Attr             `xml:",any,attr"`
 	OtherElements []common.RawXMLElement `xml:",any"`
 }
 
@@ -220,6 +242,17 @@ type PDF struct {
 	TextWrapPreference *TextWrapPreference `xml:"TextWrapPreference,omitempty"`
 
 	// Comodín para otros elementos
+
+	// OtherAttrs recoge los atributos que este tipo todavía no declara, para que no
+	// se pierdan en el ciclo de lectura y escritura. La etiqueta `,any,attr` es de
+	// encoding/xml: al leer recoge solo los atributos que no encajaron en ningún otro
+	// campo, en su orden, y al escribir los emite después de los declarados.
+	//
+	// Límite conocido: encoding/xml corrompe los atributos con prefijo de namespace al
+	// re-emitirlos. No aplica aquí: se inspeccionaron los 590 elementos de estos tipos
+	// en los cinco documentos del corpus y ninguno lleva un atributo con prefijo. Si
+	// algún día aparece uno, este es el sitio que hay que mirar.
+	OtherAttrs    []xml.Attr             `xml:",any,attr"`
 	OtherElements []common.RawXMLElement `xml:",any"`
 }
 

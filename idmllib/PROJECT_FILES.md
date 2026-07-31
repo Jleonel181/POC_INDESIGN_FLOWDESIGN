@@ -26,8 +26,10 @@ idmlbuild is a Go library for reading, writing, and manipulating Adobe InDesign 
 | `README.md` | Main project documentation with installation, usage examples, API reference, and development guide |
 | `ARCHITECTURE.md` | Detailed architecture documentation covering design patterns, data models, testing strategy, and development guidelines |
 | `CHANGELOG.md` | Version history and release notes |
-| `claude.md` | Project context and instructions for AI assistance |
 | `PROJECT_FILES.md` | This file - comprehensive documentation of all project files |
+| `CONTRIBUTING.md` | Contribution guidelines (placeholder) |
+| `LINTING.md` | Linting configuration and how to run it |
+| `ROADMAP_LECTURA.md` | Reading roadmap for the codebase |
 
 ### Build Artifacts
 
@@ -76,7 +78,9 @@ The coordinator package that orchestrates all domain packages and provides the p
 |------|---------|
 | `*_test.go` | Unit tests for each corresponding source file |
 | `*_properties_test.go` | Property-based tests for error handling, interface consistency, and roundtrip operations |
-| `golden_test.go` | Golden file tests for byte-perfect roundtrip verification |
+| `golden_test.go` | **Arnés de fidelidad**: aplica el ciclo parseo → serialización → comparación estructural a cada XML de los cinco documentos del corpus y reporta las diferencias por categoría. Las diferencias se registran, no hacen fallar el test. Ver [`docs/FIDELIDAD.md`](docs/FIDELIDAD.md) |
+| `golden_corpus_test.go` | Comprueba que cada elemento del corpus declara su constante y su variable de entorno, y que el total agregado es la suma de los desgloses |
+| `templates_minimal_test.go` | El paquete de `NewFromTemplate()` frente a `testdata/plain.idml`: conjunto de rutas, referencias `idPkg:` declaradas, cierre referencial de las cinco referencias cruzadas, y la sonda para verificación manual en InDesign |
 | `mock_test.go` | Mock implementations for testing |
 | `example_test.go` | Runnable documentation examples |
 
@@ -231,7 +235,9 @@ Consolidated XML parsing and marshaling utilities extracted from domain packages
 
 | File | Purpose |
 |------|---------|
-| `compare.go` | **CompareXML()** - structural XML comparison for testing (ignores whitespace, attribute order) |
+| `attrs.go` | **UnmarshalAttrs()**, **MarshalAttrs()** - reparto de los atributos de un elemento entre los campos declarados del struct y su campo comodín `OtherAttrs`. Recorre structs embebidos, respeta `omitempty`. Ver el patrón 5 de `ARCHITECTURE.md` |
+| `childorder.go` | **ChildOrder** - registra el orden documental de los hijos de un elemento al parsear y lo reproduce al serializar, sin convertir los campos por tipo en un contenedor. Ver el patrón 6 de `ARCHITECTURE.md` |
+| `compare.go` | **CompareXML()**, **CompareXMLWithDetails()** - comparación estructural de XML, con las categorías de diferencia (`atributo-ausente`, `orden-elementos-distinto`, ...). Empareja los hijos por nombre y ordinal, no por posición |
 | `compare_test.go` | Unit tests for XML comparison |
 | `compare_detailed_test.go` | Detailed comparison tests |
 | `format.go` | **MarshalIndentWithHeader()** - XML formatting utilities with consistent header generation |
@@ -242,6 +248,8 @@ Consolidated XML parsing and marshaling utilities extracted from domain packages
 **Test Files:**
 | File | Purpose |
 |------|---------|
+| `attrs_test.go` | Reparto entre campos y comodín, idempotencia, 128 atributos, errores de conversión |
+| `childorder_test.go` | Orden registrado, orden de campos sin registro, hijo agregado o eliminado tras parsear |
 | `*_test.go` | Unit tests for each corresponding source file |
 
 ### `/internal/testutil` - Test Helpers
@@ -251,6 +259,7 @@ Consolidated XML parsing and marshaling utilities extracted from domain packages
 | `testdata.go` | Test data loading utilities, path helpers |
 | `golden.go` | Golden file test utilities |
 | `comparison.go` | Test comparison helpers |
+| `childorder.go` | **AssertFieldOrderCovers()** - comprueba que el orden de campos de un tipo con `ChildOrder` nombra todas las clases de hijo que puede producir. Sin esta comprobación, olvidar una clase la haría desaparecer en silencio al serializar un modelo construido desde cero |
 
 ---
 
@@ -289,31 +298,37 @@ A Bubbletea-based TUI for exploring and manipulating IDML files.
 
 | File | Purpose |
 |------|---------|
-| `ADR-005-PACKAGE-RESTRUCTURING.md` | Architecture Decision Record for Epic 5 package refactoring |
+| `FIDELIDAD.md` | **Estado medido de la fidelidad de lectura y escritura**: la línea base sobre el corpus de cinco documentos, cómo reproducirla, los dos defectos conocidos y lo que sigue sin verificar |
 | `CLI_TUI_ARCHITECTURE.md` | Documentation for CLI/TUI architecture |
-| `EPIC-5-REFACTORING-ANALYSIS.md` | Analysis document for Epic 5 refactoring |
-| `EPIC2_COMPLETION.md` | Epic 2 completion report (Modification API) |
-| `EPIC2_PHASE4_COMPLETION.md` | Epic 2 Phase 4 completion details |
-| `EPIC2_RESOURCE_MANAGEMENT_SPEC.md` | Specification for resource management |
-| `EPIC5_COMPLETION.md` | Epic 5 completion report (Architecture refactoring) |
-| `PRESETS.md` | Documentation for document presets |
-| `TEMPLATES.md` | Documentation for document templates |
-| `TEMPLATE_SYSTEM_COMPLETE.md` | Template system completion report |
-| `TESTING.md` | Testing guidelines and strategies |
-| `TEST_REPORT.md` | Test coverage and results report |
-| `TODO_REVIEW.md` | Review of remaining TODO items |
+| `TEST_DEBUG.md` | Notas de depuración de tests |
+
+> Esta tabla listaba 13 archivos de los que solo existían 2: informes de cierre de
+> épicas y especificaciones que se borraron en algún momento sin actualizar el índice
+> (`ADR-005-PACKAGE-RESTRUCTURING.md`, `EPIC2_*`, `EPIC5_*`, `PRESETS.md`,
+> `TEMPLATES.md`, `TESTING.md`, `TEST_REPORT.md`, `TODO_REVIEW.md` y otros). Se ha
+> dejado solo lo que existe.
 
 ---
 
 ## `/testdata` - Test Fixtures
 
-### Sample IDML Files
+### Corpus de fidelidad
+
+Los cinco documentos que recorre el arnés de fidelidad. Ver
+[`docs/FIDELIDAD.md`](docs/FIDELIDAD.md) para la línea base medida y las variables de
+entorno que permiten sustituir cada ruta.
 
 | File | Purpose |
 |------|---------|
+| `documento_referencia/` | Página de periódico real, versionada **descomprimida** (43 XML más `mimetype`). Es el documento que define el alcance del proyecto. Se guarda en texto porque no existe un `.idml` original suyo, y así git almacena diferencias y se puede hacer `grep` |
+| `archivo_evidencia_imagenes.idml` | **Única fuente de verdad del formato de imagen embebida**: dos imágenes embebidas y una enlazada de control en un mismo spread |
+| `plain.idml` | Minimal valid IDML file for basic tests. Es también el **oráculo del conjunto mínimo de archivos**: 13 entradas, 1 página, 1 marco de texto, y `NewFromTemplate()` se compara contra él |
 | `example.idml` | Complex real-world IDML file for comprehensive testing |
-| `plain.idml` | Minimal valid IDML file for basic tests |
 | `tripple.idml` | Multi-spread IDML file for testing |
+
+Los dos primeros se agregaron con el arnés. Los tres últimos ya estaban aquí y **el
+arnés no los recorría**: incorporarlos destapó defectos que los dos primeros no
+contienen.
 
 ### Sample XML Files
 
@@ -357,8 +372,16 @@ A Bubbletea-based TUI for exploring and manipulating IDML files.
 
 | Directory/File | Purpose |
 |----------------|---------|
-| `README.md` | Template system documentation |
-| `minimal/` | Minimal IDML template files |
+| `README.md` | Documentación del sistema de plantillas, con los identificadores, el cierre referencial y el resultado de la verificación en InDesign |
+| `minimal/` | Los **13 archivos** de un documento IDML mínimo: 1 página con 1 marco de texto. Mismo conjunto de entradas que `testdata/plain.idml` |
+
+Los 13: `mimetype`, `designmap.xml`, `container.xml`, `metadata.xml`, `Graphic.xml`,
+`Fonts.xml`, `Styles.xml`, `Preferences.xml`, `Tags.xml`, `MasterSpread_ub4.xml`,
+`Spread_ud3.xml`, `BackingStory.xml`, `Story_ue1.xml`.
+
+Siete llevan valores calculados y son plantillas de `text/template`; el resto se copia
+tal cual. Todos se embeben con `go:embed`, así que **quitar uno rompe la compilación**,
+no solo los tests.
 
 ---
 
