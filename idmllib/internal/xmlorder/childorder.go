@@ -1,4 +1,4 @@
-package xmlutil
+package xmlorder
 
 // ChildOrder recuerda en qué orden aparecieron los hijos de un elemento al
 // parsearlo, para poder reproducir ese orden al volver a serializarlo.

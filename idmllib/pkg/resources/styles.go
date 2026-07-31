@@ -251,6 +251,11 @@ type ObjectStyleGroup struct {
 	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
 	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
 	OtherAttrs []xml.Attr `xml:",any,attr"`
+
+	// childOrder recuerda la secuencia de hijos leída, para reproducirla al emitir. Sin
+	// este registro los estilos salen todos antes de los grupos anidados, y en el corpus
+	// hay documentos con el grupo anidado delante. Ver objectstylegroup_xml.go.
+	childOrder xmlutil.ChildOrder
 }
 
 // ObjectStyle representa una definición de estilo de objeto.

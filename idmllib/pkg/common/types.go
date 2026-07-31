@@ -11,6 +11,8 @@ package common
 
 import (
 	"encoding/xml"
+
+	"github.com/dimelords/idmllib/v2/internal/xmlorder"
 )
 
 // RawXMLElement representa un elemento XML arbitrario que aún no fue modelado explícitamente.
@@ -45,6 +47,11 @@ type Properties struct {
 	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
 	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
 	OtherAttrs []xml.Attr `xml:",any,attr"`
+
+	// childOrder recuerda la secuencia de hijos leída, para reproducirla al emitir. Sin
+	// este registro, los dos campos tipados de arriba salen antes de todo lo que cayó en
+	// OtherElements, aunque en el XML de entrada vinieran después. Ver properties_xml.go.
+	childOrder xmlorder.ChildOrder
 }
 
 // Label representa un contenedor de pares clave-valor.

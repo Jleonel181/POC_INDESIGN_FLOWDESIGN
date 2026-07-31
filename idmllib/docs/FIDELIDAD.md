@@ -170,16 +170,16 @@ Con `IDMLLIB_MAX_DIFFS=0`. La columna «inicio» es la primera medición, cuando
 
 | Origen | Archivos | atributos: inicio → ahora | texto: inicio → ahora | orden: inicio → ahora |
 |---|---|---|---|---|
-| `documento_referencia` | 43 | 3868 → **0** | 2 → **0** | 35 → 34 |
+| `documento_referencia` | 43 | 3868 → **0** | 2 → **0** | 35 → 31 |
 | `archivo_evidencia_imagenes` | 11 | 949 → **0** | 0 | 0 |
 | `plain` | 12 | 730 → **0** | 0 | 0 |
-| `example` | 26 | 4031 → **0** | 0 | 10 → 9 |
-| `tripple` | 44 | 4417 → **0** | 0 | 26 → 23 |
-| **TOTAL** | **136** | **13.995 → 0** | **2 → 0** | **71 → 66** |
+| `example` | 26 | 4031 → **0** | 0 | 10 → 6 |
+| `tripple` | 44 | 4417 → **0** | 0 | 26 → 17 |
+| **TOTAL** | **136** | **13.995 → 0** | **2 → 0** | **71 → 54** |
 
-Archivos sin ninguna diferencia: **53 → 66** de 136. `archivo_evidencia_imagenes` y `plain` quedan completos.
+Archivos sin ninguna diferencia: **53 → 74** de 136. `archivo_evidencia_imagenes` y `plain` quedan completos.
 
-Los 5 desórdenes que bajaron son los de los elementos de página de los spreads, cerrados por la Tarea 7. El número de archivos limpios no subió con ellos porque esos mismos spreads arrastran además el desorden de `Page/Properties`, que es de la Tarea 2e.
+Los 17 desórdenes cerrados hasta ahora son 5 de los elementos de página de los spreads (Tarea 7) y 12 de los tipos compartidos `Properties` y `ObjectStyleGroup` (Tarea 2e).
 
 **Cero fallos** de parseo o serialización en los cinco documentos, antes y ahora.
 
@@ -221,7 +221,13 @@ En los spreads el registro va acompañado de `SpreadElement.Items`, la secuencia
 
 Para decidir la forma se midieron los **54** `Spread` y `MasterSpread` de los cinco documentos: en **0** casos aparece un hijo que no es elemento de página después de un elemento de página. La forma es siempre `[FlattenerPreference o Properties][Page…][elementos de página…]`, así que el prefijo no necesita contenedor.
 
-**Pendiente en:** las stories, y dos tipos más —`Properties`, que es un tipo compartido usado en 32 sitios, y `ObjectStyleGroup`— que se descubrieron al ampliar el corpus.
+Desde la Tarea 2e se aplica también a los dos tipos compartidos que se descubrieron al ampliar el corpus: **`common.Properties`**, usado en 32 sitios, y **`ObjectStyleGroup`**.
+
+Antes de escribirlo se evaluó un atajo mucho más barato: **reordenar los campos del struct** poniendo el comodín primero, dos líneas en lugar de dos serializadores. La medición lo descartó, y merece la pena saberlo porque es tentador. Sobre los 2224 elementos `<Properties>` del corpus, 10 traen un hijo tipado **después** de los del comodín y **5 lo traen antes**, con la forma `Label, AppliedMathMLSwatch`. Poner el comodín primero arreglaría 10 y **rompería 5**. En `ObjectStyleGroup` pasa lo mismo: 2 casos con el grupo anidado delante y 2 con el estilo delante. **Ninguna disposición fija de los campos sirve**, hace falta recordar el orden de cada elemento. Hay un test por disposición para que el atajo no se reintente.
+
+Ese cambio obligó a mover el registro de orden. `pkg/common` lo necesitaba, pero `internal/xmlutil` importa `pkg/common` para sus helpers de error, así que había un ciclo. `childorder.go` —que no importa nada fuera de la biblioteca estándar— vive ahora en **`internal/xmlorder`**, y `xmlutil` conserva dos alias de tipo para que las 24 referencias existentes no cambiaran.
+
+**Pendiente en:** las stories, en sus dos niveles, `Story` y `ParagraphStyleRange`.
 
 Los 71 desórdenes que quedan, por elemento padre. Medido con `IDMLLIB_MAX_DIFFS=0`; la receta para reproducir esta tabla está más arriba, en «Recetas de medición»:
 
@@ -229,15 +235,17 @@ Los 71 desórdenes que quedan, por elemento padre. Medido con `IDMLLIB_MAX_DIFFS
 |---|---|---|---|
 | `root/Story` | 30 | `MetadataPacketPreference` se emite al final | Tarea 10, criterio 4 lo dice con esta cifra |
 | `root/Story/ParagraphStyleRange` | 23 | `Change` entre dos `CharacterStyleRange` se va al final | **hueco**, ver abajo |
-| `root/Spread/Page/Properties` | 8 | `Label` se adelanta a lo que cae en el comodín | Tarea 2e |
-| `root/Section/Properties` | 2 | igual que `Page/Properties` | Tarea 2e |
-| `root/RootObjectStyleGroup` | 2 | los estilos se adelantan a los grupos anidados | Tarea 2e |
 | `root/Spread/GraphicLine` | 1 | `ObjectExportOption` y `TextWrapPreference` se intercambian | **hueco**, ver abajo |
 | ~~`root/Spread`~~ | ~~5~~ → **0** | los elementos de página, reagrupados por tipo | **cerrado por la Tarea 7** |
+| ~~`root/Spread/Page/Properties`~~ | ~~8~~ → **0** | `Label` se adelantaba a lo del comodín | **cerrado por la Tarea 2e** |
+| ~~`root/Section/Properties`~~ | ~~2~~ → **0** | igual que `Page/Properties` | **cerrado por la Tarea 2e** |
+| ~~`root/RootObjectStyleGroup`~~ | ~~2~~ → **0** | los estilos se adelantaban a los grupos anidados | **cerrado por la Tarea 2e** |
 
-Tres lecturas de esta tabla.
+Dos lecturas de esta tabla.
 
-**53 de los 66 que quedan están en las stories.** La Tarea 10 y el hueco de `ParagraphStyleRange` son ahora el grueso de lo que falta. La fila de los spreads ya está cerrada: la Tarea 7 dio a `SpreadElement` lectura y escritura propias, con `Items` guardando la secuencia de elementos de página y `xmlutil.ChildOrder` reproduciéndola al emitir.
+**53 de las 54 que quedan están en las stories.** La Tarea 10 y el hueco de `ParagraphStyleRange` son prácticamente todo lo que falta. Los spreads los cerró la Tarea 7 y los tipos compartidos la 2e.
+
+**La fila que queda fuera de las stories no tiene dueño.** El desorden de `GraphicLine` es el de los hijos de un **elemento de página**: las Tareas 13 y 14 nombran `ObjectExportOption` y `TextWrapPreference` pero para **añadirlos cuando faltan**, no para ordenarlos, y aquí ya están los dos, solo intercambiados. Está anotado en la Tarea 10. El candidato natural es un registro de orden en `PageItemBase`, que es donde se declaran esos campos.
 
 **Dos filas no las cubre ninguna tarea del plan.** Los 23 de `ParagraphStyleRange` son el mismo patrón y el mismo archivo que la Tarea 10, pero un nivel más abajo: la Tarea 10 da contenedor ordenado a `StoryElement`, y esto lo necesita `ParagraphStyleRange` para intercalar `Change` entre los `CharacterStyleRange`. Está anotado como criterio adicional de la Tarea 10 en lugar de tarea nueva, porque es el mismo archivo y el mismo patrón. El de `GraphicLine` es el orden de los hijos de un elemento de página, que tampoco tiene dueño: las Tareas 13 y 14 hablan de `ObjectExportOption` y `TextWrapPreference` pero para **añadirlos cuando faltan**, no para ordenarlos, y aquí ya están los dos, solo intercambiados.
 
