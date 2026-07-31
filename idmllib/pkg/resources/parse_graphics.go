@@ -2,6 +2,8 @@ package resources
 
 import (
 	"encoding/xml"
+	"errors"
+	"io"
 
 	"github.com/dimelords/idmllib/v2/internal/xmlutil"
 	"github.com/dimelords/idmllib/v2/pkg/common"
@@ -31,6 +33,31 @@ func MarshalGraphicFile(graphic *GraphicFile) ([]byte, error) {
 	return xmlutil.MarshalIndentWithHeader(graphic, "", "\t")
 }
 
+// Clases de hijo de <idPkg:Graphic>. Coinciden con el nombre de la etiqueta, salvo
+// la de los elementos sin modelar, que van todos al mismo campo.
+const (
+	graphicChildColor             = "Color"
+	graphicChildInk               = "Ink"
+	graphicChildGradient          = "Gradient"
+	graphicChildSwatch            = "Swatch"
+	graphicChildPastedSmoothShade = "PastedSmoothShade"
+	graphicChildStrokeStyle       = "StrokeStyle"
+	graphicChildOther             = "OtherElement"
+)
+
+// graphicChildOrder es el orden en que están declarados los campos del struct, que
+// es el que se usa para los hijos que el registro de orden no menciona. Tiene que
+// nombrar todas las clases de arriba; lo comprueba un test.
+var graphicChildOrder = []string{
+	graphicChildColor,
+	graphicChildInk,
+	graphicChildGradient,
+	graphicChildSwatch,
+	graphicChildPastedSmoothShade,
+	graphicChildStrokeStyle,
+	graphicChildOther,
+}
+
 // UnmarshalXML implementa la deserialización XML personalizada para GraphicFile.
 func (g *GraphicFile) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	// Verificar que el decoder no sea nil
@@ -51,31 +78,88 @@ func (g *GraphicFile) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error
 		}
 	}
 
-	// Definir un struct temporal para deserializar el contenido interno
-	type graphicContent struct {
-		Colors             []Color                `xml:"Color,omitempty"`
-		Inks               []Ink                  `xml:"Ink,omitempty"`
-		Gradients          []Gradient             `xml:"Gradient,omitempty"`
-		Swatches           []Swatch               `xml:"Swatch,omitempty"`
-		PastedSmoothShades []PastedSmoothShade    `xml:"PastedSmoothShade,omitempty"`
-		StrokeStyles       []StrokeStyle          `xml:"StrokeStyle,omitempty"`
-		OtherElements      []common.RawXMLElement `xml:",any"`
+	// Los hijos se recorren de uno en uno, y no con un struct temporal como antes,
+	// porque hay que registrar en qué orden vienen: encoding/xml los reparte por
+	// campos y pierde la secuencia.
+	for {
+		token, err := d.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return common.WrapError("resources", "unmarshal graphic content", err)
+		}
+
+		switch elem := token.(type) {
+		case xml.StartElement:
+			if err := g.unmarshalChild(d, elem); err != nil {
+				return err
+			}
+		case xml.EndElement:
+			return nil
+		}
 	}
 
-	var content graphicContent
-	if err := d.DecodeElement(&content, &start); err != nil {
-		return common.WrapError("resources", "unmarshal graphic content", err)
+	return nil
+}
+
+// unmarshalChild decodifica un hijo de <idPkg:Graphic> en su campo y anota su clase
+// en el registro de orden.
+func (g *GraphicFile) unmarshalChild(d *xml.Decoder, start xml.StartElement) error {
+	switch start.Name.Local {
+	case graphicChildColor:
+		var color Color
+		if err := d.DecodeElement(&color, &start); err != nil {
+			return common.WrapError("resources", "unmarshal graphic content", err)
+		}
+		g.Colors = append(g.Colors, color)
+
+	case graphicChildInk:
+		var ink Ink
+		if err := d.DecodeElement(&ink, &start); err != nil {
+			return common.WrapError("resources", "unmarshal graphic content", err)
+		}
+		g.Inks = append(g.Inks, ink)
+
+	case graphicChildGradient:
+		var gradient Gradient
+		if err := d.DecodeElement(&gradient, &start); err != nil {
+			return common.WrapError("resources", "unmarshal graphic content", err)
+		}
+		g.Gradients = append(g.Gradients, gradient)
+
+	case graphicChildSwatch:
+		var swatch Swatch
+		if err := d.DecodeElement(&swatch, &start); err != nil {
+			return common.WrapError("resources", "unmarshal graphic content", err)
+		}
+		g.Swatches = append(g.Swatches, swatch)
+
+	case graphicChildPastedSmoothShade:
+		var shade PastedSmoothShade
+		if err := d.DecodeElement(&shade, &start); err != nil {
+			return common.WrapError("resources", "unmarshal graphic content", err)
+		}
+		g.PastedSmoothShades = append(g.PastedSmoothShades, shade)
+
+	case graphicChildStrokeStyle:
+		var style StrokeStyle
+		if err := d.DecodeElement(&style, &start); err != nil {
+			return common.WrapError("resources", "unmarshal graphic content", err)
+		}
+		g.StrokeStyles = append(g.StrokeStyles, style)
+
+	default:
+		var raw common.RawXMLElement
+		if err := d.DecodeElement(&raw, &start); err != nil {
+			return common.WrapErrorWithPath("resources", "unmarshal graphic content", start.Name.Local, err)
+		}
+		g.OtherElements = append(g.OtherElements, raw)
+		g.childOrder.Record(graphicChildOther)
+		return nil
 	}
 
-	// Copiar el contenido parseado al GraphicFile
-	g.Colors = content.Colors
-	g.Inks = content.Inks
-	g.Gradients = content.Gradients
-	g.Swatches = content.Swatches
-	g.PastedSmoothShades = content.PastedSmoothShades
-	g.StrokeStyles = content.StrokeStyles
-	g.OtherElements = content.OtherElements
-
+	g.childOrder.Record(start.Name.Local)
 	return nil
 }
 
@@ -95,48 +179,10 @@ func (g *GraphicFile) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 
-	// Codificar todos los elementos hijo
-	for _, color := range g.Colors {
-		if err := e.EncodeElement(&color, xml.StartElement{Name: xml.Name{Local: "Color"}}); err != nil {
-			return err
-		}
-	}
-
-	for _, ink := range g.Inks {
-		if err := e.EncodeElement(&ink, xml.StartElement{Name: xml.Name{Local: "Ink"}}); err != nil {
-			return err
-		}
-	}
-
-	for _, gradient := range g.Gradients {
-		if err := e.EncodeElement(&gradient, xml.StartElement{Name: xml.Name{Local: "Gradient"}}); err != nil {
-			return err
-		}
-	}
-
-	for _, swatch := range g.Swatches {
-		if err := e.EncodeElement(&swatch, xml.StartElement{Name: xml.Name{Local: "Swatch"}}); err != nil {
-			return err
-		}
-	}
-
-	for _, shade := range g.PastedSmoothShades {
-		if err := e.EncodeElement(&shade, xml.StartElement{Name: xml.Name{Local: "PastedSmoothShade"}}); err != nil {
-			return err
-		}
-	}
-
-	for _, style := range g.StrokeStyles {
-		if err := e.EncodeElement(&style, xml.StartElement{Name: xml.Name{Local: "StrokeStyle"}}); err != nil {
-			return err
-		}
-	}
-
-	// Codificar los demás elementos
-	for _, elem := range g.OtherElements {
-		if err := e.EncodeElement(&elem, xml.StartElement{Name: elem.XMLName}); err != nil {
-			return err
-		}
+	// Emitir los hijos en el orden en que venían al parsear, o en el orden de los
+	// campos si el GraphicFile se construyó desde cero.
+	if err := g.childOrder.Replay(graphicChildOrder, g.childrenByKind(e)); err != nil {
+		return err
 	}
 
 	// Cerrar el elemento contenedor
@@ -145,4 +191,45 @@ func (g *GraphicFile) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	}
 
 	return nil
+}
+
+// childrenByKind agrupa los hijos que el archivo tiene ahora, por clase y en el
+// orden de su campo, cada uno con la función que lo emite.
+func (g *GraphicFile) childrenByKind(e *xml.Encoder) map[string][]xmlutil.ChildEmitter {
+	children := make(map[string][]xmlutil.ChildEmitter, len(graphicChildOrder))
+
+	named := func(kind string, child any) xmlutil.ChildEmitter {
+		return func() error {
+			return e.EncodeElement(child, xml.StartElement{Name: xml.Name{Local: kind}})
+		}
+	}
+
+	for i := range g.Colors {
+		children[graphicChildColor] = append(children[graphicChildColor], named(graphicChildColor, &g.Colors[i]))
+	}
+	for i := range g.Inks {
+		children[graphicChildInk] = append(children[graphicChildInk], named(graphicChildInk, &g.Inks[i]))
+	}
+	for i := range g.Gradients {
+		children[graphicChildGradient] = append(children[graphicChildGradient], named(graphicChildGradient, &g.Gradients[i]))
+	}
+	for i := range g.Swatches {
+		children[graphicChildSwatch] = append(children[graphicChildSwatch], named(graphicChildSwatch, &g.Swatches[i]))
+	}
+	for i := range g.PastedSmoothShades {
+		children[graphicChildPastedSmoothShade] = append(children[graphicChildPastedSmoothShade], named(graphicChildPastedSmoothShade, &g.PastedSmoothShades[i]))
+	}
+	for i := range g.StrokeStyles {
+		children[graphicChildStrokeStyle] = append(children[graphicChildStrokeStyle], named(graphicChildStrokeStyle, &g.StrokeStyles[i]))
+	}
+
+	// Los elementos sin modelar se emiten con el nombre que traían.
+	for i := range g.OtherElements {
+		elem := &g.OtherElements[i]
+		children[graphicChildOther] = append(children[graphicChildOther], func() error {
+			return e.EncodeElement(elem, xml.StartElement{Name: elem.XMLName})
+		})
+	}
+
+	return children
 }

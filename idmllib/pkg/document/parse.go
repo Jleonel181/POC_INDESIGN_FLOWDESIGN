@@ -132,7 +132,11 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 		return d.unmarshalResourceRef(decoder, start)
 	}
 
-	// Manejar elementos hijo regulares
+	// Manejar elementos hijo regulares.
+	//
+	// Cada rama registra su clase en d.childOrder justo donde guarda el hijo en su
+	// campo. Tenerlo pegado al append es lo que evita que las dos cosas se
+	// desincronicen al agregar un elemento nuevo al modelo.
 	switch start.Name.Local {
 	case "Properties":
 		var props common.Properties
@@ -140,6 +144,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.Properties = &props
+		d.childOrder.Record(childProperties)
 
 	case "Language":
 		var lang Language
@@ -147,6 +152,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.Languages = append(d.Languages, lang)
+		d.childOrder.Record(childLanguage)
 
 	case "Layer":
 		var layer Layer
@@ -154,6 +160,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.Layers = append(d.Layers, layer)
+		d.childOrder.Record(childLayer)
 
 	case "NumberingList":
 		var nl NumberingList
@@ -161,6 +168,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.NumberingLists = append(d.NumberingLists, nl)
+		d.childOrder.Record(childNumberingList)
 
 	case "NamedGrid":
 		var ng NamedGrid
@@ -168,6 +176,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.NamedGrids = append(d.NamedGrids, ng)
+		d.childOrder.Record(childNamedGrid)
 
 	case "Section":
 		var section Section
@@ -175,6 +184,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.Sections = append(d.Sections, section)
+		d.childOrder.Record(childSection)
 
 	case "DocumentUser":
 		var user DocumentUser
@@ -182,6 +192,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.DocumentUsers = append(d.DocumentUsers, user)
+		d.childOrder.Record(childDocumentUser)
 
 	case "ColorGroup":
 		var cg ColorGroup
@@ -189,6 +200,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.ColorGroups = append(d.ColorGroups, cg)
+		d.childOrder.Record(childColorGroup)
 
 	case "ABullet":
 		var bullet ABullet
@@ -196,6 +208,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.ABullets = append(d.ABullets, bullet)
+		d.childOrder.Record(childABullet)
 
 	case "Assignment":
 		var assignment Assignment
@@ -203,6 +216,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.Assignments = append(d.Assignments, assignment)
+		d.childOrder.Record(childAssignment)
 
 	case "TextVariable":
 		var tv TextVariable
@@ -210,6 +224,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.TextVariables = append(d.TextVariables, tv)
+		d.childOrder.Record(childTextVariable)
 
 	// Recursos inline para IDMS (usados en snippets en lugar de archivos separados)
 	case "Color":
@@ -218,6 +233,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.Colors = append(d.Colors, color)
+		d.childOrder.Record(childColor)
 
 	case "Swatch":
 		var swatch resources.Swatch
@@ -225,6 +241,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.Swatches = append(d.Swatches, swatch)
+		d.childOrder.Record(childSwatch)
 
 	case "StrokeStyle":
 		var strokeStyle resources.StrokeStyle
@@ -232,6 +249,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.StrokeStyles = append(d.StrokeStyles, strokeStyle)
+		d.childOrder.Record(childStrokeStyle)
 
 	case "RootCharacterStyleGroup":
 		var group resources.CharacterStyleGroup
@@ -239,6 +257,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.RootCharacterStyleGroup = &group
+		d.childOrder.Record(childRootCharStyleGroup)
 
 	case "RootParagraphStyleGroup":
 		var group resources.ParagraphStyleGroup
@@ -246,6 +265,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.RootParagraphStyleGroup = &group
+		d.childOrder.Record(childRootParaStyleGroup)
 
 	case "RootObjectStyleGroup":
 		var group resources.ObjectStyleGroup
@@ -253,6 +273,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.RootObjectStyleGroup = &group
+		d.childOrder.Record(childRootObjStyleGroup)
 
 	case "TinDocumentDataObject":
 		var tin TinDocumentDataObject
@@ -260,6 +281,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.TinDocumentDataObject = &tin
+		d.childOrder.Record(childTinDocumentData)
 
 	case "TransparencyDefaultContainerObject":
 		var trans TransparencyDefaultContainerObject
@@ -267,6 +289,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.TransparencyDefaultContainerObject = &trans
+		d.childOrder.Record(childTransparencyDefault)
 
 	// Contenido inline para IDMS (spreads y stories)
 	case "Spread":
@@ -275,6 +298,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.InlineSpreads = append(d.InlineSpreads, spreadElem)
+		d.childOrder.Record(childInlineSpread)
 
 	case "Story":
 		var storyElem story.StoryElement
@@ -282,6 +306,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapError("document", "parse document", err)
 		}
 		d.InlineStories = append(d.InlineStories, storyElem)
+		d.childOrder.Record(childInlineStory)
 
 	default:
 		// Elemento desconocido - preservar como RawXMLElement
@@ -290,6 +315,7 @@ func (d *Document) unmarshalChildElement(decoder *xml.Decoder, start xml.StartEl
 			return common.WrapErrorWithPath("document", "parse", start.Name.Local, err)
 		}
 		d.OtherElements = append(d.OtherElements, raw)
+		d.childOrder.Record(childOther)
 	}
 
 	return nil
@@ -311,22 +337,31 @@ func (d *Document) unmarshalResourceRef(decoder *xml.Decoder, start xml.StartEle
 	switch start.Name.Local {
 	case "Graphic":
 		d.GraphicResource = &ref
+		d.childOrder.Record(childRefGraphic)
 	case "Fonts":
 		d.FontsResource = &ref
+		d.childOrder.Record(childRefFonts)
 	case "Styles":
 		d.StylesResource = &ref
+		d.childOrder.Record(childRefStyles)
 	case "Preferences":
 		d.PreferencesResource = &ref
+		d.childOrder.Record(childRefPreferences)
 	case "Tags":
 		d.TagsResource = &ref
+		d.childOrder.Record(childRefTags)
 	case "MasterSpread":
 		d.MasterSpreads = append(d.MasterSpreads, ref)
+		d.childOrder.Record(childRefMasterSpread)
 	case "Spread":
 		d.Spreads = append(d.Spreads, ref)
+		d.childOrder.Record(childRefSpread)
 	case "Story":
 		d.Stories = append(d.Stories, ref)
+		d.childOrder.Record(childRefStory)
 	case "BackingStory":
 		d.BackingStory = &ref
+		d.childOrder.Record(childRefBackingStory)
 	default:
 		// Referencia a recurso desconocida - se podría agregar a OtherElements si fuera necesario
 		return common.Errorf("document", "parse document", "", "unknown resource reference type: %s", start.Name.Local)
@@ -436,207 +471,85 @@ func (d Document) MarshalXML(encoder *xml.Encoder, start xml.StartElement) error
 	return encoder.Flush()
 }
 
-// marshalChildren serializa todos los elementos hijo en el orden correcto.
+// marshalChildren serializa los elementos hijo en el orden en que venían al
+// parsear, o en el orden de los campos del struct cuando no hay orden registrado.
 func (d Document) marshalChildren(encoder *xml.Encoder) error {
-	// 1. Properties
-	if d.Properties != nil {
-		if err := encoder.Encode(d.Properties); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	// 2. Idiomas
-	for _, lang := range d.Languages {
-		if err := encoder.Encode(lang); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	// 3. Referencias a recursos (namespace idPkg)
-	if err := d.marshalResourceRefs(encoder); err != nil {
-		return err
-	}
-
-	// 4. Capas
-	for _, layer := range d.Layers {
-		if err := encoder.Encode(layer); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	// 5. Listas de numeración
-	for _, nl := range d.NumberingLists {
-		if err := encoder.Encode(nl); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	// 6. Grillas con nombre
-	for _, ng := range d.NamedGrids {
-		if err := encoder.Encode(ng); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	// 7. Secciones
-	for _, section := range d.Sections {
-		if err := encoder.Encode(section); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	// 8. Usuarios del documento
-	for _, user := range d.DocumentUsers {
-		if err := encoder.Encode(user); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	// 9. Grupos de colores
-	for _, cg := range d.ColorGroups {
-		if err := encoder.Encode(cg); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	// 10. Viñetas
-	for _, bullet := range d.ABullets {
-		if err := encoder.Encode(bullet); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	// 11. Asignaciones
-	for _, assignment := range d.Assignments {
-		if err := encoder.Encode(assignment); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	// 12. Variables de texto
-	for _, tv := range d.TextVariables {
-		if err := encoder.Encode(tv); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	// 13. Contenido inline para IDMS (colores, muestras, estilos, spreads, stories)
-	// Se usan en archivos IDMS (snippets) en lugar de referencias a recursos
-	for _, color := range d.Colors {
-		if err := encoder.Encode(color); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-	for _, swatch := range d.Swatches {
-		if err := encoder.Encode(swatch); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-	for _, strokeStyle := range d.StrokeStyles {
-		if err := encoder.Encode(strokeStyle); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	// Serializar grupos de estilos raíz (los tags XML están definidos en los struct tags)
-	if d.RootCharacterStyleGroup != nil {
-		if err := encoder.Encode(d.RootCharacterStyleGroup); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-	if d.RootParagraphStyleGroup != nil {
-		if err := encoder.Encode(d.RootParagraphStyleGroup); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-	if d.RootObjectStyleGroup != nil {
-		if err := encoder.Encode(d.RootObjectStyleGroup); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	if d.TinDocumentDataObject != nil {
-		if err := encoder.Encode(d.TinDocumentDataObject); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-	if d.TransparencyDefaultContainerObject != nil {
-		if err := encoder.Encode(d.TransparencyDefaultContainerObject); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	for _, spread := range d.InlineSpreads {
-		if err := encoder.Encode(spread); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-	for _, story := range d.InlineStories {
-		if err := encoder.Encode(story); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	// 14. Elementos desconocidos restantes
-	for _, elem := range d.OtherElements {
-		if err := encoder.Encode(elem); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-
-	return nil
+	return d.childOrder.Replay(documentChildOrder, d.childrenByKind(encoder))
 }
 
-// marshalResourceRefs serializa todos los elementos de referencia a recursos.
-func (d Document) marshalResourceRefs(encoder *xml.Encoder) error {
-	// Referencias a recursos individuales
-	if d.GraphicResource != nil {
-		if err := encoder.Encode(d.GraphicResource); err != nil {
-			return common.WrapError("document", "marshal document", err)
+// childrenByKind agrupa los hijos que el documento tiene ahora, por clase y en el
+// orden de su campo, cada uno envuelto en la función que lo emite.
+//
+// Los emisores toman la dirección del elemento dentro de su campo y no una copia,
+// así que un hijo mutado a través de su campo se serializa con el valor nuevo. Se
+// construye una vez por serialización, con los campos ya en su estado final.
+func (d Document) childrenByKind(encoder *xml.Encoder) map[string][]xmlutil.ChildEmitter {
+	children := make(map[string][]xmlutil.ChildEmitter, len(documentChildOrder))
+
+	encode := func(child any) xmlutil.ChildEmitter {
+		return func() error {
+			if err := encoder.Encode(child); err != nil {
+				return common.WrapError("document", "marshal document", err)
+			}
+			return nil
 		}
 	}
-	if d.FontsResource != nil {
-		if err := encoder.Encode(d.FontsResource); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-	if d.StylesResource != nil {
-		if err := encoder.Encode(d.StylesResource); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-	if d.PreferencesResource != nil {
-		if err := encoder.Encode(d.PreferencesResource); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-	if d.TagsResource != nil {
-		if err := encoder.Encode(d.TagsResource); err != nil {
-			return common.WrapError("document", "marshal document", err)
+	one := func(kind string, child any, present bool) {
+		if present {
+			children[kind] = []xmlutil.ChildEmitter{encode(child)}
 		}
 	}
 
-	// Referencias a recursos múltiples
-	for _, ms := range d.MasterSpreads {
-		if err := encoder.Encode(ms); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-	for _, spread := range d.Spreads {
-		if err := encoder.Encode(spread); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-	for _, story := range d.Stories {
-		if err := encoder.Encode(story); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
-	if d.BackingStory != nil {
-		if err := encoder.Encode(d.BackingStory); err != nil {
-			return common.WrapError("document", "marshal document", err)
-		}
-	}
+	one(childProperties, d.Properties, d.Properties != nil)
+	children[childLanguage] = emitters(d.Languages, encode)
 
-	return nil
+	// Referencias a recursos del namespace idPkg
+	one(childRefGraphic, d.GraphicResource, d.GraphicResource != nil)
+	one(childRefFonts, d.FontsResource, d.FontsResource != nil)
+	one(childRefStyles, d.StylesResource, d.StylesResource != nil)
+	one(childRefPreferences, d.PreferencesResource, d.PreferencesResource != nil)
+	one(childRefTags, d.TagsResource, d.TagsResource != nil)
+	children[childRefMasterSpread] = emitters(d.MasterSpreads, encode)
+	children[childRefSpread] = emitters(d.Spreads, encode)
+	children[childRefStory] = emitters(d.Stories, encode)
+	one(childRefBackingStory, d.BackingStory, d.BackingStory != nil)
+
+	children[childLayer] = emitters(d.Layers, encode)
+	children[childNumberingList] = emitters(d.NumberingLists, encode)
+	children[childNamedGrid] = emitters(d.NamedGrids, encode)
+	children[childSection] = emitters(d.Sections, encode)
+	children[childDocumentUser] = emitters(d.DocumentUsers, encode)
+	children[childColorGroup] = emitters(d.ColorGroups, encode)
+	children[childABullet] = emitters(d.ABullets, encode)
+	children[childAssignment] = emitters(d.Assignments, encode)
+	children[childTextVariable] = emitters(d.TextVariables, encode)
+
+	// Contenido inline de un IDMS, que en IDML vive en archivos aparte
+	children[childColor] = emitters(d.Colors, encode)
+	children[childSwatch] = emitters(d.Swatches, encode)
+	children[childStrokeStyle] = emitters(d.StrokeStyles, encode)
+	one(childRootCharStyleGroup, d.RootCharacterStyleGroup, d.RootCharacterStyleGroup != nil)
+	one(childRootParaStyleGroup, d.RootParagraphStyleGroup, d.RootParagraphStyleGroup != nil)
+	one(childRootObjStyleGroup, d.RootObjectStyleGroup, d.RootObjectStyleGroup != nil)
+	one(childTinDocumentData, d.TinDocumentDataObject, d.TinDocumentDataObject != nil)
+	one(childTransparencyDefault, d.TransparencyDefaultContainerObject, d.TransparencyDefaultContainerObject != nil)
+	children[childInlineSpread] = emitters(d.InlineSpreads, encode)
+	children[childInlineStory] = emitters(d.InlineStories, encode)
+
+	children[childOther] = emitters(d.OtherElements, encode)
+
+	return children
+}
+
+// emitters construye un emisor por elemento del slice, tomando la dirección de
+// cada uno para no serializar copias.
+func emitters[T any](items []T, encode func(any) xmlutil.ChildEmitter) []xmlutil.ChildEmitter {
+	if len(items) == 0 {
+		return nil
+	}
+	out := make([]xmlutil.ChildEmitter, len(items))
+	for i := range items {
+		out[i] = encode(&items[i])
+	}
+	return out
 }

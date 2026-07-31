@@ -2,6 +2,8 @@ package resources
 
 import (
 	"encoding/xml"
+	"errors"
+	"io"
 
 	"github.com/dimelords/idmllib/v2/internal/xmlutil"
 	"github.com/dimelords/idmllib/v2/pkg/common"
@@ -31,6 +33,31 @@ func MarshalStylesFile(styles *StylesFile) ([]byte, error) {
 	return xmlutil.MarshalIndentWithHeader(styles, "", "\t")
 }
 
+// Clases de hijo de <idPkg:Styles>. Coinciden con el nombre de la etiqueta, salvo
+// la de los elementos sin modelar, que van todos al mismo campo.
+const (
+	styleChildRootCharacterGroup = "RootCharacterStyleGroup"
+	styleChildRootParagraphGroup = "RootParagraphStyleGroup"
+	styleChildRootCellGroup      = "RootCellStyleGroup"
+	styleChildRootTableGroup     = "RootTableStyleGroup"
+	styleChildRootObjectGroup    = "RootObjectStyleGroup"
+	styleChildTOCStyle           = "TOCStyle"
+	styleChildOther              = "OtherElement"
+)
+
+// stylesChildOrder es el orden en que están declarados los campos del struct, que
+// es el que se usa para los hijos que el registro de orden no menciona. Tiene que
+// nombrar todas las clases de arriba; lo comprueba un test.
+var stylesChildOrder = []string{
+	styleChildRootCharacterGroup,
+	styleChildRootParagraphGroup,
+	styleChildRootCellGroup,
+	styleChildRootTableGroup,
+	styleChildRootObjectGroup,
+	styleChildTOCStyle,
+	styleChildOther,
+}
+
 // UnmarshalXML implementa la deserialización XML personalizada para StylesFile.
 func (s *StylesFile) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	// Verificar que el decoder no sea nil
@@ -51,31 +78,88 @@ func (s *StylesFile) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error 
 		}
 	}
 
-	// Definir un struct temporal para deserializar el contenido interno
-	type stylesContent struct {
-		RootCharacterStyleGroup *CharacterStyleGroup   `xml:"RootCharacterStyleGroup,omitempty"`
-		RootParagraphStyleGroup *ParagraphStyleGroup   `xml:"RootParagraphStyleGroup,omitempty"`
-		RootCellStyleGroup      *CellStyleGroup        `xml:"RootCellStyleGroup,omitempty"`
-		RootTableStyleGroup     *TableStyleGroup       `xml:"RootTableStyleGroup,omitempty"`
-		RootObjectStyleGroup    *ObjectStyleGroup      `xml:"RootObjectStyleGroup,omitempty"`
-		TOCStyles               []TOCStyle             `xml:"TOCStyle,omitempty"`
-		OtherElements           []common.RawXMLElement `xml:",any"`
+	// Los hijos se recorren de uno en uno, y no con un struct temporal como antes,
+	// porque hay que registrar en qué orden vienen: encoding/xml los reparte por
+	// campos y pierde la secuencia.
+	for {
+		token, err := d.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return common.WrapError("resources", "unmarshal styles content", err)
+		}
+
+		switch elem := token.(type) {
+		case xml.StartElement:
+			if err := s.unmarshalChild(d, elem); err != nil {
+				return err
+			}
+		case xml.EndElement:
+			return nil
+		}
 	}
 
-	var content stylesContent
-	if err := d.DecodeElement(&content, &start); err != nil {
-		return common.WrapError("resources", "unmarshal styles content", err)
+	return nil
+}
+
+// unmarshalChild decodifica un hijo de <idPkg:Styles> en su campo y anota su clase
+// en el registro de orden.
+func (s *StylesFile) unmarshalChild(d *xml.Decoder, start xml.StartElement) error {
+	switch start.Name.Local {
+	case styleChildRootCharacterGroup:
+		var group CharacterStyleGroup
+		if err := d.DecodeElement(&group, &start); err != nil {
+			return common.WrapError("resources", "unmarshal styles content", err)
+		}
+		s.RootCharacterStyleGroup = &group
+
+	case styleChildRootParagraphGroup:
+		var group ParagraphStyleGroup
+		if err := d.DecodeElement(&group, &start); err != nil {
+			return common.WrapError("resources", "unmarshal styles content", err)
+		}
+		s.RootParagraphStyleGroup = &group
+
+	case styleChildRootCellGroup:
+		var group CellStyleGroup
+		if err := d.DecodeElement(&group, &start); err != nil {
+			return common.WrapError("resources", "unmarshal styles content", err)
+		}
+		s.RootCellStyleGroup = &group
+
+	case styleChildRootTableGroup:
+		var group TableStyleGroup
+		if err := d.DecodeElement(&group, &start); err != nil {
+			return common.WrapError("resources", "unmarshal styles content", err)
+		}
+		s.RootTableStyleGroup = &group
+
+	case styleChildRootObjectGroup:
+		var group ObjectStyleGroup
+		if err := d.DecodeElement(&group, &start); err != nil {
+			return common.WrapError("resources", "unmarshal styles content", err)
+		}
+		s.RootObjectStyleGroup = &group
+
+	case styleChildTOCStyle:
+		var toc TOCStyle
+		if err := d.DecodeElement(&toc, &start); err != nil {
+			return common.WrapError("resources", "unmarshal styles content", err)
+		}
+		s.TOCStyles = append(s.TOCStyles, toc)
+
+	default:
+		var raw common.RawXMLElement
+		if err := d.DecodeElement(&raw, &start); err != nil {
+			return common.WrapErrorWithPath("resources", "unmarshal styles content", start.Name.Local, err)
+		}
+		s.OtherElements = append(s.OtherElements, raw)
+		s.childOrder.Record(styleChildOther)
+		return nil
 	}
 
-	// Copiar el contenido parseado al StylesFile
-	s.RootCharacterStyleGroup = content.RootCharacterStyleGroup
-	s.RootParagraphStyleGroup = content.RootParagraphStyleGroup
-	s.RootCellStyleGroup = content.RootCellStyleGroup
-	s.RootTableStyleGroup = content.RootTableStyleGroup
-	s.RootObjectStyleGroup = content.RootObjectStyleGroup
-	s.TOCStyles = content.TOCStyles
-	s.OtherElements = content.OtherElements
-
+	s.childOrder.Record(start.Name.Local)
 	return nil
 }
 
@@ -95,49 +179,10 @@ func (s *StylesFile) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 
-	// Codificar todos los grupos de estilos
-	if s.RootCharacterStyleGroup != nil {
-		if err := e.EncodeElement(s.RootCharacterStyleGroup, xml.StartElement{Name: xml.Name{Local: "RootCharacterStyleGroup"}}); err != nil {
-			return err
-		}
-	}
-
-	if s.RootParagraphStyleGroup != nil {
-		if err := e.EncodeElement(s.RootParagraphStyleGroup, xml.StartElement{Name: xml.Name{Local: "RootParagraphStyleGroup"}}); err != nil {
-			return err
-		}
-	}
-
-	if s.RootCellStyleGroup != nil {
-		if err := e.EncodeElement(s.RootCellStyleGroup, xml.StartElement{Name: xml.Name{Local: "RootCellStyleGroup"}}); err != nil {
-			return err
-		}
-	}
-
-	if s.RootTableStyleGroup != nil {
-		if err := e.EncodeElement(s.RootTableStyleGroup, xml.StartElement{Name: xml.Name{Local: "RootTableStyleGroup"}}); err != nil {
-			return err
-		}
-	}
-
-	if s.RootObjectStyleGroup != nil {
-		if err := e.EncodeElement(s.RootObjectStyleGroup, xml.StartElement{Name: xml.Name{Local: "RootObjectStyleGroup"}}); err != nil {
-			return err
-		}
-	}
-
-	// Codificar los estilos de tabla de contenidos
-	for _, toc := range s.TOCStyles {
-		if err := e.EncodeElement(&toc, xml.StartElement{Name: xml.Name{Local: "TOCStyle"}}); err != nil {
-			return err
-		}
-	}
-
-	// Codificar los demás elementos
-	for _, elem := range s.OtherElements {
-		if err := e.EncodeElement(&elem, xml.StartElement{Name: elem.XMLName}); err != nil {
-			return err
-		}
+	// Emitir los hijos en el orden en que venían al parsear, o en el orden de los
+	// campos si el StylesFile se construyó desde cero.
+	if err := s.childOrder.Replay(stylesChildOrder, s.childrenByKind(e)); err != nil {
+		return err
 	}
 
 	// Cerrar el elemento contenedor
@@ -146,4 +191,41 @@ func (s *StylesFile) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	}
 
 	return nil
+}
+
+// childrenByKind agrupa los hijos que el archivo tiene ahora, por clase y en el
+// orden de su campo, cada uno con la función que lo emite.
+func (s *StylesFile) childrenByKind(e *xml.Encoder) map[string][]xmlutil.ChildEmitter {
+	children := make(map[string][]xmlutil.ChildEmitter, len(stylesChildOrder))
+
+	named := func(kind string, child any) xmlutil.ChildEmitter {
+		return func() error {
+			return e.EncodeElement(child, xml.StartElement{Name: xml.Name{Local: kind}})
+		}
+	}
+	one := func(kind string, child any, present bool) {
+		if present {
+			children[kind] = []xmlutil.ChildEmitter{named(kind, child)}
+		}
+	}
+
+	one(styleChildRootCharacterGroup, s.RootCharacterStyleGroup, s.RootCharacterStyleGroup != nil)
+	one(styleChildRootParagraphGroup, s.RootParagraphStyleGroup, s.RootParagraphStyleGroup != nil)
+	one(styleChildRootCellGroup, s.RootCellStyleGroup, s.RootCellStyleGroup != nil)
+	one(styleChildRootTableGroup, s.RootTableStyleGroup, s.RootTableStyleGroup != nil)
+	one(styleChildRootObjectGroup, s.RootObjectStyleGroup, s.RootObjectStyleGroup != nil)
+
+	for i := range s.TOCStyles {
+		children[styleChildTOCStyle] = append(children[styleChildTOCStyle], named(styleChildTOCStyle, &s.TOCStyles[i]))
+	}
+
+	// Los elementos sin modelar se emiten con el nombre que traían.
+	for i := range s.OtherElements {
+		elem := &s.OtherElements[i]
+		children[styleChildOther] = append(children[styleChildOther], func() error {
+			return e.EncodeElement(elem, xml.StartElement{Name: elem.XMLName})
+		})
+	}
+
+	return children
 }

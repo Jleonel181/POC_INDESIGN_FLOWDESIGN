@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"strconv"
 
+	"github.com/dimelords/idmllib/v2/internal/xmlutil"
 	"github.com/dimelords/idmllib/v2/pkg/common"
 )
 
@@ -37,6 +38,11 @@ type StylesFile struct {
 
 	// Captura todos los demás elementos
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// childOrder recuerda el orden en que venían los hijos de <idPkg:Styles>.
+	// InDesign coloca TOCStyle entre los grupos de estilos, en tercera posición, y el
+	// orden de los campos de arriba lo empuja a la sexta. Ver xmlutil.ChildOrder.
+	childOrder xmlutil.ChildOrder
 }
 
 // CharacterStyleGroup representa un grupo de estilos de carácter.

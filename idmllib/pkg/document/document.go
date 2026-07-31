@@ -11,6 +11,7 @@ package document
 import (
 	"encoding/xml"
 
+	"github.com/dimelords/idmllib/v2/internal/xmlutil"
 	"github.com/dimelords/idmllib/v2/pkg/common"
 	"github.com/dimelords/idmllib/v2/pkg/resources"
 	"github.com/dimelords/idmllib/v2/pkg/spread"
@@ -137,6 +138,98 @@ type Document struct {
 	// A medida que se agrega soporte explícito para más elementos, se mueven de OtherElements
 	// a campos dedicados arriba.
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// childOrder recuerda en qué orden venían los hijos en el XML de entrada.
+	//
+	// Hace falta porque los hijos de <Document> viven repartidos en los campos por
+	// tipo de arriba, y emitirlos en el orden de esos campos reagrupa el documento.
+	// InDesign intercala Layer, Section, TextVariable, ABullet y las referencias
+	// idPkg sin agruparlos por tipo: en el designmap del Documento_Referencia son 118
+	// hijos, y sin este registro salen todos reordenados.
+	//
+	// No es un contenedor. El contenido de cada hijo sigue viviendo en su campo por
+	// tipo, que es su fuente de verdad; aquí solo está la secuencia. Va sin exportar
+	// porque solo el parseo lo escribe.
+	childOrder xmlutil.ChildOrder
+}
+
+// Clases de hijo de <Document>, una por campo del struct. El registro de orden
+// guarda estas cadenas, así que identifican el campo y no la etiqueta XML: por eso
+// hay dos entradas para Spread y dos para Story, que existen como referencia idPkg
+// y como contenido inline de un IDMS, con la misma etiqueta y campos distintos.
+const (
+	childProperties          = "Properties"
+	childLanguage            = "Language"
+	childRefGraphic          = "idPkg:Graphic"
+	childRefFonts            = "idPkg:Fonts"
+	childRefStyles           = "idPkg:Styles"
+	childRefPreferences      = "idPkg:Preferences"
+	childRefTags             = "idPkg:Tags"
+	childRefMasterSpread     = "idPkg:MasterSpread"
+	childRefSpread           = "idPkg:Spread"
+	childRefStory            = "idPkg:Story"
+	childRefBackingStory     = "idPkg:BackingStory"
+	childLayer               = "Layer"
+	childNumberingList       = "NumberingList"
+	childNamedGrid           = "NamedGrid"
+	childSection             = "Section"
+	childDocumentUser        = "DocumentUser"
+	childColorGroup          = "ColorGroup"
+	childABullet             = "ABullet"
+	childAssignment          = "Assignment"
+	childTextVariable        = "TextVariable"
+	childColor               = "Color"
+	childSwatch              = "Swatch"
+	childStrokeStyle         = "StrokeStyle"
+	childRootCharStyleGroup  = "RootCharacterStyleGroup"
+	childRootParaStyleGroup  = "RootParagraphStyleGroup"
+	childRootObjStyleGroup   = "RootObjectStyleGroup"
+	childTinDocumentData     = "TinDocumentDataObject"
+	childTransparencyDefault = "TransparencyDefaultContainerObject"
+	childInlineSpread        = "Spread"
+	childInlineStory         = "Story"
+	childOther               = "OtherElement"
+)
+
+// documentChildOrder es el orden en que están declarados los campos del struct.
+// Se usa para los hijos que el registro de orden no menciona: los de un documento
+// construido desde cero, y los que se agregan después de parsear. Reproduce el
+// orden que tenía marshalChildren antes de existir el registro, de modo que la
+// salida de un documento sin registro no cambia.
+//
+// Tiene que nombrar todas las clases de arriba. Lo comprueba un test.
+var documentChildOrder = []string{
+	childProperties,
+	childLanguage,
+	childRefGraphic,
+	childRefFonts,
+	childRefStyles,
+	childRefPreferences,
+	childRefTags,
+	childRefMasterSpread,
+	childRefSpread,
+	childRefStory,
+	childRefBackingStory,
+	childLayer,
+	childNumberingList,
+	childNamedGrid,
+	childSection,
+	childDocumentUser,
+	childColorGroup,
+	childABullet,
+	childAssignment,
+	childTextVariable,
+	childColor,
+	childSwatch,
+	childStrokeStyle,
+	childRootCharStyleGroup,
+	childRootParaStyleGroup,
+	childRootObjStyleGroup,
+	childTinDocumentData,
+	childTransparencyDefault,
+	childInlineSpread,
+	childInlineStory,
+	childOther,
 }
 
 // Language representa una definición de idioma en el documento.

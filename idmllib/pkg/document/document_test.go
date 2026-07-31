@@ -9,6 +9,7 @@ import (
 	"github.com/dimelords/idmllib/v2/pkg/document"
 	"github.com/dimelords/idmllib/v2/pkg/idml"
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
 // TestParseDocumentMinimal tests parsing a minimal designmap.xml.
@@ -152,6 +153,11 @@ func TestDocumentRoundtrip(t *testing.T) {
 
 			// Compare structs with custom options
 			opts := cmp.Options{
+				// El registro de orden documental de Document es un campo sin
+				// exportar y cmp no puede leerlo. No se pierde cobertura: el orden
+				// se comprueba en TestDocumentChildOrder, sobre el XML emitido, que
+				// es donde importa.
+				cmpopts.IgnoreUnexported(document.Document{}),
 				// Treat nil and empty byte slices as equal
 				cmp.Comparer(func(a, b []byte) bool {
 					if len(a) == 0 && len(b) == 0 {

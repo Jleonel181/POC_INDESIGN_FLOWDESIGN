@@ -3,6 +3,7 @@ package resources
 import (
 	"encoding/xml"
 
+	"github.com/dimelords/idmllib/v2/internal/xmlutil"
 	"github.com/dimelords/idmllib/v2/pkg/common"
 )
 
@@ -36,6 +37,11 @@ type GraphicFile struct {
 
 	// Captura todos los demás elementos no modelados explícitamente
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// childOrder recuerda el orden en que venían los hijos de <idPkg:Graphic>.
+	// InDesign intercala Gradient, Swatch y PastedSmoothShade, y el orden de los
+	// campos de arriba los reagrupa. Ver xmlutil.ChildOrder.
+	childOrder xmlutil.ChildOrder
 }
 
 // Color representa una definición de muestra de color.

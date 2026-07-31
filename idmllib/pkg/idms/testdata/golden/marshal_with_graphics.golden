@@ -2,16 +2,6 @@
 <?aid style="50" type="snippet" readerVersion="6.0" featureSet="257" product="20.5(66)" ?>
 <?aid SnippetType="PageItem" ?>
 <Document DOMVersion="20.4" Self="d">
-	<Layer Self="uba" Name="Editorial" Visible="true" Locked="false" IgnoreWrap="false" ShowGuides="true" LockGuides="false" UI="true" Expendable="true" Printable="true">
-		<Properties>
-			<LayerColor type="enumeration">LightBlue</LayerColor>
-		</Properties>
-	</Layer>
-	<NumberingList Self="NumberingList/$ID/[Default]" Name="$ID/[Default]" ContinueNumbersAcrossStories="false" ContinueNumbersAcrossDocuments="false" />
-	<ColorGroup Self="ColorGroup/[Root Color Group]" Name="[Root Color Group]" IsRootColorGroup="true">
-		<ColorGroupSwatch Self="u12ColorGroupSwatch0" SwatchItemRef="Swatch/None" />
-		<ColorGroupSwatch Self="u12ColorGroupSwatch3" SwatchItemRef="Color/Black" />
-	</ColorGroup>
 	<Color Self="Color/Black" Model="Process" Space="CMYK" ColorValue="0 0 0 100" ColorOverride="Specialblack" ConvertToHsb="false" AlternateSpace="NoAlternateColor" Name="Black" ColorEditable="false" ColorRemovable="false" Visible="true" SwatchCreatorID="7937" SwatchColorGroupReference="u12ColorGroupSwatch3" />
 	<Swatch Self="Swatch/None" Name="None" ColorEditable="false" ColorRemovable="false" Visible="true" SwatchCreatorID="7937" SwatchColorGroupReference="u12ColorGroupSwatch0" />
 	<StrokeStyle Self="StrokeStyle/$ID/Solid" Name="$ID/Solid" />
@@ -26,6 +16,7 @@
 			</CharacterStyle>
 		</CharacterStyleGroup>
 	</RootCharacterStyleGroup>
+	<NumberingList Self="NumberingList/$ID/[Default]" Name="$ID/[Default]" ContinueNumbersAcrossStories="false" ContinueNumbersAcrossDocuments="false" />
 	<RootParagraphStyleGroup Self="u79">
 		<ParagraphStyle Self="ParagraphStyle/$ID/[No paragraph style]" Name="$ID/[No paragraph style]" Imported="false" SplitDocument="false" EmitCss="true" StyleUniqueId="b5747974-02fb-432c-8409-eb77a8eed7b8" IncludeClass="true" ExtendedKeyboardShortcut="0 0 0" FontStyle="Roman" PointSize="12" FillColor="Color/Black" Justification="LeftAlign" SpaceBefore="0" SpaceAfter="0" LeftIndent="0" RightIndent="0" FirstLineIndent="0" Tracking="0" KerningMethod="$ID/Metrics" MinimumWordSpacing="80" MaximumWordSpacing="133" MinimumGlyphScaling="100" MaximumGlyphScaling="100">
 			<Properties>
@@ -315,6 +306,11 @@
 &#x9;&#x9;&#x9;<GradientFeatherSetting Applied="false" Type="Linear" Angle="0" Length="0" GradientStart="0 0" HiliteAngle="0" HiliteLength="0" />
 &#x9;&#x9;</ContentTransparencySetting>
 	</TransparencyDefaultContainerObject>
+	<Layer Self="uba" Name="Editorial" Visible="true" Locked="false" IgnoreWrap="false" ShowGuides="true" LockGuides="false" UI="true" Expendable="true" Printable="true">
+		<Properties>
+			<LayerColor type="enumeration">LightBlue</LayerColor>
+		</Properties>
+	</Layer>
 	<Spread Self="u210">
 		<TextFrame Self="u300" Name="$ID/" ItemLayer="uba" Visible="true" ItemTransform="1 0 0 1 -788.7007874015749 -561.929133858268" ParentStory="u2ee" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" HorizontalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" VerticalLayoutConstraints="FlexibleDimension FixedDimension FlexibleDimension" GradientFillStart="43.189000000000874 245.57302599999184" GradientFillLength="130.394" GradientFillAngle="0" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeStart="43.189000000000874 245.57302599999184" GradientStrokeLength="130.394" GradientStrokeAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" Locked="false" LocalDisplaySetting="Default" AppliedObjectStyle="ObjectStyle/Naviga%3aStandard%3apreamble-TEK ingress" ParentInterfaceChangeCount="138508 1852609731 138558 753165864">
 			<Properties>
@@ -411,6 +407,10 @@
 			</CharacterStyleRange>
 		</ParagraphStyleRange>
 	</Story>
+	<ColorGroup Self="ColorGroup/[Root Color Group]" Name="[Root Color Group]" IsRootColorGroup="true">
+		<ColorGroupSwatch Self="u12ColorGroupSwatch0" SwatchItemRef="Swatch/None" />
+		<ColorGroupSwatch Self="u12ColorGroupSwatch3" SwatchItemRef="Color/Black" />
+	</ColorGroup>
 
 <?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 9.1-c003 79.9690a87, 2025/03/06-19:12:03        ">
