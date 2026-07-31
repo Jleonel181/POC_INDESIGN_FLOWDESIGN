@@ -12,6 +12,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -42,7 +43,27 @@ const (
 	// Variables de entorno que sobreescriben las rutas anteriores.
 	EnvCorpusReferenceDir  = "IDMLLIB_REFERENCE_DIR"
 	EnvCorpusImagesFixture = "IDMLLIB_IMAGES_FIXTURE"
+
+	// DefaultMaxDiffsPerFile es el tope de diferencias a recolectar por archivo que
+	// fija el Req 1, criterio 2. Al alcanzarlo, el reporte de ese archivo se marca
+	// como truncado.
+	DefaultMaxDiffsPerFile = 100
+
+	// EnvMaxDiffsPerFile levanta o baja ese tope sin recompilar. Con valor 0 no hay
+	// límite, que es la forma de ver la cifra real de un archivo truncado.
+	EnvMaxDiffsPerFile = "IDMLLIB_MAX_DIFFS"
 )
+
+// maxDiffsPerFile resuelve el tope, dando prioridad a la variable de entorno
+// cuando trae un entero no negativo.
+func maxDiffsPerFile() int {
+	if v := os.Getenv(EnvMaxDiffsPerFile); v != "" {
+		if n, err := strconv.Atoi(v); err == nil && n >= 0 {
+			return n
+		}
+	}
+	return DefaultMaxDiffsPerFile
+}
 
 // corpusPath resuelve la ruta de un elemento del corpus, dando prioridad a la
 // variable de entorno cuando trae un valor no vacío.
@@ -60,6 +81,16 @@ type fidelityTally struct {
 	differing int // archivos con al menos 1 diferencia
 	unparsed  int // archivos sin modelo tipado, copiados sin parsear
 	failed    int // archivos que fallaron al parsear o al serializar
+	truncated int // archivos cuyo reporte llegó al máximo de diferencias
+
+	// byCategory cuenta las diferencias por categoría del Req 1, criterio 2. Es el
+	// marcador de progreso de las tareas de modelo: cada una tiene que bajar a cero
+	// la categoría que le toca.
+	byCategory map[string]int
+}
+
+func newFidelityTally(origin string) *fidelityTally {
+	return &fidelityTally{origin: origin, byCategory: map[string]int{}}
 }
 
 func (f *fidelityTally) total() int {
@@ -70,6 +101,28 @@ func (f *fidelityTally) report(t *testing.T) {
 	t.Helper()
 	t.Logf("resumen [%s]: %d sin diferencias, %d con diferencias, %d copiados sin parsear, %d con fallo, %d en total",
 		f.origin, f.clean, f.differing, f.unparsed, f.failed, f.total())
+
+	if f.truncated > 0 {
+		t.Logf("resumen [%s]: %d archivo(s) con el reporte truncado en el máximo de %d diferencias, así que su cifra real es mayor (%s=0 para verla)",
+			f.origin, f.truncated, maxDiffsPerFile(), EnvMaxDiffsPerFile)
+	}
+
+	if len(f.byCategory) == 0 {
+		return
+	}
+	categories := make([]string, 0, len(f.byCategory))
+	for category := range f.byCategory {
+		categories = append(categories, category)
+	}
+	sort.Slice(categories, func(i, j int) bool {
+		if f.byCategory[categories[i]] != f.byCategory[categories[j]] {
+			return f.byCategory[categories[i]] > f.byCategory[categories[j]]
+		}
+		return categories[i] < categories[j]
+	})
+	for _, category := range categories {
+		t.Logf("resumen [%s]: %6d %s", f.origin, f.byCategory[category], category)
+	}
 }
 
 // roundtripXML aplica el ciclo parseo → serialización usando el mismo par tipado
@@ -164,7 +217,10 @@ func compareRoundtrip(t *testing.T, tally *fidelityTally, path string, data []by
 		return
 	}
 
-	diffs, err := xmlutil.CompareXMLWithDetails(data, out, xmlutil.DefaultCompareOptions())
+	limit := maxDiffsPerFile()
+	opts := xmlutil.DefaultCompareOptions()
+	opts.MaxDifferences = limit
+	diffs, err := xmlutil.CompareXMLWithDetails(data, out, opts)
 	if err != nil {
 		tally.failed++
 		t.Errorf("[%s] %s: comparación: %v", tally.origin, path, err)
@@ -176,7 +232,23 @@ func compareRoundtrip(t *testing.T, tally *fidelityTally, path string, data []by
 		return
 	}
 	tally.differing++
-	t.Logf("[%s] %s: %d diferencia(s)\n%s", tally.origin, path, len(diffs), xmlutil.FormatDifferences(diffs))
+	for _, d := range diffs {
+		tally.byCategory[d.Type]++
+	}
+
+	// El comparador deja de recolectar al alcanzar el máximo, así que un archivo
+	// que llega justo al tope puede tener muchas más. Sin esta marca, «100
+	// diferencia(s)» se lee como «tiene cien» cuando puede tener miles.
+	//
+	// ponytail: un archivo con exactamente maxDiffsPerFile diferencias reales se
+	// marca como truncado sin serlo. La vía de mejora es que CompareXMLWithDetails
+	// devuelva la cifra real de diferencias encontradas además de la lista.
+	truncated := ""
+	if limit > 0 && len(diffs) >= limit {
+		tally.truncated++
+		truncated = " (truncado, el archivo tiene al menos esas)"
+	}
+	t.Logf("[%s] %s: %d diferencia(s)%s\n%s", tally.origin, path, len(diffs), truncated, xmlutil.FormatDifferences(diffs))
 }
 
 // TestGoldenRoundtrip_ExampleIDML ejecuta el ciclo parseo → serialización →
@@ -223,7 +295,7 @@ func testFidelityReferenceDir(t *testing.T) {
 	}
 	sort.Strings(paths)
 
-	tally := &fidelityTally{origin: "documento_referencia"}
+	tally := newFidelityTally("documento_referencia")
 	for _, rel := range paths {
 		// #nosec G304 - ruta derivada del recorrido del corpus de prueba
 		data, err := os.ReadFile(filepath.Join(root, filepath.FromSlash(rel)))
@@ -262,7 +334,7 @@ func testFidelityImagesFixture(t *testing.T) {
 	}
 	sort.Strings(names)
 
-	tally := &fidelityTally{origin: "archivo_evidencia_imagenes"}
+	tally := newFidelityTally("archivo_evidencia_imagenes")
 	for _, name := range names {
 		data, err := pkg.getFileData(name)
 		if err != nil {

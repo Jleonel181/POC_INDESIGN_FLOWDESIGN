@@ -28,14 +28,18 @@ func TestCompareXMLWithDetails(t *testing.T) {
 			expectedDiffs: 0,
 		},
 		{
-			name:          "different tag",
+			// Un hijo renombrado no es una etiqueta distinta en la misma posición:
+			// desde fuera es un elemento que falta y otro que sobra, y el
+			// comparador no puede saber que era un renombrado.
+			name:          "renamed child",
 			xml1:          `<root><child1>value</child1></root>`,
 			xml2:          `<root><child2>value</child2></root>`,
-			expectedDiffs: 1,
+			expectedDiffs: 2,
 			checkDiffs: func(t *testing.T, diffs []XMLDifference) {
-				if diffs[0].Type != "tag" {
-					t.Errorf("expected type 'tag', got %q", diffs[0].Type)
-				}
+				assertCategories(t, diffs, map[string]int{
+					CategoryElementMissing: 1,
+					CategoryElementExtra:   1,
+				})
 			},
 		},
 		{
@@ -44,9 +48,7 @@ func TestCompareXMLWithDetails(t *testing.T) {
 			xml2:          `<root attr="value2"/>`,
 			expectedDiffs: 1,
 			checkDiffs: func(t *testing.T, diffs []XMLDifference) {
-				if diffs[0].Type != "attribute" {
-					t.Errorf("expected type 'attribute', got %q", diffs[0].Type)
-				}
+				assertCategories(t, diffs, map[string]int{CategoryAttributeValue: 1})
 				if diffs[0].Expected != "value1" {
 					t.Errorf("expected Expected='value1', got %q", diffs[0].Expected)
 				}
@@ -61,9 +63,7 @@ func TestCompareXMLWithDetails(t *testing.T) {
 			xml2:          `<root attr1="val1"/>`,
 			expectedDiffs: 1,
 			checkDiffs: func(t *testing.T, diffs []XMLDifference) {
-				if diffs[0].Type != "attribute" {
-					t.Errorf("expected type 'attribute', got %q", diffs[0].Type)
-				}
+				assertCategories(t, diffs, map[string]int{CategoryAttributeMissing: 1})
 			},
 		},
 		{
@@ -72,9 +72,7 @@ func TestCompareXMLWithDetails(t *testing.T) {
 			xml2:          `<root attr1="val1" attr2="val2"/>`,
 			expectedDiffs: 1,
 			checkDiffs: func(t *testing.T, diffs []XMLDifference) {
-				if diffs[0].Type != "attribute" {
-					t.Errorf("expected type 'attribute', got %q", diffs[0].Type)
-				}
+				assertCategories(t, diffs, map[string]int{CategoryAttributeExtra: 1})
 			},
 		},
 		{
@@ -83,19 +81,74 @@ func TestCompareXMLWithDetails(t *testing.T) {
 			xml2:          `<root>text2</root>`,
 			expectedDiffs: 1,
 			checkDiffs: func(t *testing.T, diffs []XMLDifference) {
-				if diffs[0].Type != "text" {
-					t.Errorf("expected type 'text', got %q", diffs[0].Type)
-				}
+				assertCategories(t, diffs, map[string]int{CategoryText: 1})
 			},
 		},
 		{
-			name:          "different child count",
+			name:          "missing child",
 			xml1:          `<root><child1/><child2/></root>`,
 			xml2:          `<root><child1/></root>`,
 			expectedDiffs: 1,
 			checkDiffs: func(t *testing.T, diffs []XMLDifference) {
-				if diffs[0].Type != "structure" {
-					t.Errorf("expected type 'structure', got %q", diffs[0].Type)
+				assertCategories(t, diffs, map[string]int{CategoryElementMissing: 1})
+				if diffs[0].Expected != "child2" {
+					t.Errorf("la diferencia debe identificar la etiqueta ausente, got %q", diffs[0].Expected)
+				}
+			},
+		},
+		{
+			name:          "extra child",
+			xml1:          `<root><child1/></root>`,
+			xml2:          `<root><child1/><child2/></root>`,
+			expectedDiffs: 1,
+			checkDiffs: func(t *testing.T, diffs []XMLDifference) {
+				assertCategories(t, diffs, map[string]int{CategoryElementExtra: 1})
+				if diffs[0].Got != "child2" {
+					t.Errorf("la diferencia debe identificar la etiqueta sobrante, got %q", diffs[0].Got)
+				}
+			},
+		},
+		{
+			// El caso que motivó la Tarea 2b: mismos hijos, otro orden. Antes esto
+			// producía una cascada de diferencias de etiqueta, una por posición
+			// desplazada. Ahora es una sola diferencia en el padre.
+			name:          "reordered children",
+			xml1:          `<root><a/><b/><c/></root>`,
+			xml2:          `<root><c/><a/><b/></root>`,
+			expectedDiffs: 1,
+			checkDiffs: func(t *testing.T, diffs []XMLDifference) {
+				assertCategories(t, diffs, map[string]int{CategoryElementOrder: 1})
+				if diffs[0].Expected != "a, b, c" {
+					t.Errorf("Expected debe llevar la secuencia original, got %q", diffs[0].Expected)
+				}
+				if diffs[0].Got != "c, a, b" {
+					t.Errorf("Got debe llevar la secuencia generada, got %q", diffs[0].Got)
+				}
+			},
+		},
+		{
+			// Reordenados y con un atributo cambiado. La diferencia de atributo
+			// tiene que caer en el par correcto: <b attr>, no en el elemento que
+			// ocupa esa posición en el generado.
+			name:          "reordered children with a changed attribute",
+			xml1:          `<root><a/><b attr="1"/><c/></root>`,
+			xml2:          `<root><c/><a/><b attr="2"/></root>`,
+			expectedDiffs: 2,
+			checkDiffs: func(t *testing.T, diffs []XMLDifference) {
+				assertCategories(t, diffs, map[string]int{
+					CategoryElementOrder:   1,
+					CategoryAttributeValue: 1,
+				})
+				for _, d := range diffs {
+					if d.Type != CategoryAttributeValue {
+						continue
+					}
+					if !strings.Contains(d.Path, "/b[") {
+						t.Errorf("la diferencia de atributo debe apuntar al elemento b, got %q", d.Path)
+					}
+					if d.Expected != "1" || d.Got != "2" {
+						t.Errorf("par equivocado: Expected=%q Got=%q", d.Expected, d.Got)
+					}
 				}
 			},
 		},
@@ -103,15 +156,12 @@ func TestCompareXMLWithDetails(t *testing.T) {
 			name:          "multiple differences",
 			xml1:          `<root attr="val1"><child>text1</child></root>`,
 			xml2:          `<root attr="val2"><child>text2</child></root>`,
-			expectedDiffs: 2, // attribute + text
+			expectedDiffs: 2,
 			checkDiffs: func(t *testing.T, diffs []XMLDifference) {
-				types := make(map[string]bool)
-				for _, d := range diffs {
-					types[d.Type] = true
-				}
-				if !types["attribute"] || !types["text"] {
-					t.Error("expected both attribute and text differences")
-				}
+				assertCategories(t, diffs, map[string]int{
+					CategoryAttributeValue: 1,
+					CategoryText:           1,
+				})
 			},
 		},
 	}
@@ -265,7 +315,7 @@ func TestFormatDifferences(t *testing.T) {
 			name:  "no differences",
 			diffs: []XMLDifference{},
 			check: func(t *testing.T, output string) {
-				if output != "No differences found" {
+				if output != "No se encontraron diferencias" {
 					t.Errorf("unexpected output: %s", output)
 				}
 			},
@@ -274,13 +324,13 @@ func TestFormatDifferences(t *testing.T) {
 			name: "single difference",
 			diffs: []XMLDifference{{
 				Path:        "/root/child",
-				Type:        "text",
-				Description: "text content differs",
+				Type:        CategoryText,
+				Description: "el contenido de texto es distinto",
 				Expected:    "original",
 				Got:         "modified",
 			}},
 			check: func(t *testing.T, output string) {
-				if !containsAll(output, []string{"1 difference", "/root/child", "text", "original", "modified"}) {
+				if !containsAll(output, []string{"1 diferencia", "/root/child", CategoryText, "original", "modified"}) {
 					t.Errorf("output missing expected content:\n%s", output)
 				}
 			},
@@ -290,21 +340,21 @@ func TestFormatDifferences(t *testing.T) {
 			diffs: []XMLDifference{
 				{
 					Path:        "/root/child1",
-					Type:        "attribute",
-					Description: "attribute differs",
+					Type:        CategoryAttributeValue,
+					Description: "el atributo tiene otro valor",
 					Expected:    "val1",
 					Got:         "val2",
 				},
 				{
 					Path:        "/root/child2",
-					Type:        "text",
-					Description: "text differs",
+					Type:        CategoryText,
+					Description: "el contenido de texto es distinto",
 					Expected:    "text1",
 					Got:         "text2",
 				},
 			},
 			check: func(t *testing.T, output string) {
-				if !containsAll(output, []string{"2 difference", "/root/child1", "/root/child2"}) {
+				if !containsAll(output, []string{"2 diferencia", "/root/child1", "/root/child2"}) {
 					t.Errorf("output missing expected content:\n%s", output)
 				}
 			},
@@ -317,6 +367,28 @@ func TestFormatDifferences(t *testing.T) {
 			t.Logf("Output:\n%s", output)
 			tt.check(t, output)
 		})
+	}
+}
+
+// assertCategories comprueba que el reparto de diferencias por categoría es
+// exactamente el esperado. Falla si aparece una categoría no esperada, lo que
+// deja constancia de que una categoría vieja no se ha colado de vuelta.
+func assertCategories(t *testing.T, diffs []XMLDifference, want map[string]int) {
+	t.Helper()
+
+	got := make(map[string]int, len(diffs))
+	for _, d := range diffs {
+		got[d.Type]++
+	}
+	for category, n := range want {
+		if got[category] != n {
+			t.Errorf("categoría %q: esperadas %d diferencias, obtenidas %d", category, n, got[category])
+		}
+	}
+	for category, n := range got {
+		if _, expected := want[category]; !expected {
+			t.Errorf("categoría inesperada %q con %d diferencia(s)", category, n)
+		}
 	}
 }
 

@@ -9,10 +9,31 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
+// Categorías de diferencia. Las seis primeras son las que enumera el Requisito 1,
+// criterio 2 del spec idml-generator-api, y están pensadas para poder contarlas y
+// filtrarlas una por una: un criterio de aceptación del tipo «cero diferencias de
+// categoría X» necesita que X sea un valor y no un matiz de la descripción.
+//
+// CategoryTag y CategoryNamespace quedan fuera de esas seis porque describen otra
+// cosa —el nombre o el espacio de nombres del propio elemento— y perderlas sería
+// perder información. Tras el emparejamiento por etiqueta de compareChildren,
+// CategoryTag solo puede aparecer comparando los elementos raíz.
+const (
+	CategoryAttributeMissing = "atributo-ausente"
+	CategoryAttributeValue   = "atributo-valor-distinto"
+	CategoryAttributeExtra   = "atributo-sobrante"
+	CategoryElementMissing   = "elemento-ausente"
+	CategoryElementExtra     = "elemento-sobrante"
+	CategoryElementOrder     = "orden-elementos-distinto"
+	CategoryText             = "texto-distinto"
+	CategoryTag              = "etiqueta-distinta"
+	CategoryNamespace        = "namespace-distinto"
+)
+
 // XMLDifference representa una única diferencia encontrada durante la comparación de XML.
 type XMLDifference struct {
 	Path        string // Ruta tipo XPath al elemento (ej: "/root/Story[0]/ParagraphStyleRange[2]")
-	Type        string // "tag", "namespace", "attribute", "text", "structure"
+	Type        string // Categoría de la diferencia: una de las constantes Category*
 	Description string // Descripción legible de la diferencia
 	Expected    string // Valor esperado (del original)
 	Got         string // Valor obtenido (del generado)
@@ -82,9 +103,9 @@ func CompareXMLWithDetails(original, generated []byte, opts *CompareOptions) ([]
 	if origRoot == nil {
 		return []XMLDifference{{
 			Path:        "/",
-			Type:        "structure",
-			Description: "original has no root element, generated does",
-			Expected:    "(none)",
+			Type:        CategoryElementExtra,
+			Description: "el original no tiene elemento raíz y el generado sí",
+			Expected:    "(ninguno)",
 			Got:         genRoot.Tag,
 		}}, nil
 	}
@@ -92,10 +113,10 @@ func CompareXMLWithDetails(original, generated []byte, opts *CompareOptions) ([]
 	if genRoot == nil {
 		return []XMLDifference{{
 			Path:        "/",
-			Type:        "structure",
-			Description: "original has root element, generated does not",
+			Type:        CategoryElementMissing,
+			Description: "el original tiene elemento raíz y el generado no",
 			Expected:    origRoot.Tag,
-			Got:         "(none)",
+			Got:         "(ninguno)",
 		}}, nil
 	}
 
@@ -108,8 +129,7 @@ func CompareXMLWithDetails(original, generated []byte, opts *CompareOptions) ([]
 
 // compareElementsDetailed compara recursivamente dos elementos etree y recolecta todas las diferencias.
 func compareElementsDetailed(orig, gen *etree.Element, path string, diffs *[]XMLDifference, opts *CompareOptions) {
-	// Verificar si se alcanzó el límite máximo de diferencias
-	if opts.MaxDifferences > 0 && len(*diffs) >= opts.MaxDifferences {
+	if limitReached(diffs, opts) {
 		return
 	}
 
@@ -117,8 +137,8 @@ func compareElementsDetailed(orig, gen *etree.Element, path string, diffs *[]XML
 	if orig.Tag != gen.Tag {
 		*diffs = append(*diffs, XMLDifference{
 			Path:        path,
-			Type:        "tag",
-			Description: "tag name mismatch",
+			Type:        CategoryTag,
+			Description: "el nombre del elemento no coincide",
 			Expected:    orig.Tag,
 			Got:         gen.Tag,
 		})
@@ -129,8 +149,8 @@ func compareElementsDetailed(orig, gen *etree.Element, path string, diffs *[]XML
 	if orig.Space != gen.Space {
 		*diffs = append(*diffs, XMLDifference{
 			Path:        path,
-			Type:        "namespace",
-			Description: "namespace mismatch",
+			Type:        CategoryNamespace,
+			Description: "el espacio de nombres no coincide",
 			Expected:    orig.Space,
 			Got:         gen.Space,
 		})
@@ -148,8 +168,7 @@ func compareElementsDetailed(orig, gen *etree.Element, path string, diffs *[]XML
 
 // compareAttributes compara los atributos de un elemento (sin importar el orden).
 func compareAttributes(orig, gen *etree.Element, path string, diffs *[]XMLDifference, opts *CompareOptions) {
-	// Verificar límite antes de procesar
-	if opts.MaxDifferences > 0 && len(*diffs) >= opts.MaxDifferences {
+	if limitReached(diffs, opts) {
 		return
 	}
 
@@ -165,24 +184,26 @@ func compareAttributes(orig, gen *etree.Element, path string, diffs *[]XMLDiffer
 		genAttrs[key] = attr.Value
 	}
 
-	// Buscar atributos faltantes en el generado
-	for key, origVal := range origAttrs {
-		if opts.MaxDifferences > 0 && len(*diffs) >= opts.MaxDifferences {
+	// Buscar atributos faltantes o con valor distinto en el generado.
+	// Se recorre en orden para que la salida no dependa del recorrido del mapa.
+	for _, key := range sortedKeys(origAttrs) {
+		if limitReached(diffs, opts) {
 			return
 		}
+		origVal := origAttrs[key]
 		if genVal, exists := genAttrs[key]; !exists {
 			*diffs = append(*diffs, XMLDifference{
 				Path:        path,
-				Type:        "attribute",
-				Description: fmt.Sprintf("attribute %q missing in generated", key),
+				Type:        CategoryAttributeMissing,
+				Description: fmt.Sprintf("atributo %q ausente en el generado", key),
 				Expected:    origVal,
-				Got:         "(missing)",
+				Got:         "(ausente)",
 			})
 		} else if genVal != origVal {
 			*diffs = append(*diffs, XMLDifference{
 				Path:        path,
-				Type:        "attribute",
-				Description: fmt.Sprintf("attribute %q value differs", key),
+				Type:        CategoryAttributeValue,
+				Description: fmt.Sprintf("el atributo %q tiene otro valor", key),
 				Expected:    origVal,
 				Got:         genVal,
 			})
@@ -190,17 +211,17 @@ func compareAttributes(orig, gen *etree.Element, path string, diffs *[]XMLDiffer
 	}
 
 	// Buscar atributos extra en el generado
-	for key, genVal := range genAttrs {
-		if opts.MaxDifferences > 0 && len(*diffs) >= opts.MaxDifferences {
+	for _, key := range sortedKeys(genAttrs) {
+		if limitReached(diffs, opts) {
 			return
 		}
 		if _, exists := origAttrs[key]; !exists {
 			*diffs = append(*diffs, XMLDifference{
 				Path:        path,
-				Type:        "attribute",
-				Description: fmt.Sprintf("attribute %q exists in generated but not in original", key),
-				Expected:    "(none)",
-				Got:         genVal,
+				Type:        CategoryAttributeExtra,
+				Description: fmt.Sprintf("atributo %q sobrante en el generado", key),
+				Expected:    "(ninguno)",
+				Got:         genAttrs[key],
 			})
 		}
 	}
@@ -208,8 +229,7 @@ func compareAttributes(orig, gen *etree.Element, path string, diffs *[]XMLDiffer
 
 // compareText compara el contenido de texto de los elementos.
 func compareText(orig, gen *etree.Element, path string, diffs *[]XMLDifference, opts *CompareOptions) {
-	// Verificar límite antes de procesar
-	if opts.MaxDifferences > 0 && len(*diffs) >= opts.MaxDifferences {
+	if limitReached(diffs, opts) {
 		return
 	}
 
@@ -225,8 +245,8 @@ func compareText(orig, gen *etree.Element, path string, diffs *[]XMLDifference, 
 	if origText != genText {
 		*diffs = append(*diffs, XMLDifference{
 			Path:        path,
-			Type:        "text",
-			Description: "text content differs",
+			Type:        CategoryText,
+			Description: "el contenido de texto es distinto",
 			Expected:    truncate(origText, 100),
 			Got:         truncate(genText, 100),
 		})
@@ -234,9 +254,19 @@ func compareText(orig, gen *etree.Element, path string, diffs *[]XMLDifference, 
 }
 
 // compareChildren compara los elementos hijos, con ordenamiento opcional.
+//
+// Distingue dos situaciones que antes se confundían. Si el conjunto de hijos no
+// coincide, alguno falta o sobra y se reporta uno por uno. Si coincide pero la
+// secuencia no, están todos y solo se han reordenado: eso es **una** diferencia
+// en el padre, no una por cada posición desplazada.
+//
+// Después, los hijos se emparejan por (nombre de etiqueta, ordinal de aparición)
+// y no por posición absoluta. Es lo que evita que un reordenamiento desalinee la
+// comparación y produzca diferencias de atributo entre elementos que no se
+// corresponden. Cuando las dos secuencias son iguales, este emparejamiento y el
+// posicional son el mismo.
 func compareChildren(orig, gen *etree.Element, path string, diffs *[]XMLDifference, opts *CompareOptions) {
-	// Verificar límite antes de procesar
-	if opts.MaxDifferences > 0 && len(*diffs) >= opts.MaxDifferences {
+	if limitReached(diffs, opts) {
 		return
 	}
 
@@ -244,47 +274,165 @@ func compareChildren(orig, gen *etree.Element, path string, diffs *[]XMLDifferen
 	genChildren := gen.ChildElements()
 
 	// Verificar si este tipo de elemento debe ordenarse antes de comparar
-	shouldSort := contains(opts.SortElements, orig.Tag)
-
-	if shouldSort {
+	if contains(opts.SortElements, orig.Tag) {
 		// Ordenar ambos hijos por nombre de etiqueta para comparación sin importar el orden
 		sortElementsByTag(origChildren)
 		sortElementsByTag(genChildren)
 	}
 
-	if len(origChildren) != len(genChildren) {
+	origTags := tagSequence(origChildren)
+	genTags := tagSequence(genChildren)
+	missing, extra := tagMultisetDiff(origTags, genTags)
+
+	switch {
+	case len(missing) > 0 || len(extra) > 0:
+		for _, tag := range missing {
+			*diffs = append(*diffs, XMLDifference{
+				Path:        path,
+				Type:        CategoryElementMissing,
+				Description: fmt.Sprintf("elemento hijo %q ausente en el generado", tag),
+				Expected:    tag,
+				Got:         "(ausente)",
+			})
+			if limitReached(diffs, opts) {
+				return
+			}
+		}
+		for _, tag := range extra {
+			*diffs = append(*diffs, XMLDifference{
+				Path:        path,
+				Type:        CategoryElementExtra,
+				Description: fmt.Sprintf("elemento hijo %q sobrante en el generado", tag),
+				Expected:    "(ninguno)",
+				Got:         tag,
+			})
+			if limitReached(diffs, opts) {
+				return
+			}
+		}
+
+	case !equalStrings(origTags, genTags):
 		*diffs = append(*diffs, XMLDifference{
 			Path:        path,
-			Type:        "structure",
-			Description: "child element count mismatch",
-			Expected:    fmt.Sprintf("%d children", len(origChildren)),
-			Got:         fmt.Sprintf("%d children", len(genChildren)),
+			Type:        CategoryElementOrder,
+			Description: fmt.Sprintf("los %d elementos hijos son los mismos pero en otro orden", len(origTags)),
+			Expected:    truncate(strings.Join(origTags, ", "), 200),
+			Got:         truncate(strings.Join(genTags, ", "), 200),
 		})
-
-		// Verificar límite después de agregar diff
-		if opts.MaxDifferences > 0 && len(*diffs) >= opts.MaxDifferences {
+		if limitReached(diffs, opts) {
 			return
 		}
 	}
 
-	// Comparar hijos en común
-	minLen := len(origChildren)
-	if len(genChildren) < minLen {
-		minLen = len(genChildren)
-	}
-
-	for i := 0; i < minLen; i++ {
-		childPath := fmt.Sprintf("%s/%s[%d]", path, origChildren[i].Tag, i)
-		compareElementsDetailed(origChildren[i], genChildren[i], childPath, diffs, opts)
-
-		// Verificar límite después de cada hijo
-		if opts.MaxDifferences > 0 && len(*diffs) >= opts.MaxDifferences {
+	for _, pair := range pairChildrenByTag(origChildren, genChildren) {
+		childPath := fmt.Sprintf("%s/%s[%d]", path, pair.orig.Tag, pair.origIndex)
+		compareElementsDetailed(pair.orig, pair.gen, childPath, diffs, opts)
+		if limitReached(diffs, opts) {
 			return
 		}
 	}
 }
 
 // Funciones auxiliares
+
+// limitReached indica si ya se alcanzó el máximo de diferencias a recolectar.
+// MaxDifferences igual a 0 significa sin límite.
+func limitReached(diffs *[]XMLDifference, opts *CompareOptions) bool {
+	return opts.MaxDifferences > 0 && len(*diffs) >= opts.MaxDifferences
+}
+
+// tagSequence devuelve los nombres de etiqueta de los elementos, en su orden.
+func tagSequence(elements []*etree.Element) []string {
+	tags := make([]string, len(elements))
+	for i, e := range elements {
+		tags[i] = e.Tag
+	}
+	return tags
+}
+
+func equalStrings(a, b []string) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
+}
+
+// tagMultisetDiff compara las dos secuencias como multiconjuntos, es decir sin
+// mirar el orden pero sí las repeticiones, y devuelve qué etiquetas faltan en la
+// segunda y cuáles sobran. Una etiqueta con 3 apariciones en el original y 1 en el
+// generado aparece 2 veces en missing.
+//
+// Ambas listas salen ordenadas alfabéticamente para que el reporte sea estable
+// entre ejecuciones.
+func tagMultisetDiff(origTags, genTags []string) (missing, extra []string) {
+	balance := make(map[string]int, len(origTags))
+	for _, tag := range origTags {
+		balance[tag]++
+	}
+	for _, tag := range genTags {
+		balance[tag]--
+	}
+
+	tags := make([]string, 0, len(balance))
+	for tag := range balance {
+		tags = append(tags, tag)
+	}
+	sort.Strings(tags)
+
+	for _, tag := range tags {
+		for i := 0; i < balance[tag]; i++ {
+			missing = append(missing, tag)
+		}
+		for i := 0; i > balance[tag]; i-- {
+			extra = append(extra, tag)
+		}
+	}
+	return missing, extra
+}
+
+// childPair es un hijo del original con el hijo del generado que le corresponde.
+// origIndex es la posición del hijo en el original, y se conserva para que la ruta
+// del reporte siga señalando el documento de entrada.
+type childPair struct {
+	orig, gen *etree.Element
+	origIndex int
+}
+
+// pairChildrenByTag empareja la n-ésima aparición de una etiqueta en el original
+// con la n-ésima aparición de esa misma etiqueta en el generado. Los hijos del
+// original sin pareja se omiten: su ausencia ya se reportó como elemento ausente.
+func pairChildrenByTag(origChildren, genChildren []*etree.Element) []childPair {
+	byTag := make(map[string][]*etree.Element, len(genChildren))
+	for _, e := range genChildren {
+		byTag[e.Tag] = append(byTag[e.Tag], e)
+	}
+
+	seen := make(map[string]int, len(origChildren))
+	pairs := make([]childPair, 0, len(origChildren))
+	for i, e := range origChildren {
+		n := seen[e.Tag]
+		seen[e.Tag]++
+		if n < len(byTag[e.Tag]) {
+			pairs = append(pairs, childPair{orig: e, gen: byTag[e.Tag][n], origIndex: i})
+		}
+	}
+	return pairs
+}
+
+// sortedKeys devuelve las claves de un mapa ordenadas alfabéticamente.
+func sortedKeys(m map[string]string) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
 
 func contains(slice []string, item string) bool {
 	for _, s := range slice {
@@ -446,13 +594,13 @@ func FormatDifferences(diffs []XMLDifference) string {
 	}
 
 	var b strings.Builder
-	b.WriteString(fmt.Sprintf("Found %d difference(s):\n\n", len(diffs)))
+	b.WriteString(fmt.Sprintf("Se encontraron %d diferencia(s):\n\n", len(diffs)))
 
 	for i, diff := range diffs {
 		b.WriteString(fmt.Sprintf("%d. %s [%s]\n", i+1, diff.Path, diff.Type))
 		b.WriteString(fmt.Sprintf("   %s\n", diff.Description))
-		b.WriteString(fmt.Sprintf("   Expected: %s\n", diff.Expected))
-		b.WriteString(fmt.Sprintf("   Got:      %s\n", diff.Got))
+		b.WriteString(fmt.Sprintf("   Esperado:  %s\n", diff.Expected))
+		b.WriteString(fmt.Sprintf("   Obtenido:  %s\n", diff.Got))
 		if i < len(diffs)-1 {
 			b.WriteString("\n")
 		}
