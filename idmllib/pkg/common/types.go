@@ -41,12 +41,20 @@ type Properties struct {
 	// Comodín para otros hijos de Properties (AppliedMathMLSwatch, etc.)
 	// que aún no están modelados explícitamente
 	OtherElements []RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // Label representa un contenedor de pares clave-valor.
 type Label struct {
 	XMLName       xml.Name       `xml:"Label"`
 	KeyValuePairs []KeyValuePair `xml:"KeyValuePair"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // KeyValuePair representa un único par clave-valor de metadatos.
@@ -54,6 +62,10 @@ type KeyValuePair struct {
 	XMLName xml.Name `xml:"KeyValuePair"`
 	Key     string   `xml:"Key,attr"`
 	Value   string   `xml:"Value,attr"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // PathGeometry representa información de geometría de un path.
@@ -65,6 +77,10 @@ type PathGeometry struct {
 type GeometryPathType struct {
 	PathOpen       string          `xml:"PathOpen,attr,omitempty"`
 	PathPointArray *PathPointArray `xml:"PathPointArray,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // PathPointArray contiene un arreglo de puntos de path.
@@ -77,6 +93,10 @@ type PathPointType struct {
 	Anchor         string `xml:"Anchor,attr"`
 	LeftDirection  string `xml:"LeftDirection,attr,omitempty"`
 	RightDirection string `xml:"RightDirection,attr,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // GetAppliedFont extrae el valor de AppliedFont desde Properties.OtherElements.
@@ -189,4 +209,8 @@ type GridDataInformation struct {
 
 	// Comodín para otros hijos de GridDataInformation
 	OtherElements []RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }

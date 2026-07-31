@@ -55,6 +55,10 @@ type CharacterStyleGroup struct {
 	CharacterStyles []CharacterStyle       `xml:"CharacterStyle,omitempty"`
 	NestedGroups    []CharacterStyleGroup  `xml:"CharacterStyleGroup,omitempty"` // Grupos anidados
 	OtherElements   []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // CharacterStyle representa una definición de estilo de carácter.
@@ -82,6 +86,10 @@ type CharacterStyle struct {
 
 	// Captura todos los demás atributos y elementos
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // GetAppliedFont retorna la fuente aplicada desde Properties, o cadena vacía si no está definida.
@@ -113,6 +121,10 @@ type ParagraphStyleGroup struct {
 	ParagraphStyles []ParagraphStyle       `xml:"ParagraphStyle,omitempty"`
 	NestedGroups    []ParagraphStyleGroup  `xml:"ParagraphStyleGroup,omitempty"` // Grupos anidados
 	OtherElements   []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ParagraphStyle representa una definición de estilo de párrafo.
@@ -155,6 +167,10 @@ type ParagraphStyle struct {
 
 	// Captura los muchos otros atributos (más de 100 atributos en total)
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // CellStyleGroup representa un grupo de estilos de celda de tabla.
@@ -163,6 +179,10 @@ type CellStyleGroup struct {
 	Self          string                 `xml:"Self,attr"`
 	CellStyles    []CellStyle            `xml:"CellStyle,omitempty"`
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // CellStyle representa una definición de estilo de celda de tabla.
@@ -172,6 +192,10 @@ type CellStyle struct {
 	AppliedParagraphStyle string                 `xml:"AppliedParagraphStyle,attr,omitempty"` // Referencia al estilo de párrafo
 	Properties            *common.Properties     `xml:"Properties,omitempty"`
 	OtherElements         []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // TableStyleGroup representa un grupo de estilos de tabla.
@@ -180,6 +204,10 @@ type TableStyleGroup struct {
 	Self          string                 `xml:"Self,attr"`
 	TableStyles   []TableStyle           `xml:"TableStyle,omitempty"`
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // TableStyle representa una definición de estilo de tabla.
@@ -203,6 +231,10 @@ type TableStyle struct {
 
 	Properties    *common.Properties     `xml:"Properties,omitempty"`
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ObjectStyleGroup representa un grupo de estilos de objeto.
@@ -215,6 +247,10 @@ type ObjectStyleGroup struct {
 	ObjectStyles  []ObjectStyle          `xml:"ObjectStyle,omitempty"`
 	NestedGroups  []ObjectStyleGroup     `xml:"ObjectStyleGroup,omitempty"` // Grupos anidados
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ObjectStyle representa una definición de estilo de objeto.
@@ -247,6 +283,10 @@ type ObjectStyle struct {
 
 	Properties    *common.Properties     `xml:"Properties,omitempty"`
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // TransformAttributeOption define los puntos de referencia de transformación para objetos.
@@ -254,6 +294,10 @@ type TransformAttributeOption struct {
 	TransformAttrLeftReference  string `xml:"TransformAttrLeftReference,attr,omitempty"`
 	TransformAttrTopReference   string `xml:"TransformAttrTopReference,attr,omitempty"`
 	TransformAttrRefAnchorPoint string `xml:"TransformAttrRefAnchorPoint,attr,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ObjectExportOption define la configuración de exportación de objetos.
@@ -267,6 +311,10 @@ type ObjectExportOption struct {
 	ImageExportResolution string                 `xml:"ImageExportResolution,attr,omitempty"`
 	Properties            *common.Properties     `xml:"Properties,omitempty"`
 	OtherElements         []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // TextFramePreference define las preferencias del marco de texto.
@@ -277,6 +325,10 @@ type TextFramePreference struct {
 	VerticalJustification string                 `xml:"VerticalJustification,attr,omitempty"`
 	AutoSizingType        string                 `xml:"AutoSizingType,attr,omitempty"`
 	OtherElements         []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // TOCStyle representa una definición de estilo de tabla de contenidos.
@@ -290,6 +342,10 @@ type TOCStyle struct {
 	IncludeBookDocuments string                 `xml:"IncludeBookDocuments,attr,omitempty"` // "true" o "false"
 	CreateBookmarks      string                 `xml:"CreateBookmarks,attr,omitempty"`      // "true" o "false"
 	OtherElements        []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // FindParagraphStyle busca un estilo de párrafo por su ID Self.

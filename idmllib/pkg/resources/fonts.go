@@ -32,6 +32,10 @@ type FontFamily struct {
 	Self  string `xml:"Self,attr"`
 	Name  string `xml:"Name,attr"`
 	Fonts []Font `xml:"Font,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // Font representa una definición de fuente individual dentro de una familia tipográfica.
@@ -51,6 +55,10 @@ type Font struct {
 	PlatformName        string `xml:"PlatformName,attr"`
 	Version             string `xml:"Version,attr"`
 	TypekitID           string `xml:"TypekitID,attr,omitempty"` // ID de Adobe Typekit/Fonts
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // CompositeFont representa una definición de fuente compuesta (principalmente para tipografía CJK).
@@ -60,6 +68,10 @@ type CompositeFont struct {
 	Name                 string                 `xml:"Name,attr"`
 	CompositeFontEntries []CompositeFontEntry   `xml:"CompositeFontEntry,omitempty"`
 	OtherElements        []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // CompositeFontEntry representa una entrada individual en una fuente compuesta.
@@ -76,4 +88,8 @@ type CompositeFontEntry struct {
 	ScaleOption      string             `xml:"ScaleOption,attr,omitempty"`      // "true" o "false"
 	BaselineShift    string             `xml:"BaselineShift,attr,omitempty"`    // Valor de desplazamiento de línea base
 	Properties       *common.Properties `xml:"Properties,omitempty"`            // Contiene <AppliedFont>
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }

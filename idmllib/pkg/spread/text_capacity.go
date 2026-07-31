@@ -82,7 +82,7 @@ func (f *SpreadTextFrame) TextCapacity() *TextCapacityInfo {
 				}
 			}
 
-		// Parsear Properties anidadas para InsetSpacing desde elem.Content
+			// Parsear Properties anidadas para InsetSpacing desde elem.Content
 			info.InsetSpacing = parseInsetSpacingFromContent(elem.Content)
 
 			break

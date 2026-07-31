@@ -170,6 +170,10 @@ type FlattenerPreference struct {
 	ConvertAllStrokesToOutlines string             `xml:"ConvertAllStrokesToOutlines,attr,omitempty"`
 	ConvertAllTextToOutlines    string             `xml:"ConvertAllTextToOutlines,attr,omitempty"`
 	Properties                  *common.Properties `xml:"Properties,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // Page representa una página dentro de un spread.
@@ -249,10 +253,18 @@ type MarginPreference struct {
 	Right            string `xml:"Right,attr,omitempty"`
 	ColumnDirection  string `xml:"ColumnDirection,attr,omitempty"`
 	ColumnsPositions string `xml:"ColumnsPositions,attr,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 type BasicFrame struct {
 	Self string `xml:"Self,attr"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // SpreadTextFrame representa un frame de texto en un spread.

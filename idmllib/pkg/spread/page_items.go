@@ -78,6 +78,10 @@ type FrameFittingOption struct {
 	BottomCrop          string `xml:"BottomCrop,attr,omitempty"`
 	FittingOnEmptyFrame string `xml:"FittingOnEmptyFrame,attr,omitempty"` // "None", "FitContentProportionally", etc.
 	FittingAlignment    string `xml:"FittingAlignment,attr,omitempty"`    // "TopLeftAnchor", "CenterAnchor", etc.
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // FrameContentBase contiene los atributos comunes compartidos por el contenido Image y PDF.
@@ -170,6 +174,10 @@ type Link struct {
 	LinkImportTime             string `xml:"LinkImportTime,attr,omitempty"`
 	LinkResourceSize           string `xml:"LinkResourceSize,attr,omitempty"`
 	RenditionData              string `xml:"RenditionData,attr,omitempty"` // "Actual"
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ClippingPathSettings controla el comportamiento de recorte (clipping) de la imagen.
@@ -184,6 +192,10 @@ type ClippingPathSettings struct {
 	InsetFrame             string `xml:"InsetFrame,attr,omitempty"`
 	AppliedPathName        string `xml:"AppliedPathName,attr,omitempty"`
 	Index                  string `xml:"Index,attr,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ImageIOPreference controla la configuración de importación/exportación de la imagen.
@@ -191,6 +203,10 @@ type ImageIOPreference struct {
 	ApplyPhotoshopClippingPath string `xml:"ApplyPhotoshopClippingPath,attr,omitempty"`
 	AllowAutoEmbedding         string `xml:"AllowAutoEmbedding,attr,omitempty"`
 	AlphaChannelName           string `xml:"AlphaChannelName,attr,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ContourOption controla el ajuste de contorno (contour wrapping).
@@ -198,6 +214,10 @@ type ContourOption struct {
 	ContourType        string `xml:"ContourType,attr,omitempty"`
 	IncludeInsideEdges string `xml:"IncludeInsideEdges,attr,omitempty"`
 	ContourPathName    string `xml:"ContourPathName,attr,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // TextWrapPreference controla cómo el texto se ajusta alrededor de los objetos.
@@ -208,6 +228,10 @@ type TextWrapPreference struct {
 	TextWrapMode          string             `xml:"TextWrapMode,attr,omitempty"` // "None", "BoundingBoxTextWrap", etc.
 	Properties            *common.Properties `xml:"Properties,omitempty"`
 	ContourOption         *ContourOption     `xml:"ContourOption,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // InCopyExportOption controla la configuración de exportación a InCopy.
@@ -215,6 +239,10 @@ type InCopyExportOption struct {
 	XMLName               xml.Name `xml:"InCopyExportOption"`
 	IncludeGraphicProxies string   `xml:"IncludeGraphicProxies,attr,omitempty"`
 	IncludeAllResources   string   `xml:"IncludeAllResources,attr,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ObjectExportOption controla la configuración de exportación para publicación web/digital.
@@ -222,6 +250,10 @@ type ObjectExportOption struct {
 	XMLName xml.Name `xml:"ObjectExportOption"`
 	// Placeholder para las opciones de exportación - la definición completa llegará en la Fase 5
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // PDF representa un archivo PDF colocado dentro de un frame (típicamente un Rectangle).
@@ -261,4 +293,8 @@ type PDFAttribute struct {
 	PageNumber            string `xml:"PageNumber,attr,omitempty"`            // "1" (qué página del PDF multipágina mostrar)
 	PDFCrop               string `xml:"PDFCrop,attr,omitempty"`               // "CropPDF", "CropContentBox", "CropMediaBox", etc.
 	TransparentBackground string `xml:"TransparentBackground,attr,omitempty"` // "true" o "false"
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }

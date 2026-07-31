@@ -79,6 +79,10 @@ type StoryPreference struct {
 
 	// Comodín para atributos o elementos desconocidos
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // InCopyExportOption representa la configuración de exportación InCopy para la story.
@@ -90,6 +94,10 @@ type InCopyExportOption struct {
 
 	// Comodín para atributos o elementos desconocidos
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ParagraphStyleRange representa un rango de párrafos con el mismo estilo de párrafo.
@@ -138,11 +146,19 @@ type CharacterChild struct {
 type Content struct {
 	XMLName xml.Name `xml:"Content"`
 	Text    string   `xml:",chardata"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // Br representa un elemento de salto de línea.
 type Br struct {
 	XMLName xml.Name `xml:"Br"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // NewCharacterStyleRange crea un nuevo CharacterStyleRange con el estilo y contenido dados.

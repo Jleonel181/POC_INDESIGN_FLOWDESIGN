@@ -253,6 +253,10 @@ type Language struct {
 	// Proveedores de procesamiento
 	HyphenationVendor string `xml:"HyphenationVendor,attr,omitempty"` // Proveedor de separación silábica (ej: "Proximity", "Hunspell")
 	SpellingVendor    string `xml:"SpellingVendor,attr,omitempty"`    // Proveedor de corrección ortográfica
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ResourceRef representa un elemento de referencia a recurso idPkg:*.
@@ -266,6 +270,10 @@ type Language struct {
 type ResourceRef struct {
 	XMLName xml.Name // Se establece con el nombre de elemento con namespace
 	Src     string   `xml:"src,attr"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // Layer representa una capa del documento para organizar contenido.
@@ -296,6 +304,10 @@ type Layer struct {
 
 	// Comodín para otros hijos de Layer
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // NumberingList representa una definición de lista numerada.
@@ -313,6 +325,10 @@ type NumberingList struct {
 
 	// Comodín para atributos o elementos hijo futuros
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // NamedGrid representa una definición de grilla de layout con nombre.
@@ -329,6 +345,10 @@ type NamedGrid struct {
 
 	// Comodín para otros hijos de NamedGrid
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // Section representa una sección del documento con su propia numeración de páginas.
@@ -348,8 +368,8 @@ type Section struct {
 	ContinueNumbering    string `xml:"ContinueNumbering,attr,omitempty"`    // Continuar desde la sección anterior ("true"/"false")
 	IncludeSectionPrefix string `xml:"IncludeSectionPrefix,attr,omitempty"` // Incluir prefijo en números de página ("true"/"false")
 	PageNumberStart      string `xml:"PageNumberStart,attr,omitempty"`      // Número de página inicial
-	SectionPrefix        string `xml:"SectionPrefix,attr,omitempty"`        // Prefijo para números de página (ej: "A")
-	Marker               string `xml:"Marker,attr,omitempty"`               // Marcador de sección
+	SectionPrefix        string `xml:"SectionPrefix,attr"`                  // Prefijo para números de página (ej: "A")
+	Marker               string `xml:"Marker,attr"`                         // Marcador de sección
 
 	// Layout alternativo (para publicación digital)
 	AlternateLayout       string `xml:"AlternateLayout,attr,omitempty"`       // Nombre del layout alternativo
@@ -360,6 +380,10 @@ type Section struct {
 
 	// Comodín para otros hijos de Section
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // DocumentUser representa un usuario que ha trabajado en el documento.
@@ -376,6 +400,10 @@ type DocumentUser struct {
 
 	// Comodín para otros hijos de DocumentUser
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ColorGroup representa un grupo de muestras de color para organización.
@@ -395,6 +423,10 @@ type ColorGroup struct {
 
 	// Comodín para otros hijos de ColorGroup
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ColorGroupSwatch representa una referencia a una muestra de color dentro de un grupo de colores.
@@ -407,6 +439,10 @@ type ColorGroupSwatch struct {
 
 	// Comodín para otros hijos de ColorGroupSwatch
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ABullet representa una definición de carácter de viñeta.
@@ -426,6 +462,10 @@ type ABullet struct {
 
 	// Comodín para otros hijos de ABullet
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // Assignment representa una asignación InCopy para edición colaborativa.
@@ -448,6 +488,10 @@ type Assignment struct {
 
 	// Comodín para otros hijos de Assignment
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // TextVariable representa una variable de texto dinámico en el documento.
@@ -474,59 +518,87 @@ type TextVariable struct {
 
 	// Comodín para otros hijos de TextVariable o tipos de preferencia desconocidos
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ChapterNumberVariablePreference contiene configuraciones para variables de número de capítulo.
 type ChapterNumberVariablePreference struct {
 	XMLName    xml.Name `xml:"ChapterNumberVariablePreference"`
-	TextBefore string   `xml:"TextBefore,attr,omitempty"` // Texto antes del número
-	Format     string   `xml:"Format,attr,omitempty"`     // Formato del número (ej: "Current")
-	TextAfter  string   `xml:"TextAfter,attr,omitempty"`  // Texto después del número
+	TextBefore string   `xml:"TextBefore,attr"`       // Texto antes del número
+	Format     string   `xml:"Format,attr,omitempty"` // Formato del número (ej: "Current")
+	TextAfter  string   `xml:"TextAfter,attr"`        // Texto después del número
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // DateVariablePreference contiene configuraciones para variables de fecha.
 type DateVariablePreference struct {
 	XMLName    xml.Name `xml:"DateVariablePreference"`
-	TextBefore string   `xml:"TextBefore,attr,omitempty"` // Texto antes de la fecha
-	Format     string   `xml:"Format,attr,omitempty"`     // Formato de fecha (ej: "dd/MM/yy", "d MMMM yyyy h:mm aa")
-	TextAfter  string   `xml:"TextAfter,attr,omitempty"`  // Texto después de la fecha
+	TextBefore string   `xml:"TextBefore,attr"`       // Texto antes de la fecha
+	Format     string   `xml:"Format,attr,omitempty"` // Formato de fecha (ej: "dd/MM/yy", "d MMMM yyyy h:mm aa")
+	TextAfter  string   `xml:"TextAfter,attr"`        // Texto después de la fecha
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // FileNameVariablePreference contiene configuraciones para variables de nombre de archivo.
 type FileNameVariablePreference struct {
 	XMLName          xml.Name `xml:"FileNameVariablePreference"`
-	TextBefore       string   `xml:"TextBefore,attr,omitempty"`       // Texto antes del nombre de archivo
+	TextBefore       string   `xml:"TextBefore,attr"`                 // Texto antes del nombre de archivo
 	IncludePath      string   `xml:"IncludePath,attr,omitempty"`      // Incluir ruta del archivo ("true"/"false")
 	IncludeExtension string   `xml:"IncludeExtension,attr,omitempty"` // Incluir extensión del archivo ("true"/"false")
-	TextAfter        string   `xml:"TextAfter,attr,omitempty"`        // Texto después del nombre de archivo
+	TextAfter        string   `xml:"TextAfter,attr"`                  // Texto después del nombre de archivo
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // CaptionMetadataVariablePreference contiene configuraciones para variables de metadatos de caption.
 type CaptionMetadataVariablePreference struct {
 	XMLName              xml.Name `xml:"CaptionMetadataVariablePreference"`
-	TextBefore           string   `xml:"TextBefore,attr,omitempty"`           // Texto antes de los metadatos
+	TextBefore           string   `xml:"TextBefore,attr"`                     // Texto antes de los metadatos
 	MetadataProviderName string   `xml:"MetadataProviderName,attr,omitempty"` // Fuente de metadatos (ej: "$ID/#LinkInfoNameStr")
-	TextAfter            string   `xml:"TextAfter,attr,omitempty"`            // Texto después de los metadatos
+	TextAfter            string   `xml:"TextAfter,attr"`                      // Texto después de los metadatos
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // PageNumberVariablePreference contiene configuraciones para variables de número de página.
 type PageNumberVariablePreference struct {
 	XMLName    xml.Name `xml:"PageNumberVariablePreference"`
-	TextBefore string   `xml:"TextBefore,attr,omitempty"` // Texto antes del número de página
-	Format     string   `xml:"Format,attr,omitempty"`     // Formato del número (ej: "Current")
-	TextAfter  string   `xml:"TextAfter,attr,omitempty"`  // Texto después del número de página
-	Scope      string   `xml:"Scope,attr,omitempty"`      // Alcance (ej: "SectionScope")
+	TextBefore string   `xml:"TextBefore,attr"`       // Texto antes del número de página
+	Format     string   `xml:"Format,attr,omitempty"` // Formato del número (ej: "Current")
+	TextAfter  string   `xml:"TextAfter,attr"`        // Texto después del número de página
+	Scope      string   `xml:"Scope,attr,omitempty"`  // Alcance (ej: "SectionScope")
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // MatchParagraphStylePreference contiene configuraciones para variables de encabezado corriente.
 type MatchParagraphStylePreference struct {
 	XMLName               xml.Name `xml:"MatchParagraphStylePreference"`
-	TextBefore            string   `xml:"TextBefore,attr,omitempty"`            // Texto antes del texto coincidente
-	TextAfter             string   `xml:"TextAfter,attr,omitempty"`             // Texto después del texto coincidente
+	TextBefore            string   `xml:"TextBefore,attr"`                      // Texto antes del texto coincidente
+	TextAfter             string   `xml:"TextAfter,attr"`                       // Texto después del texto coincidente
 	AppliedParagraphStyle string   `xml:"AppliedParagraphStyle,attr,omitempty"` // Estilo de párrafo a coincidir
 	SearchStrategy        string   `xml:"SearchStrategy,attr,omitempty"`        // Estrategia de búsqueda (ej: "FirstOnPage")
 	ChangeCase            string   `xml:"ChangeCase,attr,omitempty"`            // Transformación de mayúsculas (ej: "None")
 	DeleteEndPunctuation  string   `xml:"DeleteEndPunctuation,attr,omitempty"`  // Eliminar puntuación final ("true"/"false")
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // ============================================================================
@@ -540,6 +612,10 @@ type TinDocumentDataObject struct {
 	XMLName xml.Name `xml:"TinDocumentDataObject,omitempty"`
 	// Contiene datos internos de InDesign - preservado tal cual para compatibilidad
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // TransparencyDefaultContainerObject contiene configuraciones de transparencia por defecto.
@@ -549,4 +625,8 @@ type TransparencyDefaultContainerObject struct {
 	XMLName xml.Name `xml:"TransparencyDefaultContainerObject,omitempty"`
 	// Contiene valores por defecto de transparencia - preservado tal cual para compatibilidad
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
