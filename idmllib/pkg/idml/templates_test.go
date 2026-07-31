@@ -163,16 +163,23 @@ func TestNewFromTemplate_DocumentParsing(t *testing.T) {
 				t.Fatalf("NewFromTemplate() failed: %v", err)
 			}
 
-			// Verify designmap.xml contains correct dimensions
-			entry := pkg.files["designmap.xml"]
+			// Las dimensiones viven en Resources/Preferences.xml, dentro de
+			// DocumentPreference, y no en designmap.xml: es donde las pone InDesign
+			// (Req 8, criterios 2 y 3).
+			entry := pkg.files[PathPreferences]
 			content := string(entry.data)
 
-			// Check for width and height in XML
-			if !strings.Contains(content, fmt.Sprintf("PageWidth=\"%.3f\"", tt.wantWidth)) {
-				t.Errorf("designmap.xml missing PageWidth=%.3f", tt.wantWidth)
+			if !strings.Contains(content, fmt.Sprintf("PageWidth=%q", num(tt.wantWidth))) {
+				t.Errorf("%s no lleva PageWidth=%q", PathPreferences, num(tt.wantWidth))
 			}
-			if !strings.Contains(content, fmt.Sprintf("PageHeight=\"%.3f\"", tt.wantHeight)) {
-				t.Errorf("designmap.xml missing PageHeight=%.3f", tt.wantHeight)
+			if !strings.Contains(content, fmt.Sprintf("PageHeight=%q", num(tt.wantHeight))) {
+				t.Errorf("%s no lleva PageHeight=%q", PathPreferences, num(tt.wantHeight))
+			}
+
+			// Y el designmap no debe llevarlas.
+			designmap := string(pkg.files[PathDesignmap].data)
+			if strings.Contains(designmap, "DocumentPreference") {
+				t.Errorf("%s no debe llevar DocumentPreference", PathDesignmap)
 			}
 		})
 	}

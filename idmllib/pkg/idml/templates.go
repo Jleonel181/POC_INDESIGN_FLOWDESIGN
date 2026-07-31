@@ -3,42 +3,50 @@ package idml
 import (
 	"archive/zip"
 	"bytes"
+	"crypto/rand"
 	_ "embed"
 	"fmt"
+	"strconv"
+	"strings"
 	"sync"
 	"text/template"
+	"time"
 
 	"github.com/dimelords/idmllib/v2/pkg/common"
 )
 
-// Inicialización de templates con sync.Once para carga diferida thread-safe
+// cachedTemplate parsea una plantilla embebida una sola vez y guarda el resultado,
+// incluido el error, para las llamadas siguientes. Sustituye a los pares de
+// variables sueltas que había por plantilla: ahora son seis y el patrón repetido
+// costaba cuatro declaraciones cada uno.
+type cachedTemplate struct {
+	name   string
+	source []byte
+
+	once sync.Once
+	tmpl *template.Template
+	err  error
+}
+
+func (c *cachedTemplate) get() (*template.Template, error) {
+	c.once.Do(func() {
+		c.tmpl, c.err = template.New(c.name).Parse(string(c.source))
+	})
+	return c.tmpl, c.err
+}
+
+// Plantillas de la forma mínima que llevan valores calculados. Las que no llevan
+// ninguno (mimetype, container.xml, Graphic.xml, Fonts.xml, Styles.xml, Tags.xml) se
+// copian tal cual y no pasan por aquí.
 var (
-	designmapTmpl     *template.Template
-	designmapTmplErr  error
-	designmapTmplOnce sync.Once
-
-	masterspreadTmpl     *template.Template
-	masterspreadTmplErr  error
-	masterspreadTmplOnce sync.Once
+	designmapTmpl    = &cachedTemplate{name: "designmap", source: minimalDesignMap}
+	masterspreadTmpl = &cachedTemplate{name: "masterspread", source: minimalMasterSpread}
+	spreadTmpl       = &cachedTemplate{name: "spread", source: minimalSpread}
+	storyTmpl        = &cachedTemplate{name: "story", source: minimalStory}
+	backingStoryTmpl = &cachedTemplate{name: "backingstory", source: minimalBackingStory}
+	preferencesTmpl  = &cachedTemplate{name: "preferences", source: minimalPreferences}
+	metadataTmpl     = &cachedTemplate{name: "metadata", source: minimalMetadata}
 )
-
-// getDesignmapTemplate devuelve el template de designmap ya parseado.
-// El template se parsea una sola vez y se cachea para llamadas posteriores.
-func getDesignmapTemplate() (*template.Template, error) {
-	designmapTmplOnce.Do(func() {
-		designmapTmpl, designmapTmplErr = template.New("designmap").Parse(string(minimalDesignMap))
-	})
-	return designmapTmpl, designmapTmplErr
-}
-
-// getMasterspreadTemplate devuelve el template de masterspread ya parseado.
-// El template se parsea una sola vez y se cachea para llamadas posteriores.
-func getMasterspreadTemplate() (*template.Template, error) {
-	masterspreadTmplOnce.Do(func() {
-		masterspreadTmpl, masterspreadTmplErr = template.New("masterspread").Parse(string(minimalMasterSpread))
-	})
-	return masterspreadTmpl, masterspreadTmplErr
-}
 
 // Archivos de template embebidos en tiempo de compilación.
 // Proveen estructuras mínimas válidas para crear documentos IDML desde cero.
@@ -69,6 +77,18 @@ var minimalStyles []byte
 
 //go:embed templates/minimal/Tags.xml
 var minimalTags []byte
+
+//go:embed templates/minimal/Spread_ud3.xml
+var minimalSpread []byte
+
+//go:embed templates/minimal/Story_ue1.xml
+var minimalStory []byte
+
+//go:embed templates/minimal/BackingStory.xml
+var minimalBackingStory []byte
+
+//go:embed templates/minimal/metadata.xml
+var minimalMetadata []byte
 
 // DocumentPreset define tamaños de página y configuraciones estándar.
 type DocumentPreset string
@@ -217,126 +237,200 @@ func NewFromTemplate(opts *TemplateOptions) (*Package, error) {
 		opts.ColumnGutter = 12
 	}
 
+	data, err := newTemplateData(opts, opts.GetDimensions())
+	if err != nil {
+		return nil, err
+	}
+
+	// El orden de esta lista es el orden de las entradas del ZIP, y mimetype tiene
+	// que ir primero y sin comprimir. El resto sigue el orden de plain.idml, que es
+	// una exportación de InDesign de esta misma forma: 1 página, 1 marco de texto.
+	//
+	// Las plantillas con valores calculados se renderizan; las demás se copian.
+	files := []struct {
+		path string
+		tmpl *cachedTemplate
+		raw  []byte
+	}{
+		{path: PathMimetype, raw: minimalMimetype},
+		{path: PathDesignmap, tmpl: designmapTmpl},
+		{path: PathContainer, raw: minimalContainer},
+		{path: PathMetadata, tmpl: metadataTmpl},
+		{path: PathGraphic, raw: minimalGraphic},
+		{path: PathFonts, raw: minimalFonts},
+		{path: PathStyles, raw: minimalStyles},
+		{path: PathPreferences, tmpl: preferencesTmpl},
+		{path: PathTags, raw: minimalTags},
+		{path: PathMasterSpread, tmpl: masterspreadTmpl},
+		{path: PathSpread, tmpl: spreadTmpl},
+		{path: PathBackingStory, tmpl: backingStoryTmpl},
+		{path: PathStory, tmpl: storyTmpl},
+	}
+
 	pkg := New()
-
-	// Obtener dimensiones de página
-	dims := opts.GetDimensions()
-
-	// Generar designmap.xml personalizado
-	designmap, err := generateDesignMap(opts, dims)
-	if err != nil {
-		return nil, common.WrapErrorWithPath("idml", "create from template", PathDesignmap, err)
-	}
-	if err := pkg.addFileFromTemplate(PathDesignmap, designmap); err != nil {
-		return nil, common.WrapErrorWithPath("idml", "create from template", PathDesignmap, err)
-	}
-
-	// Generar MasterSpread personalizado
-	masterSpread, err := generateMasterSpread(opts, dims)
-	if err != nil {
-		return nil, common.WrapErrorWithPath("idml", "create from template", PathMasterSpread, err)
-	}
-	if err := pkg.addFileFromTemplate(PathMasterSpread, masterSpread); err != nil {
-		return nil, common.WrapErrorWithPath("idml", "create from template", PathMasterSpread, err)
-	}
-
-	// Agregar Preferences.xml mínimo
-	if err := pkg.addFileFromTemplate(PathPreferences, minimalPreferences); err != nil {
-		return nil, common.WrapErrorWithPath("idml", "create from template", PathPreferences, err)
-	}
-
-	// CRÍTICO: Agregar archivo mimetype (debe ser el primero y sin comprimir)
-	if err := pkg.addFileFromTemplate(PathMimetype, minimalMimetype); err != nil {
-		return nil, common.WrapErrorWithPath("idml", "create from template", PathMimetype, err)
-	}
-
-	// Agregar archivos META-INF
-	if err := pkg.addFileFromTemplate(PathContainer, minimalContainer); err != nil {
-		return nil, common.WrapErrorWithPath("idml", "create from template", PathContainer, err)
-	}
-
-	// Agregar archivos de recursos requeridos
-	if err := pkg.addFileFromTemplate(PathGraphic, minimalGraphic); err != nil {
-		return nil, common.WrapErrorWithPath("idml", "create from template", PathGraphic, err)
-	}
-
-	if err := pkg.addFileFromTemplate(PathFonts, minimalFonts); err != nil {
-		return nil, common.WrapErrorWithPath("idml", "create from template", PathFonts, err)
-	}
-
-	if err := pkg.addFileFromTemplate(PathStyles, minimalStyles); err != nil {
-		return nil, common.WrapErrorWithPath("idml", "create from template", PathStyles, err)
-	}
-
-	// Add XML/Tags.xml
-	if err := pkg.addFileFromTemplate(PathTags, minimalTags); err != nil {
-		return nil, common.WrapErrorWithPath("idml", "create from template", PathTags, err)
+	for _, f := range files {
+		content := f.raw
+		if f.tmpl != nil {
+			tmpl, tmplErr := f.tmpl.get()
+			content, err = renderTemplate(f.tmpl.name, tmpl, tmplErr, data)
+			if err != nil {
+				return nil, common.WrapErrorWithPath("idml", "create from template", f.path, err)
+			}
+		}
+		if err := pkg.addFileFromTemplate(f.path, content); err != nil {
+			return nil, common.WrapErrorWithPath("idml", "create from template", f.path, err)
+		}
 	}
 
 	return pkg, nil
 }
 
-// generateDesignMap crea un designmap.xml personalizado según las opciones.
-func generateDesignMap(opts *TemplateOptions, dims PageDimensions) ([]byte, error) {
-	tmpl, err := getDesignmapTemplate()
-	if err != nil {
-		return nil, common.WrapError("idml", "generate design map", fmt.Errorf("error al parsear template de designmap: %w", err))
-	}
+// templateData son los valores que reciben todas las plantillas de la forma
+// mínima. Es un único struct compartido, y no uno por plantilla, porque el cierre
+// referencial entre los archivos depende de que la geometría sea la misma en todos:
+// el `PageStart` del `Section` apunta a la página del spread, y el marco de texto se
+// coloca dentro de los márgenes que declaran las preferencias.
+//
+// Las medidas van como cadena ya formateada y no como float64 porque el formato de
+// un número en una plantilla de texto depende de cómo lo imprima cada una, y aquí
+// interesa que el mismo valor salga idéntico en los cuatro archivos que lo llevan.
+type templateData struct {
+	DOMVersion  string
+	Orientation string
 
-	data := struct {
-		DOMVersion   string
-		PageWidth    float64
-		PageHeight   float64
-		Orientation  string
-		ColumnCount  int
-		ColumnGutter float64
-	}{
-		DOMVersion:   opts.DOMVersion,
-		PageWidth:    dims.Width,
-		PageHeight:   dims.Height,
-		Orientation:  opts.Orientation,
-		ColumnCount:  opts.ColumnCount,
-		ColumnGutter: opts.ColumnGutter,
-	}
+	PageWidthStr  string
+	PageHeightStr string
+	HalfHeightStr string
 
-	var buf bytes.Buffer
-	if err := tmpl.Execute(&buf, data); err != nil {
-		return nil, common.WrapError("idml", "generate design map", fmt.Errorf("error al ejecutar template de designmap: %w", err))
-	}
+	ColumnCount      int
+	ColumnGutterStr  string
+	ColumnWidthStr   string
+	ColumnsPositions string
 
-	return buf.Bytes(), nil
+	MarginTopStr    string
+	MarginBottomStr string
+	MarginLeftStr   string
+	MarginRightStr  string
+
+	FrameCenterXStr    string
+	FrameCenterYStr    string
+	FrameHalfWidthStr  string
+	FrameHalfHeightStr string
+
+	Timestamp  string
+	InstanceID string
+	DocumentID string
 }
 
-// generateMasterSpread crea un MasterSpread personalizado según las opciones.
-func generateMasterSpread(opts *TemplateOptions, dims PageDimensions) ([]byte, error) {
-	tmpl, err := getMasterspreadTemplate()
-	if err != nil {
-		return nil, common.WrapError("idml", "generate master spread", fmt.Errorf("error al parsear template de masterspread: %w", err))
+// num formatea una medida en puntos como la escribe InDesign: sin notación
+// exponencial y sin ceros de relleno.
+//
+// Redondea a 9 decimales antes de recortar, que es la precisión que usa InDesign en
+// sus propias exportaciones. Sin ese redondeo, un ancho de columna calculado sale
+// como "95.05519999999999" en lugar de "95.0552": es el mismo número, pero el ruido
+// de la coma flotante no se parece a nada que InDesign produzca.
+func num(v float64) string {
+	if v == 0 {
+		return "0"
+	}
+	s := strconv.FormatFloat(v, 'f', 9, 64)
+	s = strings.TrimRight(s, "0")
+	return strings.TrimSuffix(s, ".")
+}
+
+// newTemplateData calcula la geometría de la forma mínima a partir de las opciones.
+//
+// El marco de texto se coloca exactamente en la caja de márgenes, que es lo que hace
+// InDesign al crear un documento con marco de texto principal, y así el marco queda
+// coherente con los márgenes que se emiten en las preferencias.
+func newTemplateData(opts *TemplateOptions, dims PageDimensions) (*templateData, error) {
+	usableWidth := dims.Width - opts.Margins.Left - opts.Margins.Right
+	usableHeight := dims.Height - opts.Margins.Top - opts.Margins.Bottom
+	if usableWidth <= 0 || usableHeight <= 0 {
+		return nil, common.Errorf("idml", "create from template", "",
+			"los márgenes no dejan área utilizable: página %s×%s, márgenes %s/%s/%s/%s",
+			num(dims.Width), num(dims.Height),
+			num(opts.Margins.Top), num(opts.Margins.Bottom), num(opts.Margins.Left), num(opts.Margins.Right))
 	}
 
-	data := struct {
-		DOMVersion   string
-		PageWidth    float64
-		PageHeight   float64
-		CenterX      float64
-		CenterY      float64
-		ColumnCount  int
-		ColumnGutter float64
-	}{
-		DOMVersion:   opts.DOMVersion,
-		PageWidth:    dims.Width,
-		PageHeight:   dims.Height,
-		CenterX:      dims.Width / 2,
-		CenterY:      dims.Height / 2,
-		ColumnCount:  opts.ColumnCount,
-		ColumnGutter: opts.ColumnGutter,
+	// Ancho de una columna y posiciones de las columnas dentro del área utilizable.
+	// InDesign las emite como pares inicio/fin relativos al margen izquierdo.
+	columnWidth := (usableWidth - float64(opts.ColumnCount-1)*opts.ColumnGutter) / float64(opts.ColumnCount)
+	if columnWidth <= 0 {
+		return nil, common.Errorf("idml", "create from template", "",
+			"%d columnas con medianil %s no caben en %s puntos de ancho utilizable",
+			opts.ColumnCount, num(opts.ColumnGutter), num(usableWidth))
+	}
+
+	positions := make([]string, 0, opts.ColumnCount*2)
+	for i := 0; i < opts.ColumnCount; i++ {
+		start := float64(i) * (columnWidth + opts.ColumnGutter)
+		positions = append(positions, num(start), num(start+columnWidth))
+	}
+
+	instanceID, err := newUUID()
+	if err != nil {
+		return nil, common.WrapErrorWithPath("idml", "create from template", PathMetadata, err)
+	}
+	documentID, err := newUUID()
+	if err != nil {
+		return nil, common.WrapErrorWithPath("idml", "create from template", PathMetadata, err)
+	}
+
+	return &templateData{
+		DOMVersion:  opts.DOMVersion,
+		Orientation: opts.Orientation,
+
+		PageWidthStr:  num(dims.Width),
+		PageHeightStr: num(dims.Height),
+		HalfHeightStr: num(dims.Height / 2),
+
+		ColumnCount:      opts.ColumnCount,
+		ColumnGutterStr:  num(opts.ColumnGutter),
+		ColumnWidthStr:   num(columnWidth),
+		ColumnsPositions: strings.Join(positions, " "),
+
+		MarginTopStr:    num(opts.Margins.Top),
+		MarginBottomStr: num(opts.Margins.Bottom),
+		MarginLeftStr:   num(opts.Margins.Left),
+		MarginRightStr:  num(opts.Margins.Right),
+
+		// El marco va centrado en la caja de márgenes. El origen vertical del spread
+		// está en el centro de la página, de ahí el desplazamiento de media altura.
+		FrameCenterXStr:    num(opts.Margins.Left + usableWidth/2),
+		FrameCenterYStr:    num(opts.Margins.Top + usableHeight/2 - dims.Height/2),
+		FrameHalfWidthStr:  num(usableWidth / 2),
+		FrameHalfHeightStr: num(usableHeight / 2),
+
+		Timestamp:  time.Now().Format(time.RFC3339),
+		InstanceID: instanceID,
+		DocumentID: documentID,
+	}, nil
+}
+
+// newUUID genera un identificador aleatorio con la forma que XMP espera en
+// InstanceID y DocumentID. Se usa crypto/rand de la biblioteca estándar para no
+// añadir una dependencia por ocho líneas.
+func newUUID() (string, error) {
+	var b [16]byte
+	if _, err := rand.Read(b[:]); err != nil {
+		return "", fmt.Errorf("no se pudo generar el identificador XMP: %w", err)
+	}
+	b[6] = (b[6] & 0x0f) | 0x40 // versión 4
+	b[8] = (b[8] & 0x3f) | 0x80 // variante RFC 4122
+	return fmt.Sprintf("%x-%x-%x-%x-%x", b[0:4], b[4:6], b[6:8], b[8:10], b[10:16]), nil
+}
+
+// renderTemplate ejecuta una plantilla de la forma mínima con los datos calculados.
+func renderTemplate(name string, tmpl *template.Template, err error, data *templateData) ([]byte, error) {
+	if err != nil {
+		return nil, common.WrapError("idml", "create from template", fmt.Errorf("error al parsear template de %s: %w", name, err))
 	}
 
 	var buf bytes.Buffer
 	if err := tmpl.Execute(&buf, data); err != nil {
-		return nil, common.WrapError("idml", "generate master spread", fmt.Errorf("error al ejecutar template de masterspread: %w", err))
+		return nil, common.WrapError("idml", "create from template", fmt.Errorf("error al ejecutar template de %s: %w", name, err))
 	}
-
 	return buf.Bytes(), nil
 }
 

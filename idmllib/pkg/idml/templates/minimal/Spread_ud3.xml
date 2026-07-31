@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Spread xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="{{.DOMVersion}}">
+	<Spread Self="ud3" PageTransitionType="None" PageTransitionDirection="NotApplicable" PageTransitionDuration="Medium" ShowMasterItems="true" PageCount="1" BindingLocation="0" SpreadHidden="false" AllowPageShuffle="true" ItemTransform="1 0 0 1 0 0" FlattenerOverride="Default">
+		<FlattenerPreference LineArtAndTextResolution="300" GradientAndMeshResolution="150" ClipComplexRegions="false" ConvertAllStrokesToOutlines="false" ConvertAllTextToOutlines="false">
+			<Properties>
+				<RasterVectorBalance type="double">50</RasterVectorBalance>
+			</Properties>
+		</FlattenerPreference>
+		<Page Self="ud8" TabOrder="" AppliedMaster="ub4" OverrideList="" MasterPageTransform="1 0 0 1 0 0" Name="1" AppliedTrapPreset="TrapPreset/$ID/kDefaultTrapStyleName" GeometricBounds="0 0 {{.PageHeightStr}} {{.PageWidthStr}}" ItemTransform="1 0 0 1 0 -{{.HalfHeightStr}}" AppliedAlternateLayout="ub6" LayoutRule="UseMaster" SnapshotBlendingMode="IgnoreLayoutSnapshots" OptionalPage="false" GridStartingPoint="TopOutside" UseMasterGrid="true">
+			<Properties>
+				<PageColor type="enumeration">UseMasterColor</PageColor>
+			</Properties>
+			<MarginPreference ColumnCount="{{.ColumnCount}}" ColumnGutter="{{.ColumnGutterStr}}" Top="{{.MarginTopStr}}" Bottom="{{.MarginBottomStr}}" Left="{{.MarginLeftStr}}" Right="{{.MarginRightStr}}" ColumnDirection="Horizontal" ColumnsPositions="{{.ColumnsPositions}}" />
+		</Page>
+		<TextFrame Self="uf3" ParentStory="ue1" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" OverriddenPageItemProps="" Visible="true" Name="$ID/" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="uba" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 {{.FrameCenterXStr}} {{.FrameCenterYStr}}" ParentInterfaceChangeCount="" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-{{.FrameHalfWidthStr}} -{{.FrameHalfHeightStr}}" LeftDirection="-{{.FrameHalfWidthStr}} -{{.FrameHalfHeightStr}}" RightDirection="-{{.FrameHalfWidthStr}} -{{.FrameHalfHeightStr}}" />
+							<PathPointType Anchor="-{{.FrameHalfWidthStr}} {{.FrameHalfHeightStr}}" LeftDirection="-{{.FrameHalfWidthStr}} {{.FrameHalfHeightStr}}" RightDirection="-{{.FrameHalfWidthStr}} {{.FrameHalfHeightStr}}" />
+							<PathPointType Anchor="{{.FrameHalfWidthStr}} {{.FrameHalfHeightStr}}" LeftDirection="{{.FrameHalfWidthStr}} {{.FrameHalfHeightStr}}" RightDirection="{{.FrameHalfWidthStr}} {{.FrameHalfHeightStr}}" />
+							<PathPointType Anchor="{{.FrameHalfWidthStr}} -{{.FrameHalfHeightStr}}" LeftDirection="{{.FrameHalfWidthStr}} -{{.FrameHalfHeightStr}}" RightDirection="{{.FrameHalfWidthStr}} -{{.FrameHalfHeightStr}}" />
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TextFramePreference TextColumnCount="{{.ColumnCount}}" TextColumnFixedWidth="{{.ColumnWidthStr}}" TextColumnMaxWidth="0">
+				<Properties>
+					<InsetSpacing type="list">
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+						<ListItem type="unit">0</ListItem>
+					</InsetSpacing>
+				</Properties>
+			</TextFramePreference>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+	</Spread>
+</idPkg:Spread>

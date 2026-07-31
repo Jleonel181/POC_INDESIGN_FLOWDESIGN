@@ -4,11 +4,11 @@
 		<Properties>
 			<PageColor type="enumeration">UseMasterColor</PageColor>
 		</Properties>
-		<Page Self="ub5" TabOrder="" AppliedMaster="n" OverrideList="" MasterPageTransform="1 0 0 1 0 0" Name="A" GeometricBounds="0 0 {{.PageHeight}} {{.PageWidth}}" ItemTransform="1 0 0 1 -{{.CenterX}} -{{.CenterY}}" GridStartingPoint="TopOutside" UseMasterGrid="true">
+		<Page Self="ub5" TabOrder="" AppliedMaster="n" OverrideList="" MasterPageTransform="1 0 0 1 0 0" Name="A" AppliedTrapPreset="TrapPreset/$ID/kDefaultTrapStyleName" GeometricBounds="0 0 {{.PageHeightStr}} {{.PageWidthStr}}" ItemTransform="1 0 0 1 0 -{{.HalfHeightStr}}" GridStartingPoint="TopOutside" UseMasterGrid="true">
 			<Properties>
 				<PageColor type="enumeration">UseMasterColor</PageColor>
 			</Properties>
-			<MarginPreference ColumnCount="{{.ColumnCount}}" ColumnGutter="{{.ColumnGutter}}" Top="36" Bottom="36" Left="36" Right="36" ColumnDirection="Horizontal" />
+			<MarginPreference ColumnCount="{{.ColumnCount}}" ColumnGutter="{{.ColumnGutterStr}}" Top="{{.MarginTopStr}}" Bottom="{{.MarginBottomStr}}" Left="{{.MarginLeftStr}}" Right="{{.MarginRightStr}}" ColumnDirection="Horizontal" ColumnsPositions="{{.ColumnsPositions}}" />
 		</Page>
 	</MasterSpread>
 </idPkg:MasterSpread>

@@ -19,8 +19,14 @@ const (
 	PathTags         = "XML/Tags.xml"
 	PathBackingStory = "XML/BackingStory.xml"
 
-	// Plantilla de master spread
+	PathMetadata = "META-INF/metadata.xml"
+
+	// Rutas de la plantilla mínima. Los identificadores están fijados en las
+	// plantillas y el cierre referencial entre ellas depende de que coincidan, así
+	// que las rutas se declaran aquí y no se construyen sobre la marcha.
 	PathMasterSpread = "MasterSpreads/MasterSpread_ub4.xml"
+	PathSpread       = "Spreads/Spread_ud3.xml"
+	PathStory        = "Stories/Story_ue1.xml"
 
 	// Prefijos de directorios (con barra al final)
 	PrefixStories       = "Stories/"

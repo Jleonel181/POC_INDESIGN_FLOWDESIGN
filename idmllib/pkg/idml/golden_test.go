@@ -40,9 +40,24 @@ const (
 	// llamador real. Es la única fuente de verdad del formato de imagen embebida.
 	CorpusImagesFixture = "../../testdata/archivo_evidencia_imagenes.idml"
 
+	// Los tres IDML siguientes ya estaban versionados en testdata/ y el arnés no
+	// los recorría. Se incorporaron al corpus porque medir contra dos documentos
+	// resultó insuficiente dos veces: cada uno de ellos contiene formas que los dos
+	// primeros no tienen, y un criterio de aceptación del tipo «cero diferencias de
+	// categoría X» es falso si el corpus no contiene la forma que falla.
+	//
+	// Van de menor a mayor complejidad: plain es un documento casi vacío, example
+	// tiene más recursos y estilos, y tripple tiene tres spreads.
+	CorpusPlainIDML   = "../../testdata/plain.idml"
+	CorpusExampleIDML = "../../testdata/example.idml"
+	CorpusTrippleIDML = "../../testdata/tripple.idml"
+
 	// Variables de entorno que sobreescriben las rutas anteriores.
 	EnvCorpusReferenceDir  = "IDMLLIB_REFERENCE_DIR"
 	EnvCorpusImagesFixture = "IDMLLIB_IMAGES_FIXTURE"
+	EnvCorpusPlainIDML     = "IDMLLIB_PLAIN_IDML"
+	EnvCorpusExampleIDML   = "IDMLLIB_EXAMPLE_IDML"
+	EnvCorpusTrippleIDML   = "IDMLLIB_TRIPPLE_IDML"
 
 	// DefaultMaxDiffsPerFile es el tope de diferencias a recolectar por archivo que
 	// fija el Req 1, criterio 2. Al alcanzarlo, el reporte de ese archivo se marca
@@ -256,14 +271,88 @@ func compareRoundtrip(t *testing.T, tally *fidelityTally, path string, data []by
 // uno por su propia ruta de lectura: el Documento_Referencia como árbol de
 // archivos descomprimido y el Archivo_Evidencia_Imagenes como paquete .idml.
 func TestGoldenRoundtrip_ExampleIDML(t *testing.T) {
-	t.Run("documento_referencia", testFidelityReferenceDir)
-	t.Run("archivo_evidencia_imagenes", testFidelityImagesFixture)
+	// Los tallies se acumulan para emitir un total agregado al final. Un origen que
+	// se omite por estar ausente no aporta ninguno, así que el total refleja lo que
+	// de verdad se midió y no cuenta ceros de archivos que no estaban.
+	var tallies []*fidelityTally
+
+	t.Run("documento_referencia", func(t *testing.T) {
+		tallies = append(tallies, testFidelityReferenceDir(t))
+	})
+
+	for _, pkg := range corpusPackages {
+		t.Run(pkg.origin, func(t *testing.T) {
+			tallies = append(tallies, testFidelityPackage(t, pkg))
+		})
+	}
+
+	reportCorpusTotal(t, tallies)
+}
+
+// corpusPackage describe un elemento del corpus que se versiona como paquete .idml.
+// Cada uno se resuelve desde su constante y admite override por variable de entorno,
+// igual que el Documento_Referencia.
+type corpusPackage struct {
+	origin string
+	def    string
+	env    string
+}
+
+var corpusPackages = []corpusPackage{
+	{origin: "archivo_evidencia_imagenes", def: CorpusImagesFixture, env: EnvCorpusImagesFixture},
+	{origin: "plain", def: CorpusPlainIDML, env: EnvCorpusPlainIDML},
+	{origin: "example", def: CorpusExampleIDML, env: EnvCorpusExampleIDML},
+	{origin: "tripple", def: CorpusTrippleIDML, env: EnvCorpusTrippleIDML},
+}
+
+// reportCorpusTotal emite el total agregado por categoría sobre todo el corpus. Es
+// la cifra única de avance: el desglose por origen dice dónde está el problema, este
+// total dice si el problema se está reduciendo.
+func reportCorpusTotal(t *testing.T, tallies []*fidelityTally) {
+	t.Helper()
+
+	if len(tallies) == 0 {
+		t.Log("total del corpus: ningún origen disponible en la copia de trabajo")
+		return
+	}
+
+	origins := make([]string, 0, len(tallies))
+	for _, tally := range tallies {
+		origins = append(origins, tally.origin)
+	}
+
+	total := aggregateTallies(tallies)
+	t.Logf("total del corpus sobre %d origen(es): %s", len(origins), strings.Join(origins, ", "))
+	total.report(t)
+
+	if total.truncated > 0 {
+		// Aviso necesario: con el tope puesto, el reparto por categoría de un archivo
+		// truncado depende de en qué punto cortó, así que estas cifras no sirven para
+		// comparar entre ejecuciones. La línea base se registra sin tope.
+		t.Logf("total del corpus: con el tope puesto el desglose por categoría es parcial y no comparable entre ejecuciones; usar %s=0 para la cifra de referencia", EnvMaxDiffsPerFile)
+	}
+}
+
+// aggregateTallies suma los resultados de varios orígenes en uno.
+func aggregateTallies(tallies []*fidelityTally) *fidelityTally {
+	total := newFidelityTally("TOTAL")
+	for _, tally := range tallies {
+		total.clean += tally.clean
+		total.differing += tally.differing
+		total.unparsed += tally.unparsed
+		total.failed += tally.failed
+		total.truncated += tally.truncated
+		for category, n := range tally.byCategory {
+			total.byCategory[category] += n
+		}
+	}
+	return total
 }
 
 // testFidelityReferenceDir recorre el Documento_Referencia como directorio
 // descomprimido: todos los .xml de forma recursiva, con lo que mimetype queda
 // fuera por extensión.
-func testFidelityReferenceDir(t *testing.T) {
+func testFidelityReferenceDir(t *testing.T) *fidelityTally {
 	dir := corpusPath(EnvCorpusReferenceDir, CorpusReferenceDir)
 
 	if _, err := os.Stat(dir); err != nil {
@@ -307,15 +396,17 @@ func testFidelityReferenceDir(t *testing.T) {
 		compareRoundtrip(t, tally, rel, data)
 	}
 	tally.report(t)
+	return tally
 }
 
-// testFidelityImagesFixture abre el Archivo_Evidencia_Imagenes por la ruta de
-// apertura de paquete de la librería y aplica el mismo ciclo a sus .xml.
-func testFidelityImagesFixture(t *testing.T) {
-	path := corpusPath(EnvCorpusImagesFixture, CorpusImagesFixture)
+// testFidelityPackage abre un elemento del corpus versionado como paquete .idml por
+// la ruta de apertura de paquete de la librería, que es lo que hace un llamador real,
+// y aplica el mismo ciclo a sus .xml.
+func testFidelityPackage(t *testing.T, cp corpusPackage) *fidelityTally {
+	path := corpusPath(cp.env, cp.def)
 
 	if _, err := os.Stat(path); err != nil {
-		t.Skipf("Archivo_Evidencia_Imagenes ausente en la copia de trabajo: %v (ruta esperada: %s)", err, absPathForMsg(path))
+		t.Skipf("%s ausente en la copia de trabajo: %v (ruta esperada: %s)", cp.origin, err, absPathForMsg(path))
 	}
 
 	pkg, err := Read(path)
@@ -334,7 +425,7 @@ func testFidelityImagesFixture(t *testing.T) {
 	}
 	sort.Strings(names)
 
-	tally := newFidelityTally("archivo_evidencia_imagenes")
+	tally := newFidelityTally(cp.origin)
 	for _, name := range names {
 		data, err := pkg.getFileData(name)
 		if err != nil {
@@ -345,6 +436,7 @@ func testFidelityImagesFixture(t *testing.T) {
 		compareRoundtrip(t, tally, name, data)
 	}
 	tally.report(t)
+	return tally
 }
 
 // absPathForMsg devuelve la ruta absoluta para los mensajes de diagnóstico, de

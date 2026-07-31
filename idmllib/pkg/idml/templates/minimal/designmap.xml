@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <?aid style="50" type="document" readerVersion="6.0" featureSet="257" product="20.5(48)" ?>
-<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="{{.DOMVersion}}">
-	<Language Name="$ID/English: USA" SingleQuotes="&#39;&#39;" DoubleQuotes="&#34;&#34;" PrimaryWritingScript="$ID/Roman" />
+<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="{{.DOMVersion}}" Self="d" StoryList="ue1 u98" ZeroPoint="0 0" ActiveLayer="uba">
+	<Language Self="Language/$ID/English%3a USA" Name="$ID/English: USA" SingleQuotes="&#39;&#39;" DoubleQuotes="&#34;&#34;" PrimaryLanguageName="$ID/English" SublanguageName="$ID/USA" />
 	<idPkg:Graphic src="Resources/Graphic.xml" />
 	<idPkg:Fonts src="Resources/Fonts.xml" />
 	<idPkg:Styles src="Resources/Styles.xml" />
 	<idPkg:Preferences src="Resources/Preferences.xml" />
 	<idPkg:Tags src="XML/Tags.xml" />
+	<Layer Self="uba" Name="Layer 1" Visible="true" Locked="false" IgnoreWrap="false" ShowGuides="true" LockGuides="false" UI="true" Expendable="true" Printable="true">
+		<Properties>
+			<LayerColor type="enumeration">LightBlue</LayerColor>
+		</Properties>
+	</Layer>
 	<idPkg:MasterSpread src="MasterSpreads/MasterSpread_ub4.xml" />
-	<ViewPreference HorizontalMeasurementUnits="Points" VerticalMeasurementUnits="Points" />
-	<DocumentPreference PageWidth="{{printf "%.3f" .PageWidth}}" PageHeight="{{printf "%.3f" .PageHeight}}" PageOrientation="{{.Orientation}}" ColumnCount="{{.ColumnCount}}" ColumnGutter="{{.ColumnGutter}}" />
+	<idPkg:Spread src="Spreads/Spread_ud3.xml" />
+	<Section Self="ub6" Length="1" Name="" ContinueNumbering="true" IncludeSectionPrefix="false" Marker="" PageStart="ud8" SectionPrefix="">
+		<Properties>
+			<PageNumberStyle type="enumeration">Arabic</PageNumberStyle>
+		</Properties>
+	</Section>
+	<idPkg:BackingStory src="XML/BackingStory.xml" />
+	<idPkg:Story src="Stories/Story_ue1.xml" />
 </Document>
