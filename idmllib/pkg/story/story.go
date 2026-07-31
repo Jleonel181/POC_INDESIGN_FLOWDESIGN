@@ -62,6 +62,10 @@ type StoryElement struct {
 
 	// Comodín para elementos desconocidos
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
+	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // StoryPreference representa las preferencias a nivel de story.
@@ -112,6 +116,17 @@ type ParagraphStyleRange struct {
 
 	// Comodín para elementos desconocidos
 	OtherElements []common.RawXMLElement `xml:",any"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara. Hoy son los
+	// 10 atributos de formato de párrafo que el Documento_Referencia trae y el modelo
+	// no declara: Justification, Hyphenation, HyphenationZone, FirstLineIndent,
+	// LeftIndent, GridAlignment, BulletsAndNumberingListType, RuleAboveLineWeight,
+	// RuleBelowLineWeight y SplitColumnInsideGutter.
+	//
+	// La Tarea 15 los declarará como campos tipados, que es lo que el constructor de
+	// documentos necesita para **generarlos**. Para **preservarlos** basta este
+	// comodín, y los que sigan sin declararse seguirán cayendo aquí.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
 // CharacterStyleRange representa un rango de caracteres con el mismo estilo de carácter.

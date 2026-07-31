@@ -324,12 +324,48 @@ func reportCorpusTotal(t *testing.T, tallies []*fidelityTally) {
 	total := aggregateTallies(tallies)
 	t.Logf("total del corpus sobre %d origen(es): %s", len(origins), strings.Join(origins, ", "))
 	total.report(t)
+	assertCategoriasCerradas(t, total)
 
 	if total.truncated > 0 {
 		// Aviso necesario: con el tope puesto, el reparto por categoría de un archivo
 		// truncado depende de en qué punto cortó, así que estas cifras no sirven para
 		// comparar entre ejecuciones. La línea base se registra sin tope.
 		t.Logf("total del corpus: con el tope puesto el desglose por categoría es parcial y no comparable entre ejecuciones; usar %s=0 para la cifra de referencia", EnvMaxDiffsPerFile)
+	}
+}
+
+// categoriasCerradas son las categorías de diferencia que ya están en cero sobre todo
+// el corpus. A diferencia del resto del arnés, que solo registra, **estas hacen fallar
+// el test si vuelven a aparecer**.
+//
+// El motivo: llevar los atributos perdidos de 13.995 a 0 costó varias tareas, y sin
+// una guarda que falle, una regresión solo se vería si alguien se fija en una cifra de
+// un log. Se cierra cada categoría en cuanto llega a cero, en lugar de esperar a la
+// tarea de cierre del plan para cerrarlas todas de golpe.
+//
+// Las que siguen abiertas, y por eso no están aquí:
+//   - orden-elementos-distinto: 71, pendiente de las tareas del contenedor ordenado
+//   - texto-distinto: 2, las instrucciones de proceso `<?ACE 18?>` dentro de <Content>
+var categoriasCerradas = []string{
+	xmlutil.CategoryAttributeMissing,
+	xmlutil.CategoryAttributeValue,
+	xmlutil.CategoryAttributeExtra,
+	xmlutil.CategoryElementMissing,
+	xmlutil.CategoryElementExtra,
+	xmlutil.CategoryTag,
+	xmlutil.CategoryNamespace,
+}
+
+// assertCategoriasCerradas falla si una categoría ya cerrada vuelve a aparecer.
+func assertCategoriasCerradas(t *testing.T, total *fidelityTally) {
+	t.Helper()
+
+	for _, categoria := range categoriasCerradas {
+		if n := total.byCategory[categoria]; n > 0 {
+			t.Errorf("regresión de fidelidad: la categoría %q estaba en 0 y ahora tiene %d diferencias en el corpus. "+
+				"Ejecutar con %s=0 y buscar «%s» para ver dónde",
+				categoria, n, EnvMaxDiffsPerFile, categoria)
+		}
 	}
 }
 
