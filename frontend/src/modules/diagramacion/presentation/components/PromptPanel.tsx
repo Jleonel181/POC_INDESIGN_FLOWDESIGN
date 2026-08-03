@@ -15,10 +15,11 @@ export function PromptPanel({ edition, pages }: PromptPanelProps) {
   const [selectedPageIndex, setSelectedPageIndex] = useState(0);
   const [mode, setMode] = useState<PromptMode>("single");
   const [copied, setCopied] = useState(false);
+  const [includePageNumbers, setIncludePageNumbers] = useState(false);
 
   const prompt = useMemo(
-    () => buildPrompt({ edition, pages, selectedPageIndex, mode }),
-    [edition, pages, selectedPageIndex, mode]
+    () => buildPrompt({ edition, pages, selectedPageIndex, mode, includePageNumbers }),
+    [edition, pages, selectedPageIndex, mode, includePageNumbers]
   );
 
   const handleCopy = () => {
@@ -74,6 +75,20 @@ export function PromptPanel({ edition, pages }: PromptPanelProps) {
                   </button>
                 ))}
               </div>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label className="text-xs text-gray-500">Numeración</label>
+              <button
+                onClick={() => setIncludePageNumbers((v) => !v)}
+                className={`text-xs px-3 py-1 rounded border transition-colors ${
+                  includePageNumbers
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white text-gray-600 border-gray-300 hover:border-blue-400"
+                }`}
+              >
+                {includePageNumbers ? "# Con folio" : "# Sin folio"}
+              </button>
             </div>
 
             <button
