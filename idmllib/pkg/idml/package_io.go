@@ -7,6 +7,24 @@ import (
 // Métodos helper de I/O de archivos para el struct Package.
 // Estos métodos proveen utilidades internas de acceso y manipulación de archivos.
 
+// SetFileData establece o reemplaza el contenido de un archivo en el paquete.
+// Si el archivo ya existe, preserva su ZIP header. Si es nuevo, lo agrega al final
+// del orden de archivos.
+func (p *Package) SetFileData(filename string, data []byte) {
+	p.setFileData(filename, data)
+}
+
+// GetFileData retorna el contenido crudo de un archivo del paquete.
+func (p *Package) GetFileData(filename string) ([]byte, error) {
+	return p.getFileData(filename)
+}
+
+// InvalidateCache descarta los structs parseados en caché para un archivo, forzando
+// su re-lectura desde los datos crudos la próxima vez que se acceda.
+func (p *Package) InvalidateCache(path string) {
+	p.invalidateCache(path)
+}
+
 // hasFile verifica si un archivo existe en el package.
 func (p *Package) hasFile(filename string) bool {
 	_, exists := p.files[filename]

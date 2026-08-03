@@ -185,8 +185,13 @@ func (c *CharacterStyleRange) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 
 // MarshalXML implementa serialización custom para CharacterStyleRange para preservar el orden de los elementos.
 func (c CharacterStyleRange) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	// Establecer nombre del elemento
-	start.Name = c.XMLName
+	// Establecer nombre del elemento. Si el struct fue construido desde cero (no
+	// parseado), XMLName está vacío y hay que ponerle el nombre canónico.
+	if c.XMLName.Local != "" {
+		start.Name = c.XMLName
+	} else {
+		start.Name = xml.Name{Local: "CharacterStyleRange"}
+	}
 
 	// Agregar atributos
 	if c.AppliedCharacterStyle != "" {

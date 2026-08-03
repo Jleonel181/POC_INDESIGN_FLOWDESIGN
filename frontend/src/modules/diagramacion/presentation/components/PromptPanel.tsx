@@ -5,6 +5,8 @@ import { Edition } from "../../domain/entities/Edition";
 import { Page } from "../../domain/entities/Page";
 import { buildPrompt, PromptMode } from "../../application/services/PromptBuilder";
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api";
+
 interface PromptPanelProps {
   edition: Edition;
   pages: Page[];
@@ -16,6 +18,7 @@ export function PromptPanel({ edition, pages }: PromptPanelProps) {
   const [mode, setMode] = useState<PromptMode>("single");
   const [copied, setCopied] = useState(false);
   const [includePageNumbers, setIncludePageNumbers] = useState(false);
+  const [downloading, setDownloading] = useState(false);
 
   const prompt = useMemo(
     () => buildPrompt({ edition, pages, selectedPageIndex, mode, includePageNumbers }),
@@ -26,6 +29,32 @@ export function PromptPanel({ edition, pages }: PromptPanelProps) {
     navigator.clipboard.writeText(prompt);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownloadIdml = async () => {
+    setDownloading(true);
+    try {
+      const folio = includePageNumbers ? "true" : "false";
+      const url = `${API_BASE}/layout/${edition.id}/idml?folio=${folio}`;
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        const err = await response.json().catch(() => ({ error: response.statusText }));
+        alert(`Error al generar IDML: ${err.detail || err.error}`);
+        return;
+      }
+
+      const blob = await response.blob();
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `edicion-${edition.id}.idml`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    } catch (err) {
+      alert(`Error de conexión: ${err instanceof Error ? err.message : err}`);
+    } finally {
+      setDownloading(false);
+    }
   };
 
   return (
@@ -96,6 +125,14 @@ export function PromptPanel({ edition, pages }: PromptPanelProps) {
               className="ml-auto text-sm px-4 py-1.5 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
             >
               {copied ? "✓ Copiado" : "Copiar prompt"}
+            </button>
+
+            <button
+              onClick={handleDownloadIdml}
+              disabled={downloading}
+              className="text-sm px-4 py-1.5 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50 transition-colors"
+            >
+              {downloading ? "Generando..." : "Descargar IDML"}
             </button>
           </div>
 

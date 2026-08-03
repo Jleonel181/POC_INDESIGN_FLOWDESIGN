@@ -41,8 +41,8 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     container_name: designflow-backend
     restart: unless-stopped
     env_file:
@@ -51,12 +51,11 @@ services:
       # Override ESB_URL to use internal service name instead of localhost
       ESB_URL: http://esb:4000
       DB_HOST: postgres
+      IDMLGEN_PATH: /usr/local/bin/idmlgen
     ports:
       - "3001:3001"
     depends_on:
       postgres:
-        condition: service_healthy
-      esb:
         condition: service_healthy
     networks:
       - flowdesign-network

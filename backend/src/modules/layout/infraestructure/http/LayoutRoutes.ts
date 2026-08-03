@@ -5,6 +5,7 @@ export function createLayoutRoutes(layoutController: LayoutController) {
 	const router = Router();
 
 	router.get("/", layoutController.getAllEditions);
+	router.get("/:editionId/idml", layoutController.generateIdml);
 	router.get("/:editionId", layoutController.generateEditionId);
 
 	return router;

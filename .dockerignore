@@ -1,0 +1,13 @@
+.git
+.kiro
+.DS_Store
+**/node_modules
+**/.next
+**/dist
+frontend
+esb
+docs
+*.indd
+*.idml
+idmllib/testdata
+idmllib/bin

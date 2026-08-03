@@ -2,6 +2,7 @@ package idml
 
 import (
 	"archive/zip"
+	"io"
 	"os"
 	"regexp"
 	"strings"
@@ -112,7 +113,7 @@ func (p *Package) updateXMPInMetadataFile() error {
 
 	// Reemplazar el paquete XMP con el actualizado
 	xmpPattern := regexp.MustCompile(`(?s)<\?xpacket begin.*?<\?xpacket end[^>]*\?>`)
-	
+
 	if p.XMPMetadata != "" {
 		// Reemplazar XMP existente o agregar si no está presente
 		if xmpPattern.MatchString(content) {
@@ -127,8 +128,10 @@ func (p *Package) updateXMPInMetadataFile() error {
 			}
 		}
 	} else {
-		// Eliminar XMP si fue borrado
-		content = xmpPattern.ReplaceAllString(content, "")
+		// Si XMPMetadata está vacío, no tocamos el archivo: el contenido original de la
+		// plantilla se preserva. Solo se borra si se asigna explícitamente una cadena
+		// vacía después de haber tenido contenido (caso de uso: RemoveXMP).
+		return nil
 	}
 
 	// Actualizar los datos del archivo
@@ -204,6 +207,30 @@ func writeZipFiles(w *zip.Writer, pkg *Package) error {
 	return nil
 }
 
+// WriteTo escribe el paquete IDML en un io.Writer arbitrario (stdout, un buffer,
+// una conexión HTTP, etc.).
+//
+// Serializa los objetos en caché, escribe mimetype primero sin compresión, y emite
+// el resto en el orden original. El caller es responsable de cerrar el writer si
+// aplica.
+func WriteTo(pkg *Package, w io.Writer) error {
+	if err := pkg.marshalCachedObjects(); err != nil {
+		return err
+	}
+
+	zw := zip.NewWriter(w)
+
+	if err := writeZipFiles(zw, pkg); err != nil {
+		return err
+	}
+
+	if err := zw.Close(); err != nil {
+		return common.WrapError("idml", "write to stream", err)
+	}
+
+	return nil
+}
+
 // Write escribe un package IDML en un archivo.
 //
 // La función:
@@ -215,12 +242,6 @@ func writeZipFiles(w *zip.Writer, pkg *Package) error {
 // Esto es requerido por la especificación IDML. InDesign rechazará archivos
 // que no cumplan este requisito.
 func Write(pkg *Package, path string) error {
-	// Paso 1: Serializar todos los objetos en caché de vuelta a XML
-	if err := pkg.marshalCachedObjects(); err != nil {
-		return err
-	}
-
-	// Paso 2: Crear el archivo de salida
 	// #nosec G304 - Esta es una función de librería; la ruta del archivo es proporcionada intencionalmente por el llamador
 	f, err := os.Create(path)
 	if err != nil {
@@ -228,17 +249,8 @@ func Write(pkg *Package, path string) error {
 	}
 	defer f.Close()
 
-	// Paso 3: Crear el ZIP writer y escribir todos los archivos
-	w := zip.NewWriter(f)
-	defer w.Close()
-
-	if err := writeZipFiles(w, pkg); err != nil {
+	if err := WriteTo(pkg, f); err != nil {
 		return err
-	}
-
-	// Paso 4: Cerrar el ZIP writer (¡importante!)
-	if err := w.Close(); err != nil {
-		return common.WrapErrorWithPath("idml", "write", path, err)
 	}
 
 	return nil

@@ -24,7 +24,12 @@
         "ancho_mm",
         "alto_mm",
         "cuadros_ancho",
-        "cuadros_alto"
+        "cuadros_alto",
+        "facing_pages",
+        "margen_superior_mm",
+        "margen_inferior_mm",
+        "margen_izquierdo_mm",
+        "margen_derecho_mm"
       ],
       "properties": {
         "id": { "type": "number" },
@@ -32,7 +37,12 @@
         "ancho_mm": { "type": "number" },
         "alto_mm": { "type": "number" },
         "cuadros_ancho": { "type": "number" },
-        "cuadros_alto": { "type": "number" }
+        "cuadros_alto": { "type": "number" },
+        "facing_pages": { "type": "boolean" },
+        "margen_superior_mm": { "type": "number" },
+        "margen_inferior_mm": { "type": "number" },
+        "margen_izquierdo_mm": { "type": "number" },
+        "margen_derecho_mm": { "type": "number" }
       },
       "additionalProperties": false
     },
