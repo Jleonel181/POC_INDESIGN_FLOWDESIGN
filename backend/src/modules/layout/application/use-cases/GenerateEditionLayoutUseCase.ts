@@ -35,7 +35,7 @@ export class GenerateEditionLayoutUseCase implements UseCase<Input, EditionLayou
         );
 
         const responsePages = pages.map((page, index) => {
-            const pagePautas = pautasByPage[index] ?? [];
+            const pagePautas = (pautasByPage[index] ?? []).filter(p => p.isAssigned);
 
             pagePautas.forEach((pauta) => {
                 this.validator.validatePautaInsideGrid(edition, pauta);
@@ -52,8 +52,8 @@ export class GenerateEditionLayoutUseCase implements UseCase<Input, EditionLayou
                         pageHeightMm: edition.alto_mm,
                         gridColumns: edition.cuadros_ancho,
                         gridRows: edition.cuadros_alto,
-                        gridX: pauta.ubicacion_cuadros_x,
-                        gridY: pauta.ubicacion_cuadros_y,
+                        gridX: pauta.ubicacion_cuadros_x!,
+                        gridY: pauta.ubicacion_cuadros_y!,
                         gridWidth: pauta.cuadros_ancho,
                         gridHeight: pauta.cuadros_alto,
                         facingPages: edition.facing_pages,
@@ -69,8 +69,8 @@ export class GenerateEditionLayoutUseCase implements UseCase<Input, EditionLayou
                         descripcion_pauta: pauta.descripcion_pauta,
                         cuadros_alto: pauta.cuadros_alto,
                         cuadros_ancho: pauta.cuadros_ancho,
-                        ubicacion_cuadros_x: pauta.ubicacion_cuadros_x,
-                        ubicacion_cuadros_y: pauta.ubicacion_cuadros_y,
+                        ubicacion_cuadros_x: pauta.ubicacion_cuadros_x!,
+                        ubicacion_cuadros_y: pauta.ubicacion_cuadros_y!,
                         indesignBounds: {
                             topMm: bounds.yMm,
                             leftMm: bounds.xMm,

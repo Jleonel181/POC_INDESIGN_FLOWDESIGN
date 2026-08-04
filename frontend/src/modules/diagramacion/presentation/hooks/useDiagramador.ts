@@ -38,22 +38,24 @@ export function useDiagramador(editionId: number) {
   });
 
   // Fetch layout data
-  useEffect(() => {
-    async function load() {
-      try {
-        const dto = await getDiagramacion.execute(editionId);
-        const { edition, pages } = DiagramacionMapper.toDomain(dto);
-        setState((prev) => ({ ...prev, edition, pages, rawDTO: dto, loading: false }));
-      } catch (err) {
-        setState((prev) => ({
-          ...prev,
-          loading: false,
-          error: err instanceof Error ? err.message : "Error desconocido",
-        }));
-      }
+  const load = useCallback(async () => {
+    try {
+      setState((prev) => ({ ...prev, loading: true, error: null }));
+      const dto = await getDiagramacion.execute(editionId);
+      const { edition, pages } = DiagramacionMapper.toDomain(dto);
+      setState((prev) => ({ ...prev, edition, pages, rawDTO: dto, loading: false }));
+    } catch (err) {
+      setState((prev) => ({
+        ...prev,
+        loading: false,
+        error: err instanceof Error ? err.message : "Error desconocido",
+      }));
     }
-    load();
   }, [editionId]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
 
   const currentPage = state.pages[state.currentPageIndex] ?? null;
 
@@ -135,5 +137,6 @@ export function useDiagramador(editionId: number) {
     movePauta,
     resizePauta,
     saveLayout,
+    reload: load,
   };
 }

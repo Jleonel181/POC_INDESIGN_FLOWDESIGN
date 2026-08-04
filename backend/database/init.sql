@@ -49,13 +49,13 @@ CREATE TABLE pautas (
     descripcion_pauta VARCHAR(255) NOT NULL,
     cuadros_alto INTEGER NOT NULL CHECK (cuadros_alto > 0),
     cuadros_ancho INTEGER NOT NULL CHECK (cuadros_ancho > 0),
-    ubicacion_cuadros_x INTEGER NOT NULL CHECK (ubicacion_cuadros_x >= 0),
-    ubicacion_cuadros_y INTEGER NOT NULL CHECK (ubicacion_cuadros_y >= 0),
-    pagina_id INTEGER NOT NULL,
+    ubicacion_cuadros_x INTEGER DEFAULT NULL,
+    ubicacion_cuadros_y INTEGER DEFAULT NULL,
+    pagina_id INTEGER DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_pautas_page FOREIGN KEY (pagina_id)
-        REFERENCES pages(id) ON DELETE CASCADE
+        REFERENCES pages(id) ON DELETE SET NULL
 );
 
 -- ============================================

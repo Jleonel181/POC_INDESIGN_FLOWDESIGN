@@ -4,8 +4,13 @@ export class Pauta {
         public readonly descripcion_pauta: string,
         public readonly cuadros_alto: number,
         public readonly cuadros_ancho: number,
-        public readonly ubicacion_cuadros_x: number,
-        public readonly ubicacion_cuadros_y: number,
-        public readonly paginaId: number
-    ){}
+        public readonly ubicacion_cuadros_x: number | null,
+        public readonly ubicacion_cuadros_y: number | null,
+        public readonly paginaId: number | null
+    ) {}
+
+    /** Indica si esta pauta ya fue asignada a una página. */
+    get isAssigned(): boolean {
+        return this.paginaId !== null && this.ubicacion_cuadros_x !== null && this.ubicacion_cuadros_y !== null;
+    }
 }

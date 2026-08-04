@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { Repository, IsNull } from "typeorm";
 import { Pauta } from "../../domain/entities/Pauta";
 import { PautaRepository } from "../../domain/repositories/PautaRepository";
 import { PautaEntity } from "./entities/PautaEntity";
@@ -8,17 +8,24 @@ export class PostgresPautaRepository implements PautaRepository {
     constructor(private readonly repository: Repository<PautaEntity>) {}
 
     async findByPageId(pageId: number): Promise<Pauta[]> {
-        try {
-            const entities = await this.repository.find({
-                where: { pagina_id: pageId },
-                order: { id: 'ASC' }
-            });
+        const entities = await this.repository.find({
+            where: { pagina_id: pageId },
+            order: { id: "ASC" }
+        });
+        return entities.map(PautaMapper.toDomain);
+    }
 
-            return entities.map(entity => PautaMapper.toDomain(entity));
-        } catch (error) {
-            console.error(`Error finding pautas by pagina_id ${pageId}:`, error);
-            throw new Error(`Failed to find pautas for page ${pageId}`);
-        }
+    async findAll(): Promise<Pauta[]> {
+        const entities = await this.repository.find({ order: { id: "ASC" } });
+        return entities.map(PautaMapper.toDomain);
+    }
+
+    async findUnassigned(): Promise<Pauta[]> {
+        const entities = await this.repository.find({
+            where: { pagina_id: IsNull() },
+            order: { id: "ASC" }
+        });
+        return entities.map(PautaMapper.toDomain);
     }
 
     async save(pauta: Pauta): Promise<Pauta> {

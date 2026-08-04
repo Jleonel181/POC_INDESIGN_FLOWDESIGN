@@ -16,7 +16,7 @@ export class PautaMapper {
 
     static toEntity(domain: Pauta): PautaEntity {
         const entity = new PautaEntity();
-        entity.id = domain.id;
+        if (domain.id > 0) entity.id = domain.id;
         entity.descripcion_pauta = domain.descripcion_pauta;
         entity.cuadros_alto = domain.cuadros_alto;
         entity.cuadros_ancho = domain.cuadros_ancho;

@@ -71,9 +71,7 @@ export function createDependencyContainer(dataSource: DataSource) {
     );
 
     const createPautaUseCase = new CreatePautaUseCase(
-        pautaRepository,
-        pageRepository,
-        editionRepository
+        pautaRepository
     );
 
     // Infrastructure layer - Controllers
@@ -83,7 +81,7 @@ export function createDependencyContainer(dataSource: DataSource) {
         generateIdmlUseCase
     );
     const editionController = new EditionController(createEditionUseCase);
-    const pautaController = new PautaController(createPautaUseCase);
+    const pautaController = new PautaController(createPautaUseCase, pautaRepository);
 
     // Ventas module — consumes ESB via HTTP, no direct DB credentials here
     const esbAdapter = new HttpEsbAdapter(EnvironmentConfig.getInstance().getAppConfig().esbUrl);

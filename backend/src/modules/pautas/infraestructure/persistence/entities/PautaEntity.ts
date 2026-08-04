@@ -15,18 +15,18 @@ export class PautaEntity {
     @Column({ name: "cuadros_ancho", type: "integer" })
     cuadros_ancho!: number;
 
-    @Column({ name: "ubicacion_cuadros_x", type: "integer" })
-    ubicacion_cuadros_x!: number;
+    @Column({ name: "ubicacion_cuadros_x", type: "integer", nullable: true })
+    ubicacion_cuadros_x!: number | null;
 
-    @Column({ name: "ubicacion_cuadros_y", type: "integer" })
-    ubicacion_cuadros_y!: number;
+    @Column({ name: "ubicacion_cuadros_y", type: "integer", nullable: true })
+    ubicacion_cuadros_y!: number | null;
 
-    @Column({ name: "pagina_id", type: "integer" })
-    pagina_id!: number;
+    @Column({ name: "pagina_id", type: "integer", nullable: true })
+    pagina_id!: number | null;
 
-    @ManyToOne(() => PageEntity, (page) => page.pautas)
+    @ManyToOne(() => PageEntity, (page) => page.pautas, { nullable: true })
     @JoinColumn({ name: "pagina_id" })
-    page!: PageEntity;
+    page!: PageEntity | null;
 
     @CreateDateColumn({ name: "created_at" })
     created_at!: Date;
