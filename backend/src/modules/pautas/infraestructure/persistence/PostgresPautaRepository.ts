@@ -7,6 +7,11 @@ import { PautaMapper } from "./mappers/PautaMapper";
 export class PostgresPautaRepository implements PautaRepository {
     constructor(private readonly repository: Repository<PautaEntity>) {}
 
+    async findById(id: number): Promise<Pauta | null> {
+        const entity = await this.repository.findOne({ where: { id } });
+        return entity ? PautaMapper.toDomain(entity) : null;
+    }
+
     async findByPageId(pageId: number): Promise<Pauta[]> {
         const entities = await this.repository.find({
             where: { pagina_id: pageId },

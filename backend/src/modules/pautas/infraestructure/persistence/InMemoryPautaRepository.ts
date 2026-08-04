@@ -4,6 +4,10 @@ import { PautaRepository } from "../../domain/repositories/PautaRepository";
 export class InMemoryPautaRepository implements PautaRepository {
     private pautas: Pauta[] = [];
 
+    async findById(id: number): Promise<Pauta | null> {
+        return this.pautas.find(p => p.id === id) ?? null;
+    }
+
     async findByPageId(pageId: number): Promise<Pauta[]> {
         return this.pautas.filter(p => p.paginaId === pageId);
     }

@@ -7,6 +7,7 @@ export function createPautaRoutes(pautaController: PautaController) {
     router.get("/", pautaController.listAll);
     router.get("/unassigned", pautaController.listUnassigned);
     router.post("/", pautaController.create);
+    router.put("/:id/assign", pautaController.assign);
 
     return router;
 }
