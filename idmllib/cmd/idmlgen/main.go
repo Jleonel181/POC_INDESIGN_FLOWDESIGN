@@ -589,6 +589,10 @@ func buildFrameExtras(opts frameOptions) []common.RawXMLElement {
 	}
 }
 
+// addMasterFrames escribe TextFrames en el MasterSpread. Estos se heredan a todas
+// las páginas del documento (como el encabezado/folio en InDesign).
+// addMasterFrames escribe TextFrames en el MasterSpread usando los structs de idmllib.
+// Estos se heredan a todas las páginas del documento.
 func addGuides(pkg *idmlpkg.Package, reg *idgen.Registry, guides []guideSpec, spreadPath string) error {
 	spreadData, err := pkg.GetFileData(spreadPath)
 	if err != nil {

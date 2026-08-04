@@ -11,8 +11,7 @@ interface Input {
 
 /**
  * Traduce el Layout Contract del dominio editorial al formato genérico de idmlgen.
- * Toda la lógica de negocio (qué es un folio, cómo se posiciona, qué texto lleva)
- * vive aquí. idmlgen no sabe nada de esto.
+ * Toda la lógica de negocio vive aquí. idmlgen no sabe nada del dominio.
  */
 export class GenerateIdmlUseCase implements UseCase<Input, Buffer> {
     constructor(
@@ -22,11 +21,11 @@ export class GenerateIdmlUseCase implements UseCase<Input, Buffer> {
 
     async execute(input: Input): Promise<Buffer> {
         const layout = await this.generateLayoutUseCase.execute({ editionId: input.editionId });
-        const idmlDoc = this.translateToIdmlDocument(layout, input.folio);
+        const idmlDoc = this.translateToIdmlDocument(layout);
         return this.idmlGenerator.generate(idmlDoc);
     }
 
-    private translateToIdmlDocument(layout: LayoutContract, folio: boolean): IdmlDocumentDTO {
+    private translateToIdmlDocument(layout: LayoutContract): IdmlDocumentDTO {
         const { edition, pages } = layout;
 
         const idmlPages: IdmlPageDTO[] = pages.map((page) => {
@@ -34,9 +33,6 @@ export class GenerateIdmlUseCase implements UseCase<Input, Buffer> {
                 let leftMm = pauta.indesignBounds.leftMm;
                 let rightMm = pauta.indesignBounds.rightMm;
 
-                // GridLayoutCalculator suma pageWidth a X para páginas derechas en facing pages.
-                // idmlgen aplica su propio offset por spread, así que aquí lo removemos
-                // para que los bounds sean relativos a la página, no al spread.
                 if (edition.facing_pages && page.no_pagina > 1) {
                     const isRightPage = page.no_pagina % 2 !== 0;
                     if (isRightPage) {
@@ -58,11 +54,6 @@ export class GenerateIdmlUseCase implements UseCase<Input, Buffer> {
                     options: {},
                 };
             });
-
-            // Folio: un marco más al pie de la página, con número automático.
-            if (folio) {
-                frames.push(this.buildFolioFrame(edition, page.no_pagina));
-            }
 
             return { frames };
         });
@@ -86,38 +77,7 @@ export class GenerateIdmlUseCase implements UseCase<Input, Buffer> {
     }
 
     /**
-     * Construye el frame del folio para una página.
-     * El folio se posiciona al pie del área de contenido, con el ancho completo.
-     * Usa <?ACE 18?> que InDesign interpreta como número de página automático.
-     */
-    private buildFolioFrame(
-        edition: LayoutContract["edition"],
-        _pageNumber: number
-    ): IdmlFrameDTO {
-        const folioHeightMm = 5;
-        const topMm = edition.alto_mm - edition.margen_inferior_mm - folioHeightMm;
-
-        return {
-            type: "text",
-            name: "folio",
-            bounds: {
-                topMm,
-                leftMm: edition.margen_izquierdo_mm,
-                bottomMm: topMm + folioHeightMm,
-                rightMm: edition.ancho_mm - edition.margen_derecho_mm,
-            },
-            content: "<?ACE 18?>",
-            options: {
-                verticalJustification: "BottomAlign",
-                contentIsRaw: true,
-            },
-        };
-    }
-
-    /**
      * Calcula las guías de la grilla editorial como líneas de InDesign.
-     * Genera guías verticales y horizontales que dividen el área de contenido
-     * según cuadros_ancho y cuadros_alto de la edición.
      */
     private buildGridGuides(edition: LayoutContract["edition"]): IdmlGuideDTO[] {
         const guides: IdmlGuideDTO[] = [];
@@ -128,7 +88,6 @@ export class GenerateIdmlUseCase implements UseCase<Input, Buffer> {
         const cellWidthMm = contentWidthMm / edition.cuadros_ancho;
         const cellHeightMm = contentHeightMm / edition.cuadros_alto;
 
-        // Guías verticales (líneas interiores de la grilla, no los bordes)
         for (let i = 1; i < edition.cuadros_ancho; i++) {
             guides.push({
                 orientation: "vertical",
@@ -136,7 +95,6 @@ export class GenerateIdmlUseCase implements UseCase<Input, Buffer> {
             });
         }
 
-        // Guías horizontales (líneas interiores de la grilla, no los bordes)
         for (let i = 1; i < edition.cuadros_alto; i++) {
             guides.push({
                 orientation: "horizontal",

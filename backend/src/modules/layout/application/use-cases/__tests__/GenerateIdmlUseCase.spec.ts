@@ -3,7 +3,6 @@ import { GenerateEditionLayoutUseCase } from "../GenerateEditionLayoutUseCase";
 import { IdmlGenerator } from "../../../domain/ports/IdmlGenerator";
 import { IdmlDocumentDTO } from "../../dto/IdmlDocumentDTO";
 
-// Mock del generador — solo captura lo que recibe
 class MockIdmlGenerator implements IdmlGenerator {
   lastDocument: IdmlDocumentDTO | null = null;
 
@@ -13,7 +12,6 @@ class MockIdmlGenerator implements IdmlGenerator {
   }
 }
 
-// Mock del use case de layout
 const mockLayout = {
   metadata: { version: "1.0.0", unit: "mm" as const, coordinateSystem: "grid" as const, origin: "top-left" as const },
   edition: {
@@ -78,47 +76,22 @@ describe("GenerateIdmlUseCase", () => {
   it("resta el offset de facing pages en páginas derechas (impares > 1)", async () => {
     await useCase.execute({ editionId: 1, folio: false });
 
-    // Página 3 es derecha, sus bounds originales tienen leftMm=275 (offset de 265 sumado)
     const frame = mockGenerator.lastDocument!.pages[2].frames[0];
-    expect(frame.bounds.leftMm).toBe(275 - 265); // 10
-    expect(frame.bounds.rightMm).toBe(373 - 265); // 108
+    expect(frame.bounds.leftMm).toBe(275 - 265);
+    expect(frame.bounds.rightMm).toBe(373 - 265);
   });
 
   it("no resta offset en páginas izquierdas (pares)", async () => {
     await useCase.execute({ editionId: 1, folio: false });
 
     const frame = mockGenerator.lastDocument!.pages[1].frames[0];
-    expect(frame.bounds.leftMm).toBe(10); // sin cambio
-  });
-
-  it("agrega folio a cada página cuando folio=true", async () => {
-    await useCase.execute({ editionId: 1, folio: true });
-
-    const doc = mockGenerator.lastDocument!;
-    for (const page of doc.pages) {
-      const folioFrame = page.frames.find(f => f.name === "folio");
-      expect(folioFrame).toBeDefined();
-      expect(folioFrame!.content).toBe("<?ACE 18?>");
-      expect(folioFrame!.options.contentIsRaw).toBe(true);
-      expect(folioFrame!.options.verticalJustification).toBe("BottomAlign");
-    }
-  });
-
-  it("no agrega folio cuando folio=false", async () => {
-    await useCase.execute({ editionId: 1, folio: false });
-
-    const doc = mockGenerator.lastDocument!;
-    for (const page of doc.pages) {
-      const folioFrame = page.frames.find(f => f.name === "folio");
-      expect(folioFrame).toBeUndefined();
-    }
+    expect(frame.bounds.leftMm).toBe(10);
   });
 
   it("genera guías de grilla", async () => {
     await useCase.execute({ editionId: 1, folio: false });
 
     const guides = mockGenerator.lastDocument!.document.guides;
-    // 5 columnas → 4 guías verticales, 8 filas → 7 guías horizontales = 11 total
     expect(guides).toHaveLength(11);
     expect(guides.filter(g => g.orientation === "vertical")).toHaveLength(4);
     expect(guides.filter(g => g.orientation === "horizontal")).toHaveLength(7);
