@@ -30,18 +30,34 @@ export class GenerateIdmlUseCase implements UseCase<Input, Buffer> {
         const { edition, pages } = layout;
 
         const idmlPages: IdmlPageDTO[] = pages.map((page) => {
-            const frames: IdmlFrameDTO[] = page.pautas.map((pauta) => ({
-                type: "text" as const,
-                name: pauta.descripcion_pauta,
-                bounds: {
-                    topMm: pauta.indesignBounds.topMm,
-                    leftMm: pauta.indesignBounds.leftMm,
-                    bottomMm: pauta.indesignBounds.bottomMm,
-                    rightMm: pauta.indesignBounds.rightMm,
-                },
-                content: pauta.descripcion_pauta,
-                options: {},
-            }));
+            const frames: IdmlFrameDTO[] = page.pautas.map((pauta) => {
+                let leftMm = pauta.indesignBounds.leftMm;
+                let rightMm = pauta.indesignBounds.rightMm;
+
+                // GridLayoutCalculator suma pageWidth a X para páginas derechas en facing pages.
+                // idmlgen aplica su propio offset por spread, así que aquí lo removemos
+                // para que los bounds sean relativos a la página, no al spread.
+                if (edition.facing_pages && page.no_pagina > 1) {
+                    const isRightPage = page.no_pagina % 2 !== 0;
+                    if (isRightPage) {
+                        leftMm -= edition.ancho_mm;
+                        rightMm -= edition.ancho_mm;
+                    }
+                }
+
+                return {
+                    type: "text" as const,
+                    name: pauta.descripcion_pauta,
+                    bounds: {
+                        topMm: pauta.indesignBounds.topMm,
+                        leftMm,
+                        bottomMm: pauta.indesignBounds.bottomMm,
+                        rightMm,
+                    },
+                    content: pauta.descripcion_pauta,
+                    options: {},
+                };
+            });
 
             // Folio: un marco más al pie de la página, con número automático.
             if (folio) {

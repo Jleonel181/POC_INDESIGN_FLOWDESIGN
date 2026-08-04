@@ -195,17 +195,68 @@ func generate(input *documentInput) (*idmlpkg.Package, error) {
 
 	halfHeight := pageHeightPt / 2
 
-	// --- Generar solo la primera página ---
-	if len(input.Pages) > 0 {
-		page := input.Pages[0]
-		for _, frame := range page.Frames {
-			if err := addTextFrame(pkg, reg, frame, halfHeight); err != nil {
-				return nil, err
+	// --- Agrupar páginas en spreads ---
+	// Si facingPages: página 1 sola, luego pares (2-3, 4-5...), posible última sola.
+	// Si no: cada página es su propio spread.
+	type spreadGroup struct {
+		pages       []pageSpec
+		pageNumbers []int
+	}
+
+	var spreads []spreadGroup
+	if doc.FacingPages && len(input.Pages) > 1 {
+		// Portada sola
+		spreads = append(spreads, spreadGroup{
+			pages:       []pageSpec{input.Pages[0]},
+			pageNumbers: []int{1},
+		})
+		// Pares
+		for i := 1; i < len(input.Pages); i += 2 {
+			if i+1 < len(input.Pages) {
+				spreads = append(spreads, spreadGroup{
+					pages:       []pageSpec{input.Pages[i], input.Pages[i+1]},
+					pageNumbers: []int{i + 1, i + 2},
+				})
+			} else {
+				// Contraportada sola
+				spreads = append(spreads, spreadGroup{
+					pages:       []pageSpec{input.Pages[i]},
+					pageNumbers: []int{i + 1},
+				})
 			}
 		}
-		if len(doc.Guides) > 0 {
-			if err := addGuides(pkg, reg, doc.Guides, idmlpkg.PathSpread); err != nil {
+	} else {
+		for i, p := range input.Pages {
+			spreads = append(spreads, spreadGroup{
+				pages:       []pageSpec{p},
+				pageNumbers: []int{i + 1},
+			})
+		}
+	}
+
+	// --- Generar cada spread ---
+	for i, sg := range spreads {
+		if i == 0 {
+			// Primer spread: usa el de la plantilla.
+			for _, frame := range sg.pages[0].Frames {
+				if err := addTextFrame(pkg, reg, frame, halfHeight); err != nil {
+					return nil, err
+				}
+			}
+			if len(doc.Guides) > 0 {
+				if err := addGuides(pkg, reg, doc.Guides, idmlpkg.PathSpread); err != nil {
+					return nil, err
+				}
+			}
+		} else {
+			spreadPath, err := addSpreadForPages(pkg, reg, doc, sg.pages, sg.pageNumbers, halfHeight)
+			if err != nil {
 				return nil, err
+			}
+			if len(doc.Guides) > 0 {
+				if err := addGuides(pkg, reg, doc.Guides, spreadPath); err != nil {
+					return nil, err
+				}
 			}
 		}
 	}
@@ -213,16 +264,13 @@ func generate(input *documentInput) (*idmlpkg.Package, error) {
 	return pkg, nil
 }
 
-// addSpreadForPage crea un spread completo para una página adicional y lo registra
-// en el paquete y en el designmap.
-func addSpreadForPage(pkg *idmlpkg.Package, reg *idgen.Registry, doc documentSpec, page pageSpec, pageNumber int, halfHeight float64) (string, error) {
+// addSpreadForPages crea un spread con 1 o 2 páginas y lo registra en el paquete.
+func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, doc documentSpec, pages []pageSpec, pageNumbers []int, halfHeight float64) (string, error) {
 	spreadID := reg.Generate()
-	pageID := reg.Generate()
-
 	pageWidthPt := mmToPt(doc.WidthMm)
 	pageHeightPt := mmToPt(doc.HeightMm)
+	pageCount := len(pages)
 
-	// Calcular ColumnsPositions para el MarginPreference.
 	columns := doc.Columns
 	if columns <= 0 {
 		columns = 1
@@ -230,7 +278,7 @@ func addSpreadForPage(pkg *idmlpkg.Package, reg *idgen.Registry, doc documentSpe
 	marginLeft := mmToPt(doc.Margins.Left)
 	marginRight := mmToPt(doc.Margins.Right)
 	usableWidth := pageWidthPt - marginLeft - marginRight
-	columnGutter := 12.0 // ponytail: hardcoded como el resto del sistema
+	columnGutter := 12.0
 	columnWidth := (usableWidth - float64(columns-1)*columnGutter) / float64(columns)
 
 	var positions []string
@@ -240,52 +288,73 @@ func addSpreadForPage(pkg *idmlpkg.Package, reg *idgen.Registry, doc documentSpe
 	}
 	columnsPositions := strings.Join(positions, " ")
 
-	// Construir el XML del spread.
 	var spreadXML strings.Builder
 	fmt.Fprintf(&spreadXML, `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <idPkg:Spread xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="20.4">
-	<Spread Self="%s" PageTransitionType="None" PageTransitionDirection="NotApplicable" PageTransitionDuration="Medium" ShowMasterItems="true" PageCount="1" BindingLocation="0" SpreadHidden="false" AllowPageShuffle="true" ItemTransform="1 0 0 1 0 0" FlattenerOverride="Default">
+	<Spread Self="%s" PageTransitionType="None" PageTransitionDirection="NotApplicable" PageTransitionDuration="Medium" ShowMasterItems="true" PageCount="%d" BindingLocation="0" SpreadHidden="false" AllowPageShuffle="true" ItemTransform="1 0 0 1 0 0" FlattenerOverride="Default">
 		<FlattenerPreference LineArtAndTextResolution="300" GradientAndMeshResolution="150" ClipComplexRegions="false" ConvertAllStrokesToOutlines="false" ConvertAllTextToOutlines="false">
 			<Properties>
 				<RasterVectorBalance type="double">50</RasterVectorBalance>
 			</Properties>
 		</FlattenerPreference>
-		<Page Self="%s" TabOrder="" AppliedMaster="ub4" OverrideList="" MasterPageTransform="1 0 0 1 0 0" Name="%d" AppliedTrapPreset="TrapPreset/$ID/kDefaultTrapStyleName" GeometricBounds="0 0 %s %s" ItemTransform="1 0 0 1 0 -%s" AppliedAlternateLayout="ub6" LayoutRule="UseMaster" SnapshotBlendingMode="IgnoreLayoutSnapshots" OptionalPage="false" GridStartingPoint="TopOutside" UseMasterGrid="true">
+`, spreadID, pageCount)
+
+	// Emitir cada página del spread.
+	for pi, page := range pages {
+		pageID := reg.Generate()
+		pageNum := pageNumbers[pi]
+
+		// Calcular ItemTransform de la página.
+		// Facing pages con 2 páginas: izquierda X=-pageWidth, derecha X=0.
+		// Página sola: X=0.
+		var pageTransformX float64
+		if pageCount == 2 {
+			if pi == 0 {
+				pageTransformX = -pageWidthPt // izquierda
+			} else {
+				pageTransformX = 0 // derecha
+			}
+		} else {
+			pageTransformX = 0
+		}
+
+		fmt.Fprintf(&spreadXML, `		<Page Self="%s" TabOrder="" AppliedMaster="ub4" OverrideList="" MasterPageTransform="1 0 0 1 0 0" Name="%d" AppliedTrapPreset="TrapPreset/$ID/kDefaultTrapStyleName" GeometricBounds="0 0 %s %s" ItemTransform="1 0 0 1 %s %s" AppliedAlternateLayout="ub6" LayoutRule="UseMaster" SnapshotBlendingMode="IgnoreLayoutSnapshots" OptionalPage="false" GridStartingPoint="TopOutside" UseMasterGrid="true">
 			<Properties>
 				<PageColor type="enumeration">UseMasterColor</PageColor>
 			</Properties>
 			<MarginPreference ColumnCount="%d" ColumnGutter="%s" Top="%s" Bottom="%s" Left="%s" Right="%s" ColumnDirection="Horizontal" ColumnsPositions="%s" />
 		</Page>
 `,
-		spreadID, pageID, pageNumber,
-		num(pageHeightPt), num(pageWidthPt), num(pageHeightPt/2),
-		columns, num(columnGutter),
-		num(mmToPt(doc.Margins.Top)), num(mmToPt(doc.Margins.Bottom)),
-		num(marginLeft), num(marginRight),
-		columnsPositions)
+			pageID, pageNum,
+			num(pageHeightPt), num(pageWidthPt),
+			num(pageTransformX), num(-halfHeight),
+			columns, num(columnGutter),
+			num(mmToPt(doc.Margins.Top)), num(mmToPt(doc.Margins.Bottom)),
+			num(marginLeft), num(marginRight),
+			columnsPositions)
 
-	// Agregar TextFrames de esta página.
-	for _, frame := range page.Frames {
-		frameID := reg.Generate()
-		storyID := reg.Generate()
+		// TextFrames de esta página.
+		// El desplazamiento X de los frames debe sumar pageTransformX para estar en la página correcta.
+		for _, frame := range page.Frames {
+			frameID := reg.Generate()
+			storyID := reg.Generate()
 
-		topPt := mmToPt(frame.Bounds.TopMm)
-		leftPt := mmToPt(frame.Bounds.LeftMm)
-		bottomPt := mmToPt(frame.Bounds.BottomMm)
-		rightPt := mmToPt(frame.Bounds.RightMm)
+			topPt := mmToPt(frame.Bounds.TopMm)
+			leftPt := mmToPt(frame.Bounds.LeftMm)
+			bottomPt := mmToPt(frame.Bounds.BottomMm)
+			rightPt := mmToPt(frame.Bounds.RightMm)
 
-		w := rightPt - leftPt
-		h := bottomPt - topPt
-		centerX := leftPt + w/2
-		centerY := topPt + h/2 - halfHeight
+			w := rightPt - leftPt
+			h := bottomPt - topPt
+			centerX := leftPt + w/2 + pageTransformX
+			centerY := topPt + h/2 - halfHeight
 
-		// Frame extras
-		vJust := ""
-		if frame.Options.VerticalJustification != "" {
-			vJust = fmt.Sprintf(` VerticalJustification="%s"`, frame.Options.VerticalJustification)
-		}
+			vJust := ""
+			if frame.Options.VerticalJustification != "" {
+				vJust = fmt.Sprintf(` VerticalJustification="%s"`, frame.Options.VerticalJustification)
+			}
 
-		fmt.Fprintf(&spreadXML, `		<TextFrame Self="%s" Name="%s" ItemLayer="uba" Visible="true" ItemTransform="1 0 0 1 %s %s" ParentStory="%s" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" OverriddenPageItemProps="" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ParentInterfaceChangeCount="" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
+			fmt.Fprintf(&spreadXML, `		<TextFrame Self="%s" Name="%s" ItemLayer="uba" Visible="true" ItemTransform="1 0 0 1 %s %s" ParentStory="%s" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" OverriddenPageItemProps="" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ParentInterfaceChangeCount="" TargetInterfaceChangeCount="" LastUpdatedInterfaceChangeCount="">
 			<Properties>
 				<PathGeometry>
 					<GeometryPathType PathOpen="false">
@@ -302,53 +371,52 @@ func addSpreadForPage(pkg *idmlpkg.Package, reg *idgen.Registry, doc documentSpe
 			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None"><Properties><TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" /></Properties></TextWrapPreference>
 		</TextFrame>
 `,
-			frameID, frame.Name, num(centerX), num(centerY), storyID,
-			num(-w/2), num(-h/2), num(-w/2), num(-h/2), num(-w/2), num(-h/2),
-			num(-w/2), num(h/2), num(-w/2), num(h/2), num(-w/2), num(h/2),
-			num(w/2), num(h/2), num(w/2), num(h/2), num(w/2), num(h/2),
-			num(w/2), num(-h/2), num(w/2), num(-h/2), num(w/2), num(-h/2),
-			vJust)
+				frameID, frame.Name, num(centerX), num(centerY), storyID,
+				num(-w/2), num(-h/2), num(-w/2), num(-h/2), num(-w/2), num(-h/2),
+				num(-w/2), num(h/2), num(-w/2), num(h/2), num(-w/2), num(h/2),
+				num(w/2), num(h/2), num(w/2), num(h/2), num(w/2), num(h/2),
+				num(w/2), num(-h/2), num(w/2), num(-h/2), num(w/2), num(-h/2),
+				vJust)
 
-		// Crear la story para este frame.
-		var children []story.CharacterChild
-		if frame.Content != "" {
-			if frame.Options.ContentIsRaw {
-				children = []story.CharacterChild{{Content: &story.Content{Raw: frame.Content}}}
-			} else {
-				children = []story.CharacterChild{{Content: &story.Content{Text: frame.Content}}}
+			// Story
+			var children []story.CharacterChild
+			if frame.Content != "" {
+				if frame.Options.ContentIsRaw {
+					children = []story.CharacterChild{{Content: &story.Content{Raw: frame.Content}}}
+				} else {
+					children = []story.CharacterChild{{Content: &story.Content{Text: frame.Content}}}
+				}
 			}
-		}
 
-		st := &story.Story{
-			DOMVersion: "20.4",
-			StoryElement: story.StoryElement{
-				Self:     storyID,
-				UserText: "true",
-				ParagraphStyleRanges: []story.ParagraphStyleRange{{
-					AppliedParagraphStyle: "ParagraphStyle/$ID/NormalParagraphStyle",
-					CharacterStyleRanges: []story.CharacterStyleRange{{
-						AppliedCharacterStyle: "CharacterStyle/$ID/[No character style]",
-						Children:              children,
+			st := &story.Story{
+				DOMVersion: "20.4",
+				StoryElement: story.StoryElement{
+					Self:     storyID,
+					UserText: "true",
+					ParagraphStyleRanges: []story.ParagraphStyleRange{{
+						AppliedParagraphStyle: "ParagraphStyle/$ID/NormalParagraphStyle",
+						CharacterStyleRanges: []story.CharacterStyleRange{{
+							AppliedCharacterStyle: "CharacterStyle/$ID/[No character style]",
+							Children:              children,
+						}},
 					}},
-				}},
-			},
-		}
-		storyPath := "Stories/Story_" + storyID + ".xml"
-		if err := pkg.AddStory(storyPath, st, idmlpkg.ValidationOptions{}); err != nil {
-			return "", fmt.Errorf("error al agregar Story %q: %w", frame.Name, err)
-		}
-		if err := registerStory(pkg, storyPath, storyID); err != nil {
-			return "", err
+				},
+			}
+			storyPath := "Stories/Story_" + storyID + ".xml"
+			if err := pkg.AddStory(storyPath, st, idmlpkg.ValidationOptions{}); err != nil {
+				return "", fmt.Errorf("error al agregar Story %q: %w", frame.Name, err)
+			}
+			if err := registerStory(pkg, storyPath, storyID); err != nil {
+				return "", err
+			}
 		}
 	}
 
 	spreadXML.WriteString("\t</Spread>\n</idPkg:Spread>\n")
 
-	// Registrar el spread en el paquete.
 	spreadPath := "Spreads/Spread_" + spreadID + ".xml"
 	pkg.SetFileData(spreadPath, []byte(spreadXML.String()))
 
-	// Registrar en el designmap.
 	dmDoc, err := pkg.Document()
 	if err != nil {
 		return "", err
