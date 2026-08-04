@@ -12,6 +12,8 @@ import { IdmlgenProcessAdapter } from "../modules/layout/infraestructure/idml/Id
 import { LayoutController } from "../modules/layout/infraestructure/http/LayoutController";
 import { CreateEditionUseCase } from "../modules/editions/application/use-cases/CreateEditionUseCase";
 import { EditionController } from "../modules/editions/infraestructure/http/EditionController";
+import { CreatePautaUseCase } from "../modules/pautas/application/use-cases/CreatePautaUseCase";
+import { PautaController } from "../modules/pautas/infraestructure/http/PautaController";
 import { PostgresEditionRepository } from "../modules/editions/infraestructure/persistence/PostgresEditionRepository";
 import { PostgresPageRepository } from "../modules/pages/infraestructure/persistence/PostgresPageRepository";
 import { PostgresPautaRepository } from "../modules/pautas/infraestructure/persistence/PostgresPautaRepository";
@@ -68,6 +70,12 @@ export function createDependencyContainer(dataSource: DataSource) {
         pageRepository
     );
 
+    const createPautaUseCase = new CreatePautaUseCase(
+        pautaRepository,
+        pageRepository,
+        editionRepository
+    );
+
     // Infrastructure layer - Controllers
     const layoutController = new LayoutController(
         generateEditionLayoutUseCase,
@@ -75,6 +83,7 @@ export function createDependencyContainer(dataSource: DataSource) {
         generateIdmlUseCase
     );
     const editionController = new EditionController(createEditionUseCase);
+    const pautaController = new PautaController(createPautaUseCase);
 
     // Ventas module — consumes ESB via HTTP, no direct DB credentials here
     const esbAdapter = new HttpEsbAdapter(EnvironmentConfig.getInstance().getAppConfig().esbUrl);
@@ -83,6 +92,7 @@ export function createDependencyContainer(dataSource: DataSource) {
     return {
         layoutController,
         editionController,
+        pautaController,
         ventasController
     };
 }

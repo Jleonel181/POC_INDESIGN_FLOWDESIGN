@@ -4,6 +4,7 @@ import { DataSource } from "typeorm";
 import { createDependencyContainer } from "./dependency-container";
 import { createLayoutRoutes } from "../modules/layout/infraestructure/http/LayoutRoutes";
 import { createEditionRoutes } from "../modules/editions/infraestructure/http/EditionRoutes";
+import { createPautaRoutes } from "../modules/pautas/infraestructure/http/PautaRoutes";
 import { createVentasRoutes } from "../modules/ventas/infraestructure/http/VentasRoutes";
 import { notFoundMiddleware } from "../shared/infraestructure/http/not-found.middleware";
 import { errorHandlerMiddleware } from "../shared/infraestructure/http/error-handler.middleware";
@@ -33,6 +34,7 @@ export function createApp(dataSource: DataSource) {
 
   app.use("/api/layout", createLayoutRoutes(container.layoutController));
   app.use("/api/editions", createEditionRoutes(container.editionController));
+  app.use("/api/pautas", createPautaRoutes(container.pautaController));
   app.use("/api/ventas", createVentasRoutes(container.ventasController));
 
   app.use(notFoundMiddleware);

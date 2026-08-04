@@ -20,4 +20,10 @@ export class PostgresPautaRepository implements PautaRepository {
             throw new Error(`Failed to find pautas for page ${pageId}`);
         }
     }
+
+    async save(pauta: Pauta): Promise<Pauta> {
+        const entity = PautaMapper.toEntity(pauta);
+        const saved = await this.repository.save(entity);
+        return PautaMapper.toDomain(saved);
+    }
 }
