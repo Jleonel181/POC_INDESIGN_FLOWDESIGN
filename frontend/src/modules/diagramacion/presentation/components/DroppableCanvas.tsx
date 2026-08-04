@@ -124,7 +124,7 @@ export function DroppableCanvas({ edition, page, isFacing = false, onPautaAssign
       onDrop={handleDrop}
       className={`relative transition-all ${dragOver ? "ring-2 ring-blue-400 ring-offset-1" : ""}`}
     >
-      <DiagramadorCanvas edition={edition} page={page} isFacing={isFacing} />
+      <DiagramadorCanvas edition={edition} page={page} isFacing={isFacing} onPautaUnassigned={onPautaAssigned} />
 
       {dragOver && ghostPos && (
         <div

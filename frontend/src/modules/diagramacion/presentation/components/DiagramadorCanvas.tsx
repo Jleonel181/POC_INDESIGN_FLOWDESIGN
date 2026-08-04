@@ -12,9 +12,10 @@ interface DiagramadorCanvasProps {
   page: Page;
   isFacing?: boolean;
   onPautaSelect?: (pauta: Pauta) => void;
+  onPautaUnassigned?: () => void;
 }
 
-export function DiagramadorCanvas({ edition, page, isFacing = false, onPautaSelect }: DiagramadorCanvasProps) {
+export function DiagramadorCanvas({ edition, page, isFacing = false, onPautaSelect, onPautaUnassigned }: DiagramadorCanvasProps) {
   const [selectedPautaId, setSelectedPautaId] = useState<number | null>(null);
   const [wrapperRef, canvasWidth] = useElementWidth(isFacing ? 160 : 220);
 
@@ -40,7 +41,7 @@ export function DiagramadorCanvas({ edition, page, isFacing = false, onPautaSele
   return (
     <div ref={wrapperRef} className="w-full">
       <div
-        className="relative shrink-0 border border-gray-300 bg-white shadow-sm overflow-hidden"
+        className="relative shrink-0 border border-gray-300 bg-white shadow-sm overflow-visible"
         style={{ width: canvasWidth, height: canvasHeight, boxSizing: "border-box" }}
       >
         <svg
@@ -84,7 +85,7 @@ export function DiagramadorCanvas({ edition, page, isFacing = false, onPautaSele
         </svg>
 
         <div
-          className="absolute overflow-hidden"
+          className="absolute overflow-visible"
           style={{ top: marginTop, left: marginLeft, width: contentWidth, height: contentHeight }}
         >
           {page.pautas.map((pauta) => (
@@ -94,6 +95,7 @@ export function DiagramadorCanvas({ edition, page, isFacing = false, onPautaSele
               cellWidth={cellWidth}
               cellHeight={cellHeight}
               onSelect={handleSelect}
+              onUnassigned={onPautaUnassigned}
               isSelected={pauta.id === selectedPautaId}
             />
           ))}

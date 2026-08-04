@@ -14,6 +14,7 @@ import { CreateEditionUseCase } from "../modules/editions/application/use-cases/
 import { EditionController } from "../modules/editions/infraestructure/http/EditionController";
 import { CreatePautaUseCase } from "../modules/pautas/application/use-cases/CreatePautaUseCase";
 import { AssignPautaUseCase } from "../modules/pautas/application/use-cases/AssignPautaUseCase";
+import { UnassignPautaUseCase } from "../modules/pautas/application/use-cases/UnassignPautaUseCase";
 import { PautaController } from "../modules/pautas/infraestructure/http/PautaController";
 import { PostgresEditionRepository } from "../modules/editions/infraestructure/persistence/PostgresEditionRepository";
 import { PostgresPageRepository } from "../modules/pages/infraestructure/persistence/PostgresPageRepository";
@@ -79,6 +80,10 @@ export function createDependencyContainer(dataSource: DataSource) {
         pautaRepository
     );
 
+    const unassignPautaUseCase = new UnassignPautaUseCase(
+        pautaRepository
+    );
+
     // Infrastructure layer - Controllers
     const layoutController = new LayoutController(
         generateEditionLayoutUseCase,
@@ -86,7 +91,7 @@ export function createDependencyContainer(dataSource: DataSource) {
         generateIdmlUseCase
     );
     const editionController = new EditionController(createEditionUseCase);
-    const pautaController = new PautaController(createPautaUseCase, assignPautaUseCase, pautaRepository);
+    const pautaController = new PautaController(createPautaUseCase, assignPautaUseCase, unassignPautaUseCase, pautaRepository);
 
     // Ventas module — consumes ESB via HTTP, no direct DB credentials here
     const esbAdapter = new HttpEsbAdapter(EnvironmentConfig.getInstance().getAppConfig().esbUrl);
