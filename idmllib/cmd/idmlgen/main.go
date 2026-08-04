@@ -23,6 +23,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -90,6 +91,8 @@ type frameOptions struct {
 // --- Conversión de unidades ---
 
 const ptPerMm = 72.0 / 25.4
+
+var selfAttrRegex = regexp.MustCompile(`Self="([^"]+)"`)
 
 func mmToPt(mm float64) float64 { return mm * ptPerMm }
 
@@ -187,10 +190,19 @@ func generate(input *documentInput) (*idmlpkg.Package, error) {
 	}
 	designmapDoc.Stories = cleaned
 
-	// Registrar IDs de la plantilla para evitar colisiones.
+	// Registrar todos los IDs que la plantilla ya contiene para evitar colisiones.
+	// Se escanean dinámicamente del paquete generado — agnóstico a qué plantilla se usó.
 	reg := idgen.New()
-	for _, id := range []string{"ud3", "ud8", "uf3", "ue1", "ub4", "uba"} {
-		_ = reg.Register(id)
+	for _, file := range pkg.Files() {
+		data, err := pkg.GetFileData(file)
+		if err != nil {
+			continue
+		}
+		for _, match := range selfAttrRegex.FindAllSubmatch(data, -1) {
+			if len(match) > 1 {
+				_ = reg.Register(string(match[1]))
+			}
+		}
 	}
 
 	halfHeight := pageHeightPt / 2
