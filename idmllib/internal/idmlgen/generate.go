@@ -48,24 +48,38 @@ func Generate(input *DocumentInput) (*idmlpkg.Package, error) {
 		return nil, fmt.Errorf("error al crear documento base: %w", err)
 	}
 
-	// Eliminar el TextFrame de la plantilla (uf3) y su story huérfana (ue1).
-	_, _ = pkg.RemoveTextFrame(idmlpkg.PathSpread, "uf3", false)
-	_, _ = pkg.RemoveStory("Stories/Story_ue1.xml", false)
+	// Leer IDs de referencia dinámicamente del paquete generado.
+	refs, err := readTemplateRefs(pkg)
+	if err != nil {
+		return nil, err
+	}
+
+	// Eliminar el TextFrame y Story placeholder de la plantilla.
+	if refs.textFrameID != "" {
+		_, _ = pkg.RemoveTextFrame(refs.spreadPath, refs.textFrameID, false)
+	}
+	if refs.storyPath != "" {
+		_, _ = pkg.RemoveStory(refs.storyPath, false)
+	}
 
 	designmapDoc, err := pkg.Document()
 	if err != nil {
 		return nil, fmt.Errorf("error al leer designmap: %w", err)
 	}
-	designmapDoc.StoryList = strings.Replace(designmapDoc.StoryList, "ue1 ", "", 1)
-	designmapDoc.StoryList = strings.Replace(designmapDoc.StoryList, " ue1", "", 1)
-	designmapDoc.StoryList = strings.Replace(designmapDoc.StoryList, "ue1", "", 1)
-	cleaned := make([]document.ResourceRef, 0, len(designmapDoc.Stories))
-	for _, s := range designmapDoc.Stories {
-		if s.Src != "Stories/Story_ue1.xml" {
-			cleaned = append(cleaned, s)
+
+	// Limpiar la story placeholder del StoryList y de las refs.
+	if refs.storyID != "" {
+		designmapDoc.StoryList = strings.Replace(designmapDoc.StoryList, refs.storyID+" ", "", 1)
+		designmapDoc.StoryList = strings.Replace(designmapDoc.StoryList, " "+refs.storyID, "", 1)
+		designmapDoc.StoryList = strings.Replace(designmapDoc.StoryList, refs.storyID, "", 1)
+		cleaned := make([]document.ResourceRef, 0, len(designmapDoc.Stories))
+		for _, s := range designmapDoc.Stories {
+			if s.Src != refs.storyPath {
+				cleaned = append(cleaned, s)
+			}
 		}
+		designmapDoc.Stories = cleaned
 	}
-	designmapDoc.Stories = cleaned
 
 	// Registrar todos los IDs que la plantilla ya contiene para evitar colisiones.
 	reg := idgen.New()
@@ -125,18 +139,18 @@ func Generate(input *DocumentInput) (*idmlpkg.Package, error) {
 		if i == 0 {
 			// Primer spread: usa el de la plantilla.
 			for _, frame := range sg.pages[0].Frames {
-				if err := addTextFrame(pkg, reg, frame, halfHeight); err != nil {
+				if err := addTextFrame(pkg, reg, refs, frame, halfHeight); err != nil {
 					return nil, err
 				}
 			}
 			if len(doc.Guides) > 0 {
-				if err := addGuidesToSpread(pkg, reg, doc.Guides, idmlpkg.PathSpread); err != nil {
+				if err := addGuidesToSpread(pkg, reg, refs, doc.Guides, refs.spreadPath); err != nil {
 					return nil, err
 				}
 			}
 		} else {
 			// Spreads adicionales: construidos con structs tipados, guides incluidas.
-			if _, err := addSpreadForPages(pkg, reg, doc, sg.pages, sg.pageNumbers, halfHeight, doc.Guides); err != nil {
+			if _, err := addSpreadForPages(pkg, reg, refs, doc, sg.pages, sg.pageNumbers, halfHeight, doc.Guides); err != nil {
 				return nil, err
 			}
 		}
@@ -147,7 +161,7 @@ func Generate(input *DocumentInput) (*idmlpkg.Package, error) {
 
 // addSpreadForPages crea un spread con 1 o 2 páginas y lo registra en el paquete.
 // Usa los structs tipados de pkg/spread en vez de construir XML a mano.
-func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, doc DocumentSpec, pages []PageSpec, pageNumbers []int, halfHeight float64, guides []GuideSpec) (string, error) {
+func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, refs *templateRefs, doc DocumentSpec, pages []PageSpec, pageNumbers []int, halfHeight float64, guides []GuideSpec) (string, error) {
 	spreadID := reg.Generate()
 	pageWidthPt := mmToPt(doc.WidthMm)
 	pageHeightPt := mmToPt(doc.HeightMm)
@@ -160,6 +174,9 @@ func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, doc DocumentSp
 	marginLeft := mmToPt(doc.Margins.Left)
 	marginRight := mmToPt(doc.Margins.Right)
 	usableWidth := pageWidthPt - marginLeft - marginRight
+	// ponytail: columnGutter hardcodeado a 12pt (default de InDesign). Para exponerlo,
+	// agregar un campo ColumnGutterMm a DocumentInput y convertirlo aquí con mmToPt.
+	// Por ahora no se necesita porque el backend no lo parametriza.
 	columnGutter := 12.0
 	columnWidth := (usableWidth - float64(columns-1)*columnGutter) / float64(columns)
 
@@ -197,10 +214,9 @@ func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, doc DocumentSp
 				FitToPage:               "true",
 				ViewThreshold:           "5",
 				Locked:                  "false",
-				ItemLayer:               "uba",
-				PageIndex:               "0",
-				GuideType:               "Ruler",
-				GuideZone:               "1",
+				ItemLayer:               refs.layerID, PageIndex: "0",
+				GuideType: "Ruler",
+				GuideZone: "1",
 				Properties: &common.Properties{
 					OtherElements: []common.RawXMLElement{{
 						XMLName: xml.Name{Local: "GuideColor"},
@@ -214,14 +230,14 @@ func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, doc DocumentSp
 		spreadPages = append(spreadPages, spread.Page{
 			Self:                   pageID,
 			TabOrder:               "",
-			AppliedMaster:          "ub4",
+			AppliedMaster:          masterSpreadSelf(refs.masterSpread),
 			OverrideList:           "",
 			MasterPageTransform:    "1 0 0 1 0 0",
 			Name:                   fmt.Sprintf("%d", pageNum),
 			AppliedTrapPreset:      "TrapPreset/$ID/kDefaultTrapStyleName",
 			GeometricBounds:        "0 0 " + num(pageHeightPt) + " " + num(pageWidthPt),
 			ItemTransform:          "1 0 0 1 " + num(pageTransformX) + " " + num(-halfHeight),
-			AppliedAlternateLayout: "ub6",
+			AppliedAlternateLayout: refs.sectionID,
 			LayoutRule:             "UseMaster",
 			SnapshotBlendingMode:   "IgnoreLayoutSnapshots",
 			OptionalPage:           "false",
@@ -275,7 +291,7 @@ func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, doc DocumentSp
 					Self:          frameID,
 					Name:          frame.Name,
 					Visible:       "true",
-					ItemLayer:     "uba",
+					ItemLayer:     refs.layerID,
 					ItemTransform: "1 0 0 1 " + num(centerX) + " " + num(centerY),
 				},
 				ParentStory:        storyID,
@@ -394,7 +410,7 @@ func createAndRegisterStory(pkg *idmlpkg.Package, storyID string, frame FrameSpe
 }
 
 // addTextFrame agrega un TextFrame al primer spread (el de la plantilla) usando la API de pkg/idml.
-func addTextFrame(pkg *idmlpkg.Package, reg *idgen.Registry, frame FrameSpec, halfHeight float64) error {
+func addTextFrame(pkg *idmlpkg.Package, reg *idgen.Registry, refs *templateRefs, frame FrameSpec, halfHeight float64) error {
 	frameID := reg.Generate()
 	storyID := reg.Generate()
 
@@ -413,7 +429,7 @@ func addTextFrame(pkg *idmlpkg.Package, reg *idgen.Registry, frame FrameSpec, ha
 			Self:          frameID,
 			Name:          frame.Name,
 			Visible:       "true",
-			ItemLayer:     "uba",
+			ItemLayer:     refs.layerID,
 			ItemTransform: "1 0 0 1 " + num(centerX) + " " + num(centerY),
 		},
 		ParentStory:        storyID,
@@ -434,7 +450,7 @@ func addTextFrame(pkg *idmlpkg.Package, reg *idgen.Registry, frame FrameSpec, ha
 		OtherElements: buildFrameExtras(frame.Options),
 	}
 
-	if err := pkg.AddTextFrame(idmlpkg.PathSpread, tf, idmlpkg.ValidationOptions{}); err != nil {
+	if err := pkg.AddTextFrame(refs.spreadPath, tf, idmlpkg.ValidationOptions{}); err != nil {
 		return fmt.Errorf("error al agregar TextFrame %q: %w", frame.Name, err)
 	}
 
@@ -507,7 +523,7 @@ func buildFrameExtras(opts FrameOptions) []common.RawXMLElement {
 
 // addGuidesToSpread agrega guías a la primera página del spread indicado usando la API tipada.
 // Carga el spread como struct, agrega las guías a Page.Guides, y re-serializa.
-func addGuidesToSpread(pkg *idmlpkg.Package, reg *idgen.Registry, guides []GuideSpec, spreadPath string) error {
+func addGuidesToSpread(pkg *idmlpkg.Package, reg *idgen.Registry, refs *templateRefs, guides []GuideSpec, spreadPath string) error {
 	sp, err := pkg.Spread(spreadPath)
 	if err != nil {
 		return fmt.Errorf("error al cargar spread %s: %w", spreadPath, err)
@@ -531,7 +547,7 @@ func addGuidesToSpread(pkg *idmlpkg.Package, reg *idgen.Registry, guides []Guide
 			FitToPage:               "true",
 			ViewThreshold:           "5",
 			Locked:                  "false",
-			ItemLayer:               "uba",
+			ItemLayer:               refs.layerID,
 			PageIndex:               "0",
 			GuideType:               "Ruler",
 			GuideZone:               "1",
