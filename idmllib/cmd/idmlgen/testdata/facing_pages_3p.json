@@ -1,0 +1,57 @@
+{
+  "document": {
+    "widthMm": 265,
+    "heightMm": 370,
+    "margins": { "top": 15, "bottom": 15, "left": 12, "right": 12 },
+    "facingPages": true,
+    "columns": 5,
+    "guides": [
+      { "orientation": "vertical", "locationMm": 60.2 },
+      { "orientation": "vertical", "locationMm": 108.4 },
+      { "orientation": "horizontal", "locationMm": 100 },
+      { "orientation": "horizontal", "locationMm": 200 }
+    ]
+  },
+  "pages": [
+    {
+      "frames": [
+        {
+          "type": "text",
+          "name": "Cabezote",
+          "bounds": { "topMm": 15, "leftMm": 12, "bottomMm": 50, "rightMm": 253 },
+          "content": "Cabezote",
+          "options": {}
+        }
+      ]
+    },
+    {
+      "frames": [
+        {
+          "type": "text",
+          "name": "Pauta Deportes",
+          "bounds": { "topMm": 15, "leftMm": 12, "bottomMm": 185, "rightMm": 130 },
+          "content": "Pauta Deportes",
+          "options": {}
+        },
+        {
+          "type": "text",
+          "name": "Pauta Publicidad",
+          "bounds": { "topMm": 15, "leftMm": 135, "bottomMm": 185, "rightMm": 253 },
+          "content": "Pauta Publicidad",
+          "options": {}
+        }
+      ]
+    },
+    {
+      "frames": [
+        {
+          "type": "text",
+          "name": "Pauta Cultura",
+          "bounds": { "topMm": 15, "leftMm": 12, "bottomMm": 355, "rightMm": 253 },
+          "content": "Pauta Cultura",
+          "options": { "verticalJustification": "CenterAlign" }
+        }
+      ]
+    }
+  ]
+}
