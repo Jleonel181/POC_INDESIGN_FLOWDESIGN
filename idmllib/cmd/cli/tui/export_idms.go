@@ -285,13 +285,13 @@ func (m *ExportIDMSWizard) performExport() (tea.Model, tea.Cmd) {
 	}
 
 	// Get the textframe
-	if m.selectedFrame.FrameIndex >= len(spread.InnerSpread.TextFrames) {
+	if m.selectedFrame.FrameIndex >= len(spread.InnerSpread.TextFrames()) {
 		m.error = fmt.Sprintf("Invalid frame index %d", m.selectedFrame.FrameIndex)
 		m.step = expStepFrameActions
 		return m, nil
 	}
 
-	textFrame := &spread.InnerSpread.TextFrames[m.selectedFrame.FrameIndex]
+	textFrame := spread.InnerSpread.TextFrames()[m.selectedFrame.FrameIndex]
 
 	// Create selection
 	selection := idml.NewSelection()

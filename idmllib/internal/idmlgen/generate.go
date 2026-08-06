@@ -348,9 +348,13 @@ func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, refs *template
 					}},
 				},
 			},
-			Pages:      spreadPages,
-			TextFrames: textFrames,
+			Pages: spreadPages,
 		},
+	}
+
+	// Agregar text frames al spread
+	for i := range textFrames {
+		sp.InnerSpread.Append(&textFrames[i])
 	}
 
 	// Serializar y registrar en el paquete

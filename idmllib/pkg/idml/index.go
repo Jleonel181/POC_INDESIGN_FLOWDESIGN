@@ -58,38 +58,32 @@ func (p *Package) buildItemIndex() error {
 
 	for _, sp := range spreads {
 		// Indexar text frames
-		for i := range sp.InnerSpread.TextFrames {
-			tf := &sp.InnerSpread.TextFrames[i]
+		for _, tf := range sp.InnerSpread.TextFrames() {
 			p.indexState.index.textFrames[tf.Self] = tf
 		}
 
 		// Indexar rectángulos
-		for i := range sp.InnerSpread.Rectangles {
-			rect := &sp.InnerSpread.Rectangles[i]
+		for _, rect := range sp.InnerSpread.Rectangles() {
 			p.indexState.index.rectangles[rect.Self] = rect
 		}
 
 		// Indexar óvalos
-		for i := range sp.InnerSpread.Ovals {
-			oval := &sp.InnerSpread.Ovals[i]
+		for _, oval := range sp.InnerSpread.Ovals() {
 			p.indexState.index.ovals[oval.Self] = oval
 		}
 
 		// Indexar polígonos
-		for i := range sp.InnerSpread.Polygons {
-			poly := &sp.InnerSpread.Polygons[i]
+		for _, poly := range sp.InnerSpread.Polygons() {
 			p.indexState.index.polygons[poly.Self] = poly
 		}
 
 		// Indexar líneas gráficas
-		for i := range sp.InnerSpread.GraphicLines {
-			line := &sp.InnerSpread.GraphicLines[i]
+		for _, line := range sp.InnerSpread.GraphicLines() {
 			p.indexState.index.graphicLines[line.Self] = line
 		}
 
 		// Indexar grupos
-		for i := range sp.InnerSpread.Groups {
-			group := &sp.InnerSpread.Groups[i]
+		for _, group := range sp.InnerSpread.Groups() {
 			p.indexState.index.groups[group.Self] = group
 		}
 	}

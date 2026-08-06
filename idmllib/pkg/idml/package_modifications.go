@@ -146,16 +146,16 @@ func (p *Package) marshalAndUpdateStory(filename string, st *story.Story) error 
 func (p *Package) removeItemFromSpread(sp *spread.Spread, itemID string, itemType string) bool {
 	switch itemType {
 	case "textframe":
-		for i, tf := range sp.InnerSpread.TextFrames {
+		for i, tf := range sp.InnerSpread.TextFrames() {
 			if tf.Self == itemID {
-				sp.InnerSpread.TextFrames = append(sp.InnerSpread.TextFrames[:i], sp.InnerSpread.TextFrames[i+1:]...)
+				sp.InnerSpread.RemoveTextFrameAt(i)
 				return true
 			}
 		}
 	case "rectangle":
-		for i, rect := range sp.InnerSpread.Rectangles {
+		for i, rect := range sp.InnerSpread.Rectangles() {
 			if rect.Self == itemID {
-				sp.InnerSpread.Rectangles = append(sp.InnerSpread.Rectangles[:i], sp.InnerSpread.Rectangles[i+1:]...)
+				sp.InnerSpread.RemoveRectangleAt(i)
 				return true
 			}
 		}
@@ -426,7 +426,7 @@ func (p *Package) AddTextFrame(spreadFilename string, tf *spread.SpreadTextFrame
 
 // validateTextFrameDoesNotExist checks that a text frame ID doesn't already exist.
 func (p *Package) validateTextFrameDoesNotExist(sp *spread.Spread, textFrameID, spreadFilename string) error {
-	for _, existing := range sp.InnerSpread.TextFrames {
+	for _, existing := range sp.InnerSpread.TextFrames() {
 		if existing.Self == textFrameID {
 			return common.WrapErrorWithPath("idml", "add text frame", spreadFilename, common.ErrAlreadyExists)
 		}
@@ -436,7 +436,7 @@ func (p *Package) validateTextFrameDoesNotExist(sp *spread.Spread, textFrameID, 
 
 // addTextFrameToSpread adds a text frame to the spread.
 func (p *Package) addTextFrameToSpread(sp *spread.Spread, tf *spread.SpreadTextFrame) {
-	sp.InnerSpread.TextFrames = append(sp.InnerSpread.TextFrames, *tf)
+	sp.InnerSpread.AddTextFrame(*tf)
 }
 
 // UpdateTextFrame updates a text frame in a spread with optional validation.
@@ -475,7 +475,7 @@ func (p *Package) UpdateTextFrame(spreadFilename string, textFrameID string, tf 
 
 // findAndUpdateTextFrame finds a text frame by ID and updates it.
 func (p *Package) findAndUpdateTextFrame(sp *spread.Spread, textFrameID string, tf *spread.SpreadTextFrame, opts ValidationOptions, spreadFilename string) error {
-	for i, existing := range sp.InnerSpread.TextFrames {
+	for i, existing := range sp.InnerSpread.TextFrames() {
 		if existing.Self == textFrameID {
 			// Validate dependencies if requested
 			if err := p.validateTextFrameDependencies(tf, opts, spreadFilename); err != nil {
@@ -483,7 +483,7 @@ func (p *Package) findAndUpdateTextFrame(sp *spread.Spread, textFrameID string, 
 			}
 
 			// Update the text frame
-			sp.InnerSpread.TextFrames[i] = *tf
+			sp.InnerSpread.SetTextFrameAt(i, *tf)
 			return nil
 		}
 	}
@@ -565,7 +565,7 @@ func (p *Package) AddRectangle(spreadFilename string, rect *spread.Rectangle, op
 	}
 
 	// Step 2: Check if rectangle ID already exists
-	for _, existing := range sp.InnerSpread.Rectangles {
+	for _, existing := range sp.InnerSpread.Rectangles() {
 		if existing.Self == rect.Self {
 			return common.WrapErrorWithPath("idml", "add rectangle", spreadFilename, common.ErrAlreadyExists)
 		}
@@ -577,7 +577,7 @@ func (p *Package) AddRectangle(spreadFilename string, rect *spread.Rectangle, op
 	}
 
 	// Step 4: Add the rectangle
-	sp.InnerSpread.Rectangles = append(sp.InnerSpread.Rectangles, *rect)
+	sp.InnerSpread.AddRectangle(*rect)
 
 	// Step 5: Marshal and save the spread
 	return p.marshalAndUpdateSpread(spreadFilename, sp)
@@ -610,7 +610,7 @@ func (p *Package) UpdateRectangle(spreadFilename string, rectangleID string, rec
 
 	// Step 2: Find and validate the rectangle
 	found := false
-	for i, existing := range sp.InnerSpread.Rectangles {
+	for i, existing := range sp.InnerSpread.Rectangles() {
 		if existing.Self == rectangleID {
 			found = true
 
@@ -620,7 +620,7 @@ func (p *Package) UpdateRectangle(spreadFilename string, rectangleID string, rec
 			}
 
 			// Step 4: Update the rectangle
-			sp.InnerSpread.Rectangles[i] = *rect
+			sp.InnerSpread.SetRectangleAt(i, *rect)
 			break
 		}
 	}

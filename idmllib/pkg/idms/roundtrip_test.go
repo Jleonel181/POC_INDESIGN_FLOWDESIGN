@@ -202,12 +202,12 @@ func TestSpreadAndStoryParsing(t *testing.T) {
 		if spread.Self == "" {
 			t.Error("First spread has empty Self attribute")
 		}
-		if len(spread.TextFrames) == 0 {
+		if len(spread.TextFrames()) == 0 {
 			t.Error("Expected text frames in spread, but got 0")
 		}
 		t.Logf("✅ Spread parsed correctly")
 		t.Logf("   Self: %s", spread.Self)
-		t.Logf("   TextFrames: %d", len(spread.TextFrames))
+		t.Logf("   TextFrames: %d", len(spread.TextFrames()))
 	}
 
 	// Verify story structure
@@ -250,9 +250,9 @@ func TestSpreadAndStoryParsing(t *testing.T) {
 		if rtSpreads[0].Self != spreads[0].Self {
 			t.Errorf("Spread Self mismatch: got %s, want %s", rtSpreads[0].Self, spreads[0].Self)
 		}
-		if len(rtSpreads[0].TextFrames) != len(spreads[0].TextFrames) {
+		if len(rtSpreads[0].TextFrames()) != len(spreads[0].TextFrames()) {
 			t.Errorf("TextFrame count mismatch: got %d, want %d",
-				len(rtSpreads[0].TextFrames), len(spreads[0].TextFrames))
+				len(rtSpreads[0].TextFrames()), len(spreads[0].TextFrames()))
 		}
 	}
 

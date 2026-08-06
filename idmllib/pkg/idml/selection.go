@@ -295,8 +295,7 @@ func (p *Package) SelectAllGraphicsInSpread(spreadFilename string) ([]*spread.Re
 
 	// Recopilar todos los rectángulos que tienen imágenes
 	var graphics []*spread.Rectangle
-	for i := range sp.InnerSpread.Rectangles {
-		rect := &sp.InnerSpread.Rectangles[i]
+	for _, rect := range sp.InnerSpread.Rectangles() {
 		// Verificar si el rectángulo contiene una imagen
 		if rect.ContentType == "GraphicType" || rect.Image != nil {
 			graphics = append(graphics, rect)
@@ -316,12 +315,7 @@ func (p *Package) SelectAllTextFramesInSpread(spreadFilename string) ([]*spread.
 	}
 
 	// Recopilar todos los text frames
-	textFrames := make([]*spread.SpreadTextFrame, len(sp.InnerSpread.TextFrames))
-	for i := range sp.InnerSpread.TextFrames {
-		textFrames[i] = &sp.InnerSpread.TextFrames[i]
-	}
-
-	return textFrames, nil
+	return sp.InnerSpread.TextFrames(), nil
 }
 
 // SelectPageItemsByIDs crea una Selection con todos los page items que tengan los IDs especificados.

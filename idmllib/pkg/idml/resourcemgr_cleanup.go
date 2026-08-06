@@ -125,7 +125,7 @@ func (rm *ResourceManager) analyzeStory(st *story.Story, deps *dependencySet) er
 // analyzeSpread analyzes a spread and tracks all object dependencies.
 func (rm *ResourceManager) analyzeSpread(sp *spread.Spread, deps *dependencySet) error {
 	// Analyze text frames
-	for _, tf := range sp.InnerSpread.TextFrames {
+	for _, tf := range sp.InnerSpread.TextFrames() {
 		// Track the applied object style
 		if tf.AppliedObjectStyle != "" {
 			deps.objectStyles[tf.AppliedObjectStyle] = true
@@ -156,7 +156,7 @@ func (rm *ResourceManager) analyzeSpread(sp *spread.Spread, deps *dependencySet)
 	}
 
 	// Analyze rectangles
-	for _, rect := range sp.InnerSpread.Rectangles {
+	for _, rect := range sp.InnerSpread.Rectangles() {
 		// Track the applied object style
 		if rect.AppliedObjectStyle != "" {
 			deps.objectStyles[rect.AppliedObjectStyle] = true
@@ -172,8 +172,7 @@ func (rm *ResourceManager) analyzeSpread(sp *spread.Spread, deps *dependencySet)
 	}
 
 	// Analyze ovals
-	for i := range sp.InnerSpread.Ovals {
-		oval := &sp.InnerSpread.Ovals[i]
+	for _, oval := range sp.InnerSpread.Ovals() {
 		if oval.AppliedObjectStyle != "" {
 			deps.objectStyles[oval.AppliedObjectStyle] = true
 		}
@@ -188,8 +187,7 @@ func (rm *ResourceManager) analyzeSpread(sp *spread.Spread, deps *dependencySet)
 	}
 
 	// Analyze polygons
-	for i := range sp.InnerSpread.Polygons {
-		polygon := &sp.InnerSpread.Polygons[i]
+	for _, polygon := range sp.InnerSpread.Polygons() {
 		if polygon.AppliedObjectStyle != "" {
 			deps.objectStyles[polygon.AppliedObjectStyle] = true
 		}
@@ -204,8 +202,7 @@ func (rm *ResourceManager) analyzeSpread(sp *spread.Spread, deps *dependencySet)
 	}
 
 	// Analyze graphic lines
-	for i := range sp.InnerSpread.GraphicLines {
-		line := &sp.InnerSpread.GraphicLines[i]
+	for _, line := range sp.InnerSpread.GraphicLines() {
 		if line.AppliedObjectStyle != "" {
 			deps.objectStyles[line.AppliedObjectStyle] = true
 		}
@@ -219,8 +216,7 @@ func (rm *ResourceManager) analyzeSpread(sp *spread.Spread, deps *dependencySet)
 	}
 
 	// Analyze groups
-	for i := range sp.InnerSpread.Groups {
-		group := &sp.InnerSpread.Groups[i]
+	for _, group := range sp.InnerSpread.Groups() {
 		if group.AppliedObjectStyle != "" {
 			deps.objectStyles[group.AppliedObjectStyle] = true
 		}

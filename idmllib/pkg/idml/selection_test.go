@@ -81,8 +81,8 @@ func TestSelectTextFrameByID_FindsTextFrame(t *testing.T) {
 	// Find a text frame ID from the first spread
 	var testID string
 	for _, spread := range spreads {
-		if len(spread.InnerSpread.TextFrames) > 0 {
-			testID = spread.InnerSpread.TextFrames[0].Self
+		if len(spread.InnerSpread.TextFrames()) > 0 {
+			testID = spread.InnerSpread.TextFrames()[0].Self
 			break
 		}
 	}
@@ -149,8 +149,8 @@ func TestSelectRectangleByID_FindsRectangle(t *testing.T) {
 	// Find a rectangle ID from the first spread
 	var testID string
 	for _, spread := range spreads {
-		if len(spread.InnerSpread.Rectangles) > 0 {
-			testID = spread.InnerSpread.Rectangles[0].Self
+		if len(spread.InnerSpread.Rectangles()) > 0 {
+			testID = spread.InnerSpread.Rectangles()[0].Self
 			break
 		}
 	}
@@ -216,7 +216,7 @@ func TestSelectAllGraphicsInSpread_FindsAllGraphics(t *testing.T) {
 	// Find a spread with rectangles
 	var spreadFilename string
 	for filename, spread := range spreads {
-		if len(spread.InnerSpread.Rectangles) > 0 {
+		if len(spread.InnerSpread.Rectangles()) > 0 {
 			spreadFilename = filename
 			break
 		}
@@ -268,9 +268,9 @@ func TestSelectAllTextFramesInSpread_FindsAllTextFrames(t *testing.T) {
 	var spreadFilename string
 	var expectedCount int
 	for filename, spread := range spreads {
-		if len(spread.InnerSpread.TextFrames) > 0 {
+		if len(spread.InnerSpread.TextFrames()) > 0 {
 			spreadFilename = filename
-			expectedCount = len(spread.InnerSpread.TextFrames)
+			expectedCount = len(spread.InnerSpread.TextFrames())
 			break
 		}
 	}
@@ -317,13 +317,13 @@ func TestSelectByIDs_SelectsMultipleElements(t *testing.T) {
 	var ids []string
 	for _, spread := range spreads {
 		// Add up to 2 text frame IDs
-		for i := 0; i < len(spread.InnerSpread.TextFrames) && i < 2; i++ {
-			ids = append(ids, spread.InnerSpread.TextFrames[i].Self)
+		for i := 0; i < len(spread.InnerSpread.TextFrames()) && i < 2; i++ {
+			ids = append(ids, spread.InnerSpread.TextFrames()[i].Self)
 		}
 
 		// Add up to 2 rectangle IDs
-		for i := 0; i < len(spread.InnerSpread.Rectangles) && i < 2; i++ {
-			ids = append(ids, spread.InnerSpread.Rectangles[i].Self)
+		for i := 0; i < len(spread.InnerSpread.Rectangles()) && i < 2; i++ {
+			ids = append(ids, spread.InnerSpread.Rectangles()[i].Self)
 		}
 
 		if len(ids) >= 4 {
@@ -512,8 +512,8 @@ func TestSelectOvalByID_FindsOval(t *testing.T) {
 
 	var testID string
 	for _, spread := range spreads {
-		if len(spread.InnerSpread.Ovals) > 0 {
-			testID = spread.InnerSpread.Ovals[0].Self
+		if len(spread.InnerSpread.Ovals()) > 0 {
+			testID = spread.InnerSpread.Ovals()[0].Self
 			break
 		}
 	}
@@ -565,8 +565,8 @@ func TestSelectPolygonByID_FindsPolygon(t *testing.T) {
 
 	var testID string
 	for _, spread := range spreads {
-		if len(spread.InnerSpread.Polygons) > 0 {
-			testID = spread.InnerSpread.Polygons[0].Self
+		if len(spread.InnerSpread.Polygons()) > 0 {
+			testID = spread.InnerSpread.Polygons()[0].Self
 			break
 		}
 	}
@@ -618,8 +618,8 @@ func TestSelectGraphicLineByID_FindsGraphicLine(t *testing.T) {
 
 	var testID string
 	for _, spread := range spreads {
-		if len(spread.InnerSpread.GraphicLines) > 0 {
-			testID = spread.InnerSpread.GraphicLines[0].Self
+		if len(spread.InnerSpread.GraphicLines()) > 0 {
+			testID = spread.InnerSpread.GraphicLines()[0].Self
 			break
 		}
 	}
@@ -671,8 +671,8 @@ func TestSelectGroupByID_FindsGroup(t *testing.T) {
 
 	var testID string
 	for _, spread := range spreads {
-		if len(spread.InnerSpread.Groups) > 0 {
-			testID = spread.InnerSpread.Groups[0].Self
+		if len(spread.InnerSpread.Groups()) > 0 {
+			testID = spread.InnerSpread.Groups()[0].Self
 			break
 		}
 	}

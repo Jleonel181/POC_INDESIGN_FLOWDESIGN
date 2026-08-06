@@ -84,49 +84,49 @@ func (se *SpreadElement) decodeChild(d *xml.Decoder, start xml.StartElement) err
 		if err := d.DecodeElement(&x, &start); err != nil {
 			return err
 		}
-		se.TextFrames = append(se.TextFrames, x)
+		se.textFrames = append(se.textFrames, x)
 
 	case TagRectangle:
 		var x Rectangle
 		if err := d.DecodeElement(&x, &start); err != nil {
 			return err
 		}
-		se.Rectangles = append(se.Rectangles, x)
+		se.rectangles = append(se.rectangles, x)
 
 	case TagImage:
 		var x Image
 		if err := d.DecodeElement(&x, &start); err != nil {
 			return err
 		}
-		se.Images = append(se.Images, x)
+		se.images = append(se.images, x)
 
 	case TagOval:
 		var x Oval
 		if err := d.DecodeElement(&x, &start); err != nil {
 			return err
 		}
-		se.Ovals = append(se.Ovals, x)
+		se.ovals = append(se.ovals, x)
 
 	case TagPolygon:
 		var x Polygon
 		if err := d.DecodeElement(&x, &start); err != nil {
 			return err
 		}
-		se.Polygons = append(se.Polygons, x)
+		se.polygons = append(se.polygons, x)
 
 	case TagGraphicLine:
 		var x GraphicLine
 		if err := d.DecodeElement(&x, &start); err != nil {
 			return err
 		}
-		se.GraphicLines = append(se.GraphicLines, x)
+		se.graphicLines = append(se.graphicLines, x)
 
 	case TagGroup:
 		var x Group
 		if err := d.DecodeElement(&x, &start); err != nil {
 			return err
 		}
-		se.Groups = append(se.Groups, x)
+		se.groups = append(se.groups, x)
 
 	default:
 		// Todo lo que el modelo no declara se guarda como XML crudo, incluido <PDF>:
@@ -198,26 +198,26 @@ func (se *SpreadElement) emitChildren(e *xml.Encoder) error {
 	for i := range se.Pages {
 		add(tagPage, emit(&se.Pages[i], tagPage))
 	}
-	for i := range se.TextFrames {
-		add(TagTextFrame, emit(&se.TextFrames[i], TagTextFrame))
+	for i := range se.textFrames {
+		add(TagTextFrame, emit(&se.textFrames[i], TagTextFrame))
 	}
-	for i := range se.Rectangles {
-		add(TagRectangle, emit(&se.Rectangles[i], TagRectangle))
+	for i := range se.rectangles {
+		add(TagRectangle, emit(&se.rectangles[i], TagRectangle))
 	}
-	for i := range se.Images {
-		add(TagImage, emit(&se.Images[i], TagImage))
+	for i := range se.images {
+		add(TagImage, emit(&se.images[i], TagImage))
 	}
-	for i := range se.Ovals {
-		add(TagOval, emit(&se.Ovals[i], TagOval))
+	for i := range se.ovals {
+		add(TagOval, emit(&se.ovals[i], TagOval))
 	}
-	for i := range se.Polygons {
-		add(TagPolygon, emit(&se.Polygons[i], TagPolygon))
+	for i := range se.polygons {
+		add(TagPolygon, emit(&se.polygons[i], TagPolygon))
 	}
-	for i := range se.GraphicLines {
-		add(TagGraphicLine, emit(&se.GraphicLines[i], TagGraphicLine))
+	for i := range se.graphicLines {
+		add(TagGraphicLine, emit(&se.graphicLines[i], TagGraphicLine))
 	}
-	for i := range se.Groups {
-		add(TagGroup, emit(&se.Groups[i], TagGroup))
+	for i := range se.groups {
+		add(TagGroup, emit(&se.groups[i], TagGroup))
 	}
 
 	// Las clases de los hijos no modelados son dinámicas, así que se añaden al orden de
@@ -277,32 +277,32 @@ func (se *SpreadElement) rebuildItems() {
 		var item PageItem
 		switch kind {
 		case TagTextFrame:
-			if i < len(se.TextFrames) {
-				item = &se.TextFrames[i]
+			if i < len(se.textFrames) {
+				item = &se.textFrames[i]
 			}
 		case TagRectangle:
-			if i < len(se.Rectangles) {
-				item = &se.Rectangles[i]
+			if i < len(se.rectangles) {
+				item = &se.rectangles[i]
 			}
 		case TagImage:
-			if i < len(se.Images) {
-				item = &se.Images[i]
+			if i < len(se.images) {
+				item = &se.images[i]
 			}
 		case TagOval:
-			if i < len(se.Ovals) {
-				item = &se.Ovals[i]
+			if i < len(se.ovals) {
+				item = &se.ovals[i]
 			}
 		case TagPolygon:
-			if i < len(se.Polygons) {
-				item = &se.Polygons[i]
+			if i < len(se.polygons) {
+				item = &se.polygons[i]
 			}
 		case TagGraphicLine:
-			if i < len(se.GraphicLines) {
-				item = &se.GraphicLines[i]
+			if i < len(se.graphicLines) {
+				item = &se.graphicLines[i]
 			}
 		case TagGroup:
-			if i < len(se.Groups) {
-				item = &se.Groups[i]
+			if i < len(se.groups) {
+				item = &se.groups[i]
 			}
 		default:
 			// FlattenerPreference, Page y los hijos no modelados no son elementos de
@@ -321,13 +321,13 @@ func (se *SpreadElement) reset() {
 	se.Items = nil
 	se.FlattenerPreference = nil
 	se.Pages = nil
-	se.TextFrames = nil
-	se.Rectangles = nil
-	se.Images = nil
-	se.Ovals = nil
-	se.Polygons = nil
-	se.GraphicLines = nil
-	se.Groups = nil
+	se.textFrames = nil
+	se.rectangles = nil
+	se.images = nil
+	se.ovals = nil
+	se.polygons = nil
+	se.graphicLines = nil
+	se.groups = nil
 	se.OtherElements = nil
 	// OtherAttrs lo vacía UnmarshalAttrs antes de rellenarlo.
 }
@@ -373,19 +373,19 @@ func (se *SpreadElement) Append(item PageItem) (PageItem, error) {
 
 	switch v := item.(type) {
 	case *SpreadTextFrame:
-		se.TextFrames = append(se.TextFrames, *v)
+		se.textFrames = append(se.textFrames, *v)
 	case *Rectangle:
-		se.Rectangles = append(se.Rectangles, *v)
+		se.rectangles = append(se.rectangles, *v)
 	case *Image:
-		se.Images = append(se.Images, *v)
+		se.images = append(se.images, *v)
 	case *Oval:
-		se.Ovals = append(se.Ovals, *v)
+		se.ovals = append(se.ovals, *v)
 	case *Polygon:
-		se.Polygons = append(se.Polygons, *v)
+		se.polygons = append(se.polygons, *v)
 	case *GraphicLine:
-		se.GraphicLines = append(se.GraphicLines, *v)
+		se.graphicLines = append(se.graphicLines, *v)
 	case *Group:
-		se.Groups = append(se.Groups, *v)
+		se.groups = append(se.groups, *v)
 	default:
 		return nil, common.Errorf("spread", "append page item", item.GetSelf(),
 			"SpreadElement no tiene campo para un <"+item.xmlTag()+"> a este nivel; "+

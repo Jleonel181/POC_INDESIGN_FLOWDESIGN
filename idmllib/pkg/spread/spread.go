@@ -78,10 +78,9 @@ type Spread struct {
 	InnerSpread SpreadElement `xml:"-"`
 }
 
-// TextFrames retorna todos los frames de texto en este spread.
-// Es un método de conveniencia para acceder a los frames sin navegar por InnerSpread.
-func (s *Spread) TextFrames() []SpreadTextFrame {
-	return s.InnerSpread.TextFrames
+// TextFrames retorna punteros a todos los frames de texto en este spread, en orden documental.
+func (s *Spread) TextFrames() []*SpreadTextFrame {
+	return s.InnerSpread.TextFrames()
 }
 
 // Pages retorna todas las páginas en este spread.
@@ -90,34 +89,29 @@ func (s *Spread) Pages() []Page {
 	return s.InnerSpread.Pages
 }
 
-// Rectangles retorna todos los rectángulos en este spread.
-// Es un método de conveniencia para acceder a los rectángulos sin navegar por InnerSpread.
-func (s *Spread) Rectangles() []Rectangle {
-	return s.InnerSpread.Rectangles
+// Rectangles retorna punteros a todos los rectángulos en este spread, en orden documental.
+func (s *Spread) Rectangles() []*Rectangle {
+	return s.InnerSpread.Rectangles()
 }
 
-// Images retorna todas las imágenes en este spread.
-// Es un método de conveniencia para acceder a las imágenes sin navegar por InnerSpread.
-func (s *Spread) Images() []Image {
-	return s.InnerSpread.Images
+// Images retorna punteros a todas las imágenes en este spread, en orden documental.
+func (s *Spread) Images() []*Image {
+	return s.InnerSpread.Images()
 }
 
-// Ovals retorna todas las elipses en este spread.
-// Es un método de conveniencia para acceder a las elipses sin navegar por InnerSpread.
-func (s *Spread) Ovals() []Oval {
-	return s.InnerSpread.Ovals
+// Ovals retorna punteros a todas las elipses en este spread, en orden documental.
+func (s *Spread) Ovals() []*Oval {
+	return s.InnerSpread.Ovals()
 }
 
-// Polygons retorna todos los polígonos en este spread.
-// Es un método de conveniencia para acceder a los polígonos sin navegar por InnerSpread.
-func (s *Spread) Polygons() []Polygon {
-	return s.InnerSpread.Polygons
+// Polygons retorna punteros a todos los polígonos en este spread, en orden documental.
+func (s *Spread) Polygons() []*Polygon {
+	return s.InnerSpread.Polygons()
 }
 
-// GraphicLines retorna todas las líneas gráficas en este spread.
-// Es un método de conveniencia para acceder a las líneas sin navegar por InnerSpread.
-func (s *Spread) GraphicLines() []GraphicLine {
-	return s.InnerSpread.GraphicLines
+// GraphicLines retorna punteros a todas las líneas gráficas en este spread, en orden documental.
+func (s *Spread) GraphicLines() []*GraphicLine {
+	return s.InnerSpread.GraphicLines()
 }
 
 // SpreadElement representa el elemento <Spread> real con todos sus atributos y elementos hijo.
@@ -138,27 +132,14 @@ type SpreadElement struct {
 	FlattenerOverride       string `xml:"FlattenerOverride,attr,omitempty"`
 
 	// Items es la secuencia de elementos de página en Orden_Documental, con punteros a
-	// los elementos guardados en los campos por tipo de abajo.
+	// los elementos guardados en los campos internos.
 	//
-	// Qué manda cada uno en esta fase: **Items manda el orden, los campos por tipo
-	// mandan el contenido.** Al emitir, la secuencia sale del orden registrado al
-	// parsear y el contenido se lee de los campos por tipo.
+	// Items manda el orden y los campos internos mandan el contenido. Al emitir, la
+	// secuencia sale del registro de orden y el contenido se lee de los campos.
 	//
-	// La razón de ese reparto es un conflicto medido, no una preferencia. El criterio 1
-	// de la Tarea 7 pide que Items sea la fuente de verdad de la serialización, y el
-	// criterio 3 pide que las 18 escrituras existentes a los campos por tipo sigan
-	// funcionando sin tocarlas. Las dos cosas no pueden ser ciertas a la vez:
-	// `removeItemFromSpread` de pkg/idml borra del slice `TextFrames` de un spread ya
-	// parseado, y si el contenido saliera de Items ese borrado no llegaría al archivo
-	// escrito. Peor aún, `TestRemoveTextFrame_Basic` solo comprueba el slice en memoria,
-	// así que la regresión sería silenciosa. La fase 2 migra esas escrituras a Append y
-	// Remove, y entonces Items pasa a ser también el contenido.
-	//
-	// ponytail: en esta fase Items es una vista ordenada, no el contenedor. Un llamador
-	// que haga `append` a un campo por tipo puede invalidar los punteros de Items, que
-	// apuntan al array de ese slice. No afecta a lo que se emite, porque la emisión lee
-	// del campo; sí afecta a quien lea Items después. La vía de mejora es la fase 2, que
-	// convierte Items en el contenedor y deja los campos como valores derivados.
+	// La mutación pasa por Append (que registra el orden) o por los helpers AddX/RemoveXAt
+	// (para operaciones sin registro de orden). Los campos son unexported; el acceso
+	// externo es por los accesores TextFrames(), Rectangles(), etc. que devuelven []*T.
 	Items []PageItem `xml:"-"`
 
 	// childOrder recuerda la secuencia de hijos leída, para reproducirla al emitir.
@@ -169,13 +150,13 @@ type SpreadElement struct {
 	// Elementos hijo
 	FlattenerPreference *FlattenerPreference `xml:"FlattenerPreference,omitempty"`
 	Pages               []Page               `xml:"Page,omitempty"`
-	TextFrames          []SpreadTextFrame    `xml:"TextFrame,omitempty"`
-	Rectangles          []Rectangle          `xml:"Rectangle,omitempty"`
-	Images              []Image              `xml:"Image,omitempty"`
-	Ovals               []Oval               `xml:"Oval,omitempty"`
-	Polygons            []Polygon            `xml:"Polygon,omitempty"`
-	GraphicLines        []GraphicLine        `xml:"GraphicLine,omitempty"`
-	Groups              []Group              `xml:"Group,omitempty"`
+	textFrames          []SpreadTextFrame
+	rectangles          []Rectangle
+	images              []Image
+	ovals               []Oval
+	polygons            []Polygon
+	graphicLines        []GraphicLine
+	groups              []Group
 
 	// Comodín para otros elementos aún no modelados explícitamente
 
@@ -190,6 +171,71 @@ type SpreadElement struct {
 	// algún día aparece uno, este es el sitio que hay que mirar.
 	OtherAttrs    []xml.Attr             `xml:",any,attr"`
 	OtherElements []common.RawXMLElement `xml:",any"`
+}
+
+// --- Accesores de SpreadElement: devuelven punteros a los elementos del contenedor ---
+
+// TextFrames retorna punteros a los text frames, en orden documental.
+func (se *SpreadElement) TextFrames() []*SpreadTextFrame {
+	result := make([]*SpreadTextFrame, 0, len(se.textFrames))
+	for i := range se.textFrames {
+		result = append(result, &se.textFrames[i])
+	}
+	return result
+}
+
+// Rectangles retorna punteros a los rectángulos, en orden documental.
+func (se *SpreadElement) Rectangles() []*Rectangle {
+	result := make([]*Rectangle, 0, len(se.rectangles))
+	for i := range se.rectangles {
+		result = append(result, &se.rectangles[i])
+	}
+	return result
+}
+
+// Images retorna punteros a las imágenes, en orden documental.
+func (se *SpreadElement) Images() []*Image {
+	result := make([]*Image, 0, len(se.images))
+	for i := range se.images {
+		result = append(result, &se.images[i])
+	}
+	return result
+}
+
+// Ovals retorna punteros a las elipses, en orden documental.
+func (se *SpreadElement) Ovals() []*Oval {
+	result := make([]*Oval, 0, len(se.ovals))
+	for i := range se.ovals {
+		result = append(result, &se.ovals[i])
+	}
+	return result
+}
+
+// Polygons retorna punteros a los polígonos, en orden documental.
+func (se *SpreadElement) Polygons() []*Polygon {
+	result := make([]*Polygon, 0, len(se.polygons))
+	for i := range se.polygons {
+		result = append(result, &se.polygons[i])
+	}
+	return result
+}
+
+// GraphicLines retorna punteros a las líneas gráficas, en orden documental.
+func (se *SpreadElement) GraphicLines() []*GraphicLine {
+	result := make([]*GraphicLine, 0, len(se.graphicLines))
+	for i := range se.graphicLines {
+		result = append(result, &se.graphicLines[i])
+	}
+	return result
+}
+
+// Groups retorna punteros a los grupos, en orden documental.
+func (se *SpreadElement) Groups() []*Group {
+	result := make([]*Group, 0, len(se.groups))
+	for i := range se.groups {
+		result = append(result, &se.groups[i])
+	}
+	return result
 }
 
 // FlattenerPreference contiene configuraciones para el aplanado de transparencia.
@@ -548,4 +594,45 @@ type Group struct {
 	// algún día aparece uno, este es el sitio que hay que mirar.
 	OtherAttrs    []xml.Attr             `xml:",any,attr"`
 	OtherElements []common.RawXMLElement `xml:",any"`
+}
+
+// --- Métodos de mutación directa para compatibilidad con pkg/idml ---
+// Estos métodos permiten a los consumidores dentro del módulo manipular los campos
+// sin exportar sin pasar por Append (que registra orden). Son para operaciones de
+// edición tipo Remove/Set que necesitan acceso posicional al slice interno.
+
+// RemoveTextFrameAt elimina el text frame en la posición indicada del slice interno.
+func (se *SpreadElement) RemoveTextFrameAt(i int) {
+	se.textFrames = append(se.textFrames[:i], se.textFrames[i+1:]...)
+	se.rebuildItems()
+}
+
+// RemoveRectangleAt elimina el rectángulo en la posición indicada del slice interno.
+func (se *SpreadElement) RemoveRectangleAt(i int) {
+	se.rectangles = append(se.rectangles[:i], se.rectangles[i+1:]...)
+	se.rebuildItems()
+}
+
+// AddTextFrame agrega un text frame al spread (sin registro de orden, para compatibilidad).
+func (se *SpreadElement) AddTextFrame(tf SpreadTextFrame) {
+	se.textFrames = append(se.textFrames, tf)
+	se.rebuildItems()
+}
+
+// AddRectangle agrega un rectángulo al spread (sin registro de orden, para compatibilidad).
+func (se *SpreadElement) AddRectangle(rect Rectangle) {
+	se.rectangles = append(se.rectangles, rect)
+	se.rebuildItems()
+}
+
+// SetTextFrameAt reemplaza el text frame en la posición indicada.
+func (se *SpreadElement) SetTextFrameAt(i int, tf SpreadTextFrame) {
+	se.textFrames[i] = tf
+	se.rebuildItems()
+}
+
+// SetRectangleAt reemplaza el rectángulo en la posición indicada.
+func (se *SpreadElement) SetRectangleAt(i int, rect Rectangle) {
+	se.rectangles[i] = rect
+	se.rebuildItems()
 }

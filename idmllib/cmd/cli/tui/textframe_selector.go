@@ -56,7 +56,7 @@ func NewTextFrameSelector(pkg *idml.Package) (*TextFrameSelector, error) {
 	// Collect all textframes
 	var items []TextFrameItem
 	for spreadName, spread := range spreads {
-		for frameIdx, tf := range spread.InnerSpread.TextFrames {
+		for frameIdx, tf := range spread.InnerSpread.TextFrames() {
 			preview := getStoryPreview(tf.ParentStory, storyMap)
 			items = append(items, TextFrameItem{
 				ID:         tf.Self,

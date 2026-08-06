@@ -84,8 +84,8 @@ func TestAnalyzeTextFrame(t *testing.T) {
 	// Find a text frame
 	var tf *spread.SpreadTextFrame
 	for _, sp := range spreads {
-		if len(sp.InnerSpread.TextFrames) > 0 {
-			tf = &sp.InnerSpread.TextFrames[0]
+		if len(sp.InnerSpread.TextFrames()) > 0 {
+			tf = sp.InnerSpread.TextFrames()[0]
 			break
 		}
 	}
@@ -205,8 +205,8 @@ func TestAnalyzeRectangle(t *testing.T) {
 	// Find a rectangle
 	var rect *spread.Rectangle
 	for _, sp := range spreads {
-		if len(sp.InnerSpread.Rectangles) > 0 {
-			rect = &sp.InnerSpread.Rectangles[0]
+		if len(sp.InnerSpread.Rectangles()) > 0 {
+			rect = sp.InnerSpread.Rectangles()[0]
 			break
 		}
 	}
@@ -268,9 +268,9 @@ func TestAnalyzeImage(t *testing.T) {
 	// Find a rectangle with an image
 	var img *spread.Image
 	for _, sp := range spreads {
-		for i := range sp.InnerSpread.Rectangles {
-			if sp.InnerSpread.Rectangles[i].Image != nil {
-				img = sp.InnerSpread.Rectangles[i].Image
+		for _, rect := range sp.InnerSpread.Rectangles() {
+			if rect.Image != nil {
+				img = rect.Image
 				break
 			}
 		}
@@ -458,13 +458,13 @@ func TestAnalyzeSelection(t *testing.T) {
 
 	for _, sp := range spreads {
 		// Add up to 2 text frames
-		for i := 0; i < len(sp.InnerSpread.TextFrames) && i < 2; i++ {
-			selection.AddTextFrame(&sp.InnerSpread.TextFrames[i])
+		for i := 0; i < len(sp.InnerSpread.TextFrames()) && i < 2; i++ {
+			selection.AddTextFrame(sp.InnerSpread.TextFrames()[i])
 		}
 
 		// Add up to 2 rectangles
-		for i := 0; i < len(sp.InnerSpread.Rectangles) && i < 2; i++ {
-			selection.AddRectangle(&sp.InnerSpread.Rectangles[i])
+		for i := 0; i < len(sp.InnerSpread.Rectangles()) && i < 2; i++ {
+			selection.AddRectangle(sp.InnerSpread.Rectangles()[i])
 		}
 
 		if selection.Count() >= 4 {

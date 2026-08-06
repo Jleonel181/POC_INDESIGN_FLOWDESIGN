@@ -29,8 +29,8 @@
 //	    log.Fatal(err)
 //	}
 //	fmt.Println("Páginas:", len(spread.InnerSpread.Pages))
-//	fmt.Println("Text frames:", len(spread.InnerSpread.TextFrames))
-//	fmt.Println("Rectángulos:", len(spread.InnerSpread.Rectangles))
+//	fmt.Println("Text frames:", len(spread.InnerSpread.TextFrames()))
+//	fmt.Println("Rectángulos:", len(spread.InnerSpread.Rectangles()))
 //
 // Serializar de vuelta a XML:
 //

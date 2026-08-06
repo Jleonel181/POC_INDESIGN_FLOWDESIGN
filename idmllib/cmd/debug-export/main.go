@@ -42,7 +42,7 @@ func main() {
 		fmt.Println("   " + strings.Repeat("-", 80))
 
 		for spreadFile, spread := range spreads {
-			for _, tf := range spread.InnerSpread.TextFrames {
+			for _, tf := range spread.InnerSpread.TextFrames() {
 				preview := "[no story]"
 				if tf.ParentStory != "" {
 					storyFile := "Stories/Story_" + tf.ParentStory + ".xml"
@@ -151,10 +151,10 @@ func main() {
 
 	if len(result.Document.InlineSpreads) > 0 {
 		spread := result.Document.InlineSpreads[0]
-		fmt.Printf("   TextFrames in spread: %d\n", len(spread.TextFrames))
-		if len(spread.TextFrames) > 0 {
-			fmt.Printf("     First frame ID: %s\n", spread.TextFrames[0].Self)
-			fmt.Printf("     First frame ParentStory: %s\n", spread.TextFrames[0].ParentStory)
+		fmt.Printf("   TextFrames in spread: %d\n", len(spread.TextFrames()))
+		if len(spread.TextFrames()) > 0 {
+			fmt.Printf("     First frame ID: %s\n", spread.TextFrames()[0].Self)
+			fmt.Printf("     First frame ParentStory: %s\n", spread.TextFrames()[0].ParentStory)
 		}
 	}
 

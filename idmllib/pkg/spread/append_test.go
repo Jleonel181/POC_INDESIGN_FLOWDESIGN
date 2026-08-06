@@ -62,7 +62,7 @@ func TestAppend_DevuelveElPunteroCanonico(t *testing.T) {
 	}
 	rect.Name = "modificado-despues-de-agregar"
 
-	if se.Rectangles[0].Name != "modificado-despues-de-agregar" {
+	if se.rectangles[0].Name != "modificado-despues-de-agregar" {
 		t.Error("el puntero devuelto no apunta al elemento guardado en el campo por tipo")
 	}
 	data, err := xml.Marshal(&se)
@@ -86,7 +86,7 @@ func TestAppend_GuardaCopiaNoElPunteroDelLlamador(t *testing.T) {
 
 	original.Name = "cambiado-en-el-original"
 
-	if se.Rectangles[0].Name == "cambiado-en-el-original" {
+	if se.rectangles[0].Name == "cambiado-en-el-original" {
 		t.Error("Append guardó el puntero del llamador; el contrato documentado dice que guarda una copia")
 	}
 }
@@ -116,7 +116,7 @@ func TestAppend_MantieneValidosLosPunterosDeItems(t *testing.T) {
 			t.Fatalf("Items[%d] es %T", i, se.Items[i])
 		}
 		rect.Name = "marca"
-		if se.Rectangles[i].Name != "marca" {
+		if se.rectangles[i].Name != "marca" {
 			t.Fatalf("Items[%d] no apunta a Rectangles[%d]: el append reubicó el slice y el puntero quedó viejo", i, i)
 		}
 	}

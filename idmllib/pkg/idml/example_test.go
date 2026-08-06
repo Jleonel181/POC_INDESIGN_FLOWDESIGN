@@ -160,8 +160,8 @@ func ExamplePackage_SelectTextFrameByID() {
 
 	// Find first text frame
 	for _, sp := range spreads {
-		if len(sp.InnerSpread.TextFrames) > 0 {
-			tfID := sp.InnerSpread.TextFrames[0].Self
+		if len(sp.InnerSpread.TextFrames()) > 0 {
+			tfID := sp.InnerSpread.TextFrames()[0].Self
 			tf, err := pkg.SelectTextFrameByID(tfID)
 			if err != nil {
 				log.Fatal(err)

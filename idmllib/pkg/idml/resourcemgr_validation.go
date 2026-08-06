@@ -627,7 +627,7 @@ func (rm *ResourceManager) findObjectStyleUsage(styleID string) []string {
 
 	for filename, sp := range spreads {
 		// Check text frames
-		for _, tf := range sp.InnerSpread.TextFrames {
+		for _, tf := range sp.InnerSpread.TextFrames() {
 			if tf.AppliedObjectStyle == styleID {
 				usedBy = append(usedBy, filename)
 				break
@@ -635,7 +635,7 @@ func (rm *ResourceManager) findObjectStyleUsage(styleID string) []string {
 		}
 
 		// Check rectangles
-		for _, rect := range sp.InnerSpread.Rectangles {
+		for _, rect := range sp.InnerSpread.Rectangles() {
 			if rect.AppliedObjectStyle == styleID {
 				usedBy = append(usedBy, filename)
 				break
@@ -691,21 +691,21 @@ func (rm *ResourceManager) findColorUsage(colorRef string) []string {
 // spreadUsesColor checks if a spread uses a specific color in any of its page items.
 func (rm *ResourceManager) spreadUsesColor(sp *spread.Spread, colorRef string) bool {
 	// Check ovals
-	for _, oval := range sp.InnerSpread.Ovals {
+	for _, oval := range sp.InnerSpread.Ovals() {
 		if oval.StrokeColor == colorRef || oval.FillColor == colorRef {
 			return true
 		}
 	}
 
 	// Check polygons
-	for _, polygon := range sp.InnerSpread.Polygons {
+	for _, polygon := range sp.InnerSpread.Polygons() {
 		if polygon.StrokeColor == colorRef || polygon.FillColor == colorRef {
 			return true
 		}
 	}
 
 	// Check graphic lines
-	for _, line := range sp.InnerSpread.GraphicLines {
+	for _, line := range sp.InnerSpread.GraphicLines() {
 		if line.StrokeColor == colorRef || line.FillColor == colorRef {
 			return true
 		}
@@ -796,7 +796,7 @@ func (rm *ResourceManager) findLayerUsage(layerID string) []string {
 
 	for filename, sp := range spreads {
 		// Check text frames
-		for _, tf := range sp.InnerSpread.TextFrames {
+		for _, tf := range sp.InnerSpread.TextFrames() {
 			if tf.ItemLayer == layerID {
 				usedBy = append(usedBy, filename)
 				break
@@ -804,7 +804,7 @@ func (rm *ResourceManager) findLayerUsage(layerID string) []string {
 		}
 
 		// Check rectangles
-		for _, rect := range sp.InnerSpread.Rectangles {
+		for _, rect := range sp.InnerSpread.Rectangles() {
 			if rect.ItemLayer == layerID {
 				usedBy = append(usedBy, filename)
 				break

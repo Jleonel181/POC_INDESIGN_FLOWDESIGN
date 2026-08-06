@@ -224,51 +224,33 @@ func (e *Exporter) buildSpreadFromSelection(sel *idml.Selection) spread.SpreadEl
 	}
 
 	// Copy selected text frames
-	if len(sel.TextFrames) > 0 {
-		spreadElem.TextFrames = make([]spread.SpreadTextFrame, len(sel.TextFrames))
-		for i, tf := range sel.TextFrames {
-			spreadElem.TextFrames[i] = *tf
-		}
+	for _, tf := range sel.TextFrames {
+		spreadElem.Append(tf)
 	}
 
 	// Copy selected rectangles
-	if len(sel.Rectangles) > 0 {
-		spreadElem.Rectangles = make([]spread.Rectangle, len(sel.Rectangles))
-		for i, rect := range sel.Rectangles {
-			spreadElem.Rectangles[i] = *rect
-		}
+	for _, rect := range sel.Rectangles {
+		spreadElem.Append(rect)
 	}
 
 	// Copy selected ovals
-	if len(sel.Ovals) > 0 {
-		spreadElem.Ovals = make([]spread.Oval, len(sel.Ovals))
-		for i, oval := range sel.Ovals {
-			spreadElem.Ovals[i] = *oval
-		}
+	for _, oval := range sel.Ovals {
+		spreadElem.Append(oval)
 	}
 
 	// Copy selected polygons
-	if len(sel.Polygons) > 0 {
-		spreadElem.Polygons = make([]spread.Polygon, len(sel.Polygons))
-		for i, polygon := range sel.Polygons {
-			spreadElem.Polygons[i] = *polygon
-		}
+	for _, polygon := range sel.Polygons {
+		spreadElem.Append(polygon)
 	}
 
 	// Copy selected graphic lines
-	if len(sel.GraphicLines) > 0 {
-		spreadElem.GraphicLines = make([]spread.GraphicLine, len(sel.GraphicLines))
-		for i, line := range sel.GraphicLines {
-			spreadElem.GraphicLines[i] = *line
-		}
+	for _, line := range sel.GraphicLines {
+		spreadElem.Append(line)
 	}
 
 	// Copy selected groups
-	if len(sel.Groups) > 0 {
-		spreadElem.Groups = make([]spread.Group, len(sel.Groups))
-		for i, group := range sel.Groups {
-			spreadElem.Groups[i] = *group
-		}
+	for _, group := range sel.Groups {
+		spreadElem.Append(group)
 	}
 
 	return spreadElem

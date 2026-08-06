@@ -213,8 +213,8 @@ func TestItems_OrdenDocumentalAlSerializar(t *testing.T) {
 func TestItems_ModeloDesdeCeroEmiteEnOrdenDeCampos(t *testing.T) {
 	var se SpreadElement
 	se.Self = "ue6"
-	se.Rectangles = []Rectangle{{PageItemBase: PageItemBase{Self: "r1"}}}
-	se.TextFrames = []SpreadTextFrame{{PageItemBase: PageItemBase{Self: "t1"}}}
+	se.rectangles = []Rectangle{{PageItemBase: PageItemBase{Self: "r1"}}}
+	se.textFrames = []SpreadTextFrame{{PageItemBase: PageItemBase{Self: "t1"}}}
 
 	data, err := xml.Marshal(&se)
 	if err != nil {
@@ -252,7 +252,7 @@ func TestItems_EscrituraEnCampoPorTipoSigueSurtiendoEfecto(t *testing.T) {
 	}
 
 	// Borrado por slice, el modismo exacto de removeItemFromSpread.
-	se.TextFrames = append(se.TextFrames[:0], se.TextFrames[1:]...)
+	se.textFrames = append(se.textFrames[:0], se.textFrames[1:]...)
 
 	despues := cuenta(hijosDirectos(t, marshalOFallar(t, se), "Spread"))[TagTextFrame]
 	if despues != antes-1 {
@@ -278,8 +278,8 @@ func TestItems_PunterosNoCopias(t *testing.T) {
 	}
 	rect.Name = "marcado-por-la-prueba"
 
-	if se.Rectangles[0].Name != "marcado-por-la-prueba" {
-		t.Error("mutar a través de Items no se refleja en el campo Rectangles: Items guarda copias")
+	if se.rectangles[0].Name != "marcado-por-la-prueba" {
+		t.Error("mutar a través de Items no se refleja en el campo rectangles: Items guarda copias")
 	}
 	if !bytes.Contains(marshalOFallar(t, se), []byte("marcado-por-la-prueba")) {
 		t.Error("la mutación hecha a través de Items no aparece en el XML emitido")
@@ -321,7 +321,7 @@ func TestItems_IdempotenciaAlParsearDosVeces(t *testing.T) {
 	if len(se.Items) != primera {
 		t.Errorf("tras deserializar dos veces Items pasó de %d a %d: se está acumulando", primera, len(se.Items))
 	}
-	if n := len(se.TextFrames); n != 20 {
+	if n := len(se.textFrames); n != 20 {
 		t.Errorf("tras deserializar dos veces se esperaban 20 TextFrame, hay %d", n)
 	}
 }

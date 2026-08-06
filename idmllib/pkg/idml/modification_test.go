@@ -606,10 +606,10 @@ func TestRemoveTextFrame_Basic(t *testing.T) {
 	var initialTFCount int
 
 	for filename, sp := range spreads {
-		if len(sp.InnerSpread.TextFrames) > 0 {
+		if len(sp.InnerSpread.TextFrames()) > 0 {
 			spreadFilename = filename
-			textFrameID = sp.InnerSpread.TextFrames[0].Self
-			initialTFCount = len(sp.InnerSpread.TextFrames)
+			textFrameID = sp.InnerSpread.TextFrames()[0].Self
+			initialTFCount = len(sp.InnerSpread.TextFrames())
 			break
 		}
 	}
@@ -635,13 +635,13 @@ func TestRemoveTextFrame_Basic(t *testing.T) {
 		t.Fatalf("Failed to get spread after removal: %v", err)
 	}
 
-	if len(sp.InnerSpread.TextFrames) != initialTFCount-1 {
+	if len(sp.InnerSpread.TextFrames()) != initialTFCount-1 {
 		t.Errorf("Expected %d text frames after removal, got %d",
-			initialTFCount-1, len(sp.InnerSpread.TextFrames))
+			initialTFCount-1, len(sp.InnerSpread.TextFrames()))
 	}
 
 	// Verify removed text frame is not in the spread
-	for _, tf := range sp.InnerSpread.TextFrames {
+	for _, tf := range sp.InnerSpread.TextFrames() {
 		if tf.Self == textFrameID {
 			t.Errorf("Removed text frame '%s' still exists in spread", textFrameID)
 		}
@@ -667,9 +667,9 @@ func TestRemoveTextFrame_WithCleanup(t *testing.T) {
 	var textFrameID string
 
 	for filename, sp := range spreads {
-		if len(sp.InnerSpread.TextFrames) > 0 {
+		if len(sp.InnerSpread.TextFrames()) > 0 {
 			spreadFilename = filename
-			textFrameID = sp.InnerSpread.TextFrames[0].Self
+			textFrameID = sp.InnerSpread.TextFrames()[0].Self
 			break
 		}
 	}
@@ -742,7 +742,7 @@ func TestAddTextFrame_Basic(t *testing.T) {
 	var initialTFCount int
 	for filename, sp := range spreads {
 		spreadFilename = filename
-		initialTFCount = len(sp.InnerSpread.TextFrames)
+		initialTFCount = len(sp.InnerSpread.TextFrames())
 		break
 	}
 
@@ -775,14 +775,14 @@ func TestAddTextFrame_Basic(t *testing.T) {
 		t.Fatalf("Failed to get spread after addition: %v", err)
 	}
 
-	if len(sp.InnerSpread.TextFrames) != initialTFCount+1 {
+	if len(sp.InnerSpread.TextFrames()) != initialTFCount+1 {
 		t.Errorf("Expected %d text frames after addition, got %d",
-			initialTFCount+1, len(sp.InnerSpread.TextFrames))
+			initialTFCount+1, len(sp.InnerSpread.TextFrames()))
 	}
 
 	// Verify new text frame is in the spread
 	found := false
-	for _, tf := range sp.InnerSpread.TextFrames {
+	for _, tf := range sp.InnerSpread.TextFrames() {
 		if tf.Self == "u_new_textframe_test" {
 			found = true
 			if tf.AppliedObjectStyle != "ObjectStyle/$ID/[Normal Text Frame]" {
@@ -880,10 +880,10 @@ func TestUpdateTextFrame_Basic(t *testing.T) {
 	var originalObjectStyle string
 
 	for filename, sp := range spreads {
-		if len(sp.InnerSpread.TextFrames) > 0 {
+		if len(sp.InnerSpread.TextFrames()) > 0 {
 			spreadFilename = filename
-			textFrameID = sp.InnerSpread.TextFrames[0].Self
-			originalObjectStyle = sp.InnerSpread.TextFrames[0].AppliedObjectStyle
+			textFrameID = sp.InnerSpread.TextFrames()[0].Self
+			originalObjectStyle = sp.InnerSpread.TextFrames()[0].AppliedObjectStyle
 			break
 		}
 	}
@@ -899,9 +899,9 @@ func TestUpdateTextFrame_Basic(t *testing.T) {
 	}
 
 	var tfToUpdate *spread.SpreadTextFrame
-	for i := range sp.InnerSpread.TextFrames {
-		if sp.InnerSpread.TextFrames[i].Self == textFrameID {
-			tfToUpdate = &sp.InnerSpread.TextFrames[i]
+	for i := range sp.InnerSpread.TextFrames() {
+		if sp.InnerSpread.TextFrames()[i].Self == textFrameID {
+			tfToUpdate = sp.InnerSpread.TextFrames()[i]
 			break
 		}
 	}
@@ -929,7 +929,7 @@ func TestUpdateTextFrame_Basic(t *testing.T) {
 	}
 
 	found := false
-	for _, tf := range sp.InnerSpread.TextFrames {
+	for _, tf := range sp.InnerSpread.TextFrames() {
 		if tf.Self == textFrameID {
 			found = true
 			if tf.GeometricBounds != "10 10 110 210" {
@@ -1013,10 +1013,10 @@ func TestRemoveRectangle_Basic(t *testing.T) {
 	var initialRectCount int
 
 	for filename, sp := range spreads {
-		if len(sp.InnerSpread.Rectangles) > 0 {
+		if len(sp.InnerSpread.Rectangles()) > 0 {
 			spreadFilename = filename
-			rectangleID = sp.InnerSpread.Rectangles[0].Self
-			initialRectCount = len(sp.InnerSpread.Rectangles)
+			rectangleID = sp.InnerSpread.Rectangles()[0].Self
+			initialRectCount = len(sp.InnerSpread.Rectangles())
 			break
 		}
 	}
@@ -1042,13 +1042,13 @@ func TestRemoveRectangle_Basic(t *testing.T) {
 		t.Fatalf("Failed to get spread after removal: %v", err)
 	}
 
-	if len(sp.InnerSpread.Rectangles) != initialRectCount-1 {
+	if len(sp.InnerSpread.Rectangles()) != initialRectCount-1 {
 		t.Errorf("Expected %d rectangles after removal, got %d",
-			initialRectCount-1, len(sp.InnerSpread.Rectangles))
+			initialRectCount-1, len(sp.InnerSpread.Rectangles()))
 	}
 
 	// Verify removed rectangle is not in the spread
-	for _, rect := range sp.InnerSpread.Rectangles {
+	for _, rect := range sp.InnerSpread.Rectangles() {
 		if rect.Self == rectangleID {
 			t.Errorf("Removed rectangle '%s' still exists in spread", rectangleID)
 		}
@@ -1074,9 +1074,9 @@ func TestRemoveRectangle_WithCleanup(t *testing.T) {
 	var rectangleID string
 
 	for filename, sp := range spreads {
-		if len(sp.InnerSpread.Rectangles) > 0 {
+		if len(sp.InnerSpread.Rectangles()) > 0 {
 			spreadFilename = filename
-			rectangleID = sp.InnerSpread.Rectangles[0].Self
+			rectangleID = sp.InnerSpread.Rectangles()[0].Self
 			break
 		}
 	}
@@ -1149,7 +1149,7 @@ func TestAddRectangle_Basic(t *testing.T) {
 	var initialRectCount int
 	for filename, sp := range spreads {
 		spreadFilename = filename
-		initialRectCount = len(sp.InnerSpread.Rectangles)
+		initialRectCount = len(sp.InnerSpread.Rectangles())
 		break
 	}
 
@@ -1181,14 +1181,14 @@ func TestAddRectangle_Basic(t *testing.T) {
 		t.Fatalf("Failed to get spread after addition: %v", err)
 	}
 
-	if len(sp.InnerSpread.Rectangles) != initialRectCount+1 {
+	if len(sp.InnerSpread.Rectangles()) != initialRectCount+1 {
 		t.Errorf("Expected %d rectangles after addition, got %d",
-			initialRectCount+1, len(sp.InnerSpread.Rectangles))
+			initialRectCount+1, len(sp.InnerSpread.Rectangles()))
 	}
 
 	// Verify new rectangle is in the spread
 	found := false
-	for _, rect := range sp.InnerSpread.Rectangles {
+	for _, rect := range sp.InnerSpread.Rectangles() {
 		if rect.Self == "u_new_rectangle_test" {
 			found = true
 			if rect.AppliedObjectStyle != "ObjectStyle/$ID/[Basic Graphics Frame]" {
@@ -1285,10 +1285,10 @@ func TestUpdateRectangle_Basic(t *testing.T) {
 	var originalObjectStyle string
 
 	for filename, sp := range spreads {
-		if len(sp.InnerSpread.Rectangles) > 0 {
+		if len(sp.InnerSpread.Rectangles()) > 0 {
 			spreadFilename = filename
-			rectangleID = sp.InnerSpread.Rectangles[0].Self
-			originalObjectStyle = sp.InnerSpread.Rectangles[0].AppliedObjectStyle
+			rectangleID = sp.InnerSpread.Rectangles()[0].Self
+			originalObjectStyle = sp.InnerSpread.Rectangles()[0].AppliedObjectStyle
 			break
 		}
 	}
@@ -1304,9 +1304,9 @@ func TestUpdateRectangle_Basic(t *testing.T) {
 	}
 
 	var rectToUpdate *spread.Rectangle
-	for i := range sp.InnerSpread.Rectangles {
-		if sp.InnerSpread.Rectangles[i].Self == rectangleID {
-			rectToUpdate = &sp.InnerSpread.Rectangles[i]
+	for i := range sp.InnerSpread.Rectangles() {
+		if sp.InnerSpread.Rectangles()[i].Self == rectangleID {
+			rectToUpdate = sp.InnerSpread.Rectangles()[i]
 			break
 		}
 	}
@@ -1334,7 +1334,7 @@ func TestUpdateRectangle_Basic(t *testing.T) {
 	}
 
 	found := false
-	for _, rect := range sp.InnerSpread.Rectangles {
+	for _, rect := range sp.InnerSpread.Rectangles() {
 		if rect.Self == rectangleID {
 			found = true
 			if rect.GeometricBounds != "20 20 70 120" {
