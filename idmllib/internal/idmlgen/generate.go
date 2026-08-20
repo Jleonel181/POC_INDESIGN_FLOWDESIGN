@@ -95,6 +95,47 @@ func Generate(input *DocumentInput) (*idmlpkg.Package, error) {
 		}
 	}
 
+	// Inyectar MasterSpread desde plantilla externa si se indicó.
+	// Se hace antes de registrar IDs del paquete fuente para que las stories y
+	// elementos del master queden registrados y no colisionen con los generados.
+	if input.MasterSpreadSource != nil {
+		masterSelf, err := injectMasterSpreadFromTemplate(input.MasterSpreadSource, pkg)
+		if err != nil {
+			return nil, err
+		}
+		// Sobreescribir la referencia que usan las páginas como AppliedMaster.
+		refs.masterSpread = "MasterSpreads/MasterSpread_" + masterSelf + ".xml"
+
+		// Actualizar AppliedMaster en la página del primer spread (viene de la plantilla
+		// con el master original hardcodeado).
+		firstSpread, err := pkg.Spread(refs.spreadPath)
+		if err == nil && len(firstSpread.InnerSpread.Pages) > 0 {
+			for i := range firstSpread.InnerSpread.Pages {
+				firstSpread.InnerSpread.Pages[i].AppliedMaster = masterSelf
+			}
+			if data, err := spread.MarshalSpread(firstSpread); err == nil {
+				pkg.SetFileData(refs.spreadPath, data)
+				pkg.InvalidateCache(refs.spreadPath)
+			}
+		}
+
+		// Registrar IDs del master inyectado para evitar colisiones.
+		for _, file := range pkg.Files() {
+			if !strings.HasPrefix(file, "MasterSpreads/") && !strings.HasPrefix(file, "Stories/Story_") {
+				continue
+			}
+			data, err := pkg.GetFileData(file)
+			if err != nil {
+				continue
+			}
+			for _, match := range selfAttrRegex.FindAllSubmatch(data, -1) {
+				if len(match) > 1 {
+					_ = reg.Register(string(match[1]))
+				}
+			}
+		}
+	}
+
 	halfHeight := pageHeightPt / 2
 
 	// --- Agrupar páginas en spreads ---
@@ -574,4 +615,119 @@ func addGuidesToSpread(pkg *idmlpkg.Package, reg *idgen.Registry, refs *template
 	pkg.InvalidateCache(spreadPath)
 
 	return nil
+}
+
+// injectMasterSpreadFromTemplate abre un IDML plantilla, busca el MasterSpread con
+// el nombre indicado, y lo inyecta en el paquete destino junto con sus stories
+// asociadas. Retorna el Self del master spread inyectado, que es lo que las páginas
+// usan como AppliedMaster.
+//
+// Lo que copia:
+//   - El archivo MasterSpreads/MasterSpread_XXX.xml (byte-a-byte del original)
+//   - Cada Story referenciada por los TextFrames del master (ParentStory)
+//   - La referencia en el designmap (MasterSpreads + Stories + StoryList)
+//
+// Lo que NO copia: recursos (estilos, colores, fuentes). Si el master usa recursos
+// que no existen en la plantilla base, InDesign los mostrará como "missing". Para el
+// caso de uso actual esto es aceptable porque el backend genera sobre la misma base.
+//
+// ponytail: sin resolución de recursos. El upgrade es extraer los recursos usados del
+// paquete fuente y mergearlos en el destino (análogo a lo que hace pkg/idms/exporter).
+func injectMasterSpreadFromTemplate(src *MasterSpreadSource, pkg *idmlpkg.Package) (string, error) {
+	if src == nil || src.TemplatePath == "" || src.MasterSpreadName == "" {
+		return "", fmt.Errorf("masterSpreadSource: templatePath y masterSpreadName son obligatorios")
+	}
+
+	// Abrir el IDML fuente.
+	srcPkg, err := idmlpkg.Read(src.TemplatePath)
+	if err != nil {
+		return "", fmt.Errorf("error al abrir plantilla %s: %w", src.TemplatePath, err)
+	}
+
+	// Buscar el MasterSpread por nombre en el designmap del fuente.
+	srcDoc, err := srcPkg.Document()
+	if err != nil {
+		return "", fmt.Errorf("error al leer designmap de la plantilla: %w", err)
+	}
+
+	var masterPath string
+	for _, ref := range srcDoc.MasterSpreads {
+		data, err := srcPkg.GetFileData(ref.Src)
+		if err != nil {
+			continue
+		}
+		// Parsear para leer el Name del MasterSpread.
+		ms, err := spread.ParseMasterSpread(data)
+		if err != nil {
+			continue
+		}
+		if ms.InnerMasterSpread.Name == src.MasterSpreadName {
+			masterPath = ref.Src
+			break
+		}
+	}
+	if masterPath == "" {
+		return "", fmt.Errorf("no se encontró MasterSpread con Name=%q en %s", src.MasterSpreadName, src.TemplatePath)
+	}
+
+	// Leer el XML crudo del master spread fuente.
+	msData, err := srcPkg.GetFileData(masterPath)
+	if err != nil {
+		return "", fmt.Errorf("error al leer %s: %w", masterPath, err)
+	}
+
+	// Parsear para obtener Self y las stories referenciadas.
+	ms, err := spread.ParseMasterSpread(msData)
+	if err != nil {
+		return "", fmt.Errorf("error al parsear %s: %w", masterPath, err)
+	}
+	masterSelf := ms.InnerMasterSpread.Self
+
+	// Inyectar el archivo del master spread en el paquete destino.
+	pkg.SetFileData(masterPath, msData)
+
+	// Registrar en el designmap del destino.
+	dstDoc, err := pkg.Document()
+	if err != nil {
+		return "", fmt.Errorf("error al leer designmap destino: %w", err)
+	}
+	dstDoc.MasterSpreads = append(dstDoc.MasterSpreads, document.ResourceRef{
+		XMLName: xml.Name{
+			Space: "http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging",
+			Local: "MasterSpread",
+		},
+		Src: masterPath,
+	})
+
+	// Copiar las stories referenciadas por los TextFrames del master.
+	for _, tf := range ms.InnerMasterSpread.TextFrames() {
+		if tf.ParentStory == "" || tf.ParentStory == "n" {
+			continue
+		}
+		storyPath := "Stories/Story_" + tf.ParentStory + ".xml"
+		storyData, err := srcPkg.GetFileData(storyPath)
+		if err != nil {
+			// La story puede no existir si es un frame vacío; se omite.
+			continue
+		}
+
+		// Inyectar la story en el destino.
+		pkg.SetFileData(storyPath, storyData)
+
+		// Registrar en el designmap.
+		dstDoc.Stories = append(dstDoc.Stories, document.ResourceRef{
+			XMLName: xml.Name{
+				Space: "http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging",
+				Local: "Story",
+			},
+			Src: storyPath,
+		})
+		if dstDoc.StoryList == "" {
+			dstDoc.StoryList = tf.ParentStory
+		} else {
+			dstDoc.StoryList = dstDoc.StoryList + " " + tf.ParentStory
+		}
+	}
+
+	return masterSelf, nil
 }

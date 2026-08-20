@@ -5,8 +5,9 @@ package idmlgen
 // DocumentInput es el modelo de entrada que describe un documento IDML a generar.
 // Corresponde al IdmlDocumentDTO del backend TypeScript.
 type DocumentInput struct {
-	Document DocumentSpec `json:"document"`
-	Pages    []PageSpec   `json:"pages"`
+	Document           DocumentSpec        `json:"document"`
+	Pages              []PageSpec          `json:"pages"`
+	MasterSpreadSource *MasterSpreadSource `json:"masterSpreadSource,omitempty"`
 }
 
 // DocumentSpec describe las propiedades globales del documento.
@@ -59,4 +60,16 @@ type BoundsSpec struct {
 type FrameOptions struct {
 	VerticalJustification string `json:"verticalJustification"`
 	ContentIsRaw          bool   `json:"contentIsRaw"`
+}
+
+// MasterSpreadSource describe de dónde extraer un MasterSpread existente para
+// inyectarlo en el documento generado. El dominio envía la ruta al IDML plantilla y
+// el nombre del master spread dentro de ese archivo.
+type MasterSpreadSource struct {
+	// TemplatePath es la ruta absoluta al archivo .idml que contiene el master spread.
+	TemplatePath string `json:"templatePath"`
+
+	// MasterSpreadName es el atributo Name del <MasterSpread> a extraer.
+	// Ejemplo: "02-Noticias Apertura"
+	MasterSpreadName string `json:"masterSpreadName"`
 }

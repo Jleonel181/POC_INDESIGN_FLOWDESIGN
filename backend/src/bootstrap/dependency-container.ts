@@ -18,6 +18,7 @@ import { UnassignPautaUseCase } from "../modules/pautas/application/use-cases/Un
 import { PautaController } from "../modules/pautas/infraestructure/http/PautaController";
 import { PostgresEditionRepository } from "../modules/editions/infraestructure/persistence/PostgresEditionRepository";
 import { PostgresPageRepository } from "../modules/pages/infraestructure/persistence/PostgresPageRepository";
+import { ImportPautasFromVentasUseCase } from "../modules/ventas/application/use-cases/ImportPautasFromVentasUseCase";
 import { PostgresPautaRepository } from "../modules/pautas/infraestructure/persistence/PostgresPautaRepository";
 import { EditionEntity } from "../modules/editions/infraestructure/persistence/entities/EditionEntity";
 import { PageEntity } from "../modules/pages/infraestructure/persistence/entities/PageEntity";
@@ -95,7 +96,8 @@ export function createDependencyContainer(dataSource: DataSource) {
 
     // Ventas module — consumes ESB via HTTP, no direct DB credentials here
     const esbAdapter = new HttpEsbAdapter(EnvironmentConfig.getInstance().getAppConfig().esbUrl);
-    const ventasController = new VentasController(esbAdapter);
+    const importPautasUseCase = new ImportPautasFromVentasUseCase(esbAdapter, pautaRepository);
+    const ventasController = new VentasController(esbAdapter, importPautasUseCase);
 
     return {
         layoutController,

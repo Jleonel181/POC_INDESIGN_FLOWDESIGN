@@ -72,6 +72,13 @@ func IsSpreadPath(path string) bool {
 		len(path) > 4 && path[len(path)-4:] == ExtXML
 }
 
+// IsMasterSpreadPath verifica si una ruta pertenece al directorio MasterSpreads.
+func IsMasterSpreadPath(path string) bool {
+	return len(path) > len(PrefixMasterSpreads) &&
+		path[:len(PrefixMasterSpreads)] == PrefixMasterSpreads &&
+		len(path) > 4 && path[len(path)-4:] == ExtXML
+}
+
 // IsResourcePath verifica si una ruta pertenece al directorio Resources.
 func IsResourcePath(path string) bool {
 	return len(path) > len(PrefixResources) &&

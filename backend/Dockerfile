@@ -21,5 +21,7 @@ COPY --from=go-builder /idmlgen /usr/local/bin/idmlgen
 COPY backend/package*.json ./
 RUN npm ci --omit=dev
 COPY --from=ts-builder /app/dist ./dist
+# Plantillas IDML para MasterSpreads de folio
+COPY Pag_Ind.idml /app/templates/Pag_Ind.idml
 EXPOSE 3001
 CMD ["node", "dist/main.js"]

@@ -596,6 +596,190 @@ type Group struct {
 	OtherElements []common.RawXMLElement `xml:",any"`
 }
 
+// MasterSpread representa un master spread (plantilla de página maestra) en un documento IDML.
+// Los master spreads definen el contenido base que se hereda en las páginas normales.
+//
+// Estructura dual como Spread: wrapper <idPkg:MasterSpread> con namespace + elemento
+// <MasterSpread> interno.
+type MasterSpread struct {
+	XMLName xml.Name `xml:"-"`
+
+	// DOMVersion es la versión del DOM de InDesign (ej: "21.4")
+	DOMVersion string `xml:"DOMVersion,attr"`
+
+	// Elemento master spread interno
+	InnerMasterSpread MasterSpreadElement `xml:"-"`
+}
+
+// TextFrames retorna punteros a todos los frames de texto en este master spread.
+func (ms *MasterSpread) TextFrames() []*SpreadTextFrame {
+	return ms.InnerMasterSpread.TextFrames()
+}
+
+// Pages retorna todas las páginas en este master spread.
+func (ms *MasterSpread) Pages() []Page {
+	return ms.InnerMasterSpread.Pages
+}
+
+// Rectangles retorna punteros a todos los rectángulos en este master spread.
+func (ms *MasterSpread) Rectangles() []*Rectangle {
+	return ms.InnerMasterSpread.Rectangles()
+}
+
+// GraphicLines retorna punteros a todas las líneas gráficas en este master spread.
+func (ms *MasterSpread) GraphicLines() []*GraphicLine {
+	return ms.InnerMasterSpread.GraphicLines()
+}
+
+// MasterSpreadElement representa el elemento <MasterSpread> interno con todos sus
+// atributos y elementos hijo. Reutiliza el mismo contenedor ordenado que SpreadElement.
+type MasterSpreadElement struct {
+	XMLName xml.Name `xml:"MasterSpread"`
+
+	// Atributos principales
+	Self                    string `xml:"Self,attr"`
+	Name                    string `xml:"Name,attr,omitempty"`
+	NamePrefix              string `xml:"NamePrefix,attr,omitempty"`
+	BaseName                string `xml:"BaseName,attr,omitempty"`
+	ShowMasterItems         string `xml:"ShowMasterItems,attr,omitempty"`
+	PageCount               string `xml:"PageCount,attr,omitempty"`
+	OverriddenPageItemProps string `xml:"OverriddenPageItemProps,attr"`
+	PrimaryTextFrame        string `xml:"PrimaryTextFrame,attr,omitempty"`
+	ItemTransform           string `xml:"ItemTransform,attr,omitempty"`
+
+	// Items es la secuencia de elementos de página en Orden_Documental.
+	Items []PageItem `xml:"-"`
+
+	// childOrder recuerda la secuencia de hijos leída, para reproducirla al emitir.
+	childOrder xmlutil.ChildOrder
+
+	// Elementos hijo
+	FlattenerPreference *FlattenerPreference `xml:"FlattenerPreference,omitempty"`
+	Pages               []Page               `xml:"Page,omitempty"`
+	textFrames          []SpreadTextFrame
+	rectangles          []Rectangle
+	images              []Image
+	ovals               []Oval
+	polygons            []Polygon
+	graphicLines        []GraphicLine
+	groups              []Group
+
+	// OtherAttrs recoge los atributos que este tipo todavía no declara.
+	OtherAttrs    []xml.Attr             `xml:",any,attr"`
+	OtherElements []common.RawXMLElement `xml:",any"`
+}
+
+// --- Accesores de MasterSpreadElement ---
+
+// TextFrames retorna punteros a los text frames, en orden documental.
+func (mse *MasterSpreadElement) TextFrames() []*SpreadTextFrame {
+	result := make([]*SpreadTextFrame, 0, len(mse.textFrames))
+	for i := range mse.textFrames {
+		result = append(result, &mse.textFrames[i])
+	}
+	return result
+}
+
+// Rectangles retorna punteros a los rectángulos, en orden documental.
+func (mse *MasterSpreadElement) Rectangles() []*Rectangle {
+	result := make([]*Rectangle, 0, len(mse.rectangles))
+	for i := range mse.rectangles {
+		result = append(result, &mse.rectangles[i])
+	}
+	return result
+}
+
+// Images retorna punteros a las imágenes, en orden documental.
+func (mse *MasterSpreadElement) Images() []*Image {
+	result := make([]*Image, 0, len(mse.images))
+	for i := range mse.images {
+		result = append(result, &mse.images[i])
+	}
+	return result
+}
+
+// Ovals retorna punteros a las elipses, en orden documental.
+func (mse *MasterSpreadElement) Ovals() []*Oval {
+	result := make([]*Oval, 0, len(mse.ovals))
+	for i := range mse.ovals {
+		result = append(result, &mse.ovals[i])
+	}
+	return result
+}
+
+// Polygons retorna punteros a los polígonos, en orden documental.
+func (mse *MasterSpreadElement) Polygons() []*Polygon {
+	result := make([]*Polygon, 0, len(mse.polygons))
+	for i := range mse.polygons {
+		result = append(result, &mse.polygons[i])
+	}
+	return result
+}
+
+// GraphicLines retorna punteros a las líneas gráficas, en orden documental.
+func (mse *MasterSpreadElement) GraphicLines() []*GraphicLine {
+	result := make([]*GraphicLine, 0, len(mse.graphicLines))
+	for i := range mse.graphicLines {
+		result = append(result, &mse.graphicLines[i])
+	}
+	return result
+}
+
+// Groups retorna punteros a los grupos, en orden documental.
+func (mse *MasterSpreadElement) Groups() []*Group {
+	result := make([]*Group, 0, len(mse.groups))
+	for i := range mse.groups {
+		result = append(result, &mse.groups[i])
+	}
+	return result
+}
+
+// Append agrega un elemento de página al final del master spread, en Orden_Documental.
+// Misma semántica que SpreadElement.Append.
+func (mse *MasterSpreadElement) Append(item PageItem) (PageItem, error) {
+	if item == nil {
+		return nil, common.Errorf("spread", "append page item", "", "el elemento de página es nil")
+	}
+
+	switch v := item.(type) {
+	case *SpreadTextFrame:
+		mse.textFrames = append(mse.textFrames, *v)
+	case *Rectangle:
+		mse.rectangles = append(mse.rectangles, *v)
+	case *Image:
+		mse.images = append(mse.images, *v)
+	case *Oval:
+		mse.ovals = append(mse.ovals, *v)
+	case *Polygon:
+		mse.polygons = append(mse.polygons, *v)
+	case *GraphicLine:
+		mse.graphicLines = append(mse.graphicLines, *v)
+	case *Group:
+		mse.groups = append(mse.groups, *v)
+	default:
+		return nil, common.Errorf("spread", "append page item", item.GetSelf(),
+			"MasterSpreadElement no tiene campo para un <"+item.xmlTag()+"> a este nivel")
+	}
+
+	mse.childOrder.Record(item.xmlTag())
+	mse.rebuildItems()
+
+	if len(mse.Items) == 0 {
+		return nil, common.Errorf("spread", "append page item", item.GetSelf(),
+			"el elemento no quedó registrado en Items")
+	}
+	return mse.Items[len(mse.Items)-1], nil
+}
+
+// ItemTags devuelve la secuencia de nombres de elemento de Items, en Orden_Documental.
+func (mse *MasterSpreadElement) ItemTags() []string {
+	tags := make([]string, 0, len(mse.Items))
+	for _, it := range mse.Items {
+		tags = append(tags, it.xmlTag())
+	}
+	return tags
+}
+
 // --- Métodos de mutación directa para compatibilidad con pkg/idml ---
 // Estos métodos permiten a los consumidores dentro del módulo manipular los campos
 // sin exportar sin pasar por Append (que registra orden). Son para operaciones de

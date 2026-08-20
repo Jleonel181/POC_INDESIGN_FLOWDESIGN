@@ -74,3 +74,6 @@ __debug_bin
 .kiro/
 
 .claude/
+
+# CodeGraph (índice local del grafo de código)
+.codegraph/

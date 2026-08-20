@@ -161,6 +161,13 @@ func roundtripXML(path string, data []byte) (out []byte, typed bool, err error) 
 		}
 		out, err = spread.MarshalSpread(parsed)
 
+	case IsMasterSpreadPath(path):
+		parsed, err := spread.ParseMasterSpread(data)
+		if err != nil {
+			return nil, true, fmt.Errorf("parseo: %w", err)
+		}
+		out, err = spread.MarshalMasterSpread(parsed)
+
 	case IsStoryPath(path):
 		parsed, err := story.ParseStory(data)
 		if err != nil {

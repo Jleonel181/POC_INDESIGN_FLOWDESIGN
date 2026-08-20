@@ -9,5 +9,6 @@ esb
 docs
 *.indd
 *.idml
+!Pag_Ind.idml
 idmllib/testdata
 idmllib/bin

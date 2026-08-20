@@ -7,6 +7,11 @@ import { LayoutContract } from "../contracts/LayoutContract";
 interface Input {
     editionId: number;
     folio: boolean;
+    /** Ruta absoluta al .idml plantilla y nombre del master spread a inyectar como cabecera. */
+    masterSpreadSource?: {
+        templatePath: string;
+        masterSpreadName: string;
+    };
 }
 
 /**
@@ -21,11 +26,11 @@ export class GenerateIdmlUseCase implements UseCase<Input, Buffer> {
 
     async execute(input: Input): Promise<Buffer> {
         const layout = await this.generateLayoutUseCase.execute({ editionId: input.editionId });
-        const idmlDoc = this.translateToIdmlDocument(layout);
+        const idmlDoc = this.translateToIdmlDocument(layout, input.masterSpreadSource);
         return this.idmlGenerator.generate(idmlDoc);
     }
 
-    private translateToIdmlDocument(layout: LayoutContract): IdmlDocumentDTO {
+    private translateToIdmlDocument(layout: LayoutContract, masterSpreadSource?: Input["masterSpreadSource"]): IdmlDocumentDTO {
         const { edition, pages } = layout;
 
         const idmlPages: IdmlPageDTO[] = pages.map((page) => {
@@ -58,7 +63,7 @@ export class GenerateIdmlUseCase implements UseCase<Input, Buffer> {
             return { frames };
         });
 
-        return {
+        const doc: IdmlDocumentDTO = {
             document: {
                 widthMm: edition.ancho_mm,
                 heightMm: edition.alto_mm,
@@ -74,6 +79,12 @@ export class GenerateIdmlUseCase implements UseCase<Input, Buffer> {
             },
             pages: idmlPages,
         };
+
+        if (masterSpreadSource) {
+            doc.masterSpreadSource = masterSpreadSource;
+        }
+
+        return doc;
     }
 
     /**

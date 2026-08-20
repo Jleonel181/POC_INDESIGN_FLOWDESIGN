@@ -111,3 +111,28 @@ func MarshalSpread(spread *Spread) ([]byte, error) {
 
 	return data, nil
 }
+
+// ParseMasterSpread parsea un archivo XML de MasterSpread en un struct MasterSpread.
+func ParseMasterSpread(data []byte) (*MasterSpread, error) {
+	if data == nil {
+		return nil, common.Errorf("spread", "parse master spread", "", "input data is nil")
+	}
+	if len(data) == 0 {
+		return nil, common.Errorf("spread", "parse master spread", "", "input data is empty")
+	}
+
+	var ms MasterSpread
+	if err := xml.Unmarshal(data, &ms); err != nil {
+		return nil, common.WrapError("spread", "parse master spread", err)
+	}
+	return &ms, nil
+}
+
+// MarshalMasterSpread serializa un struct MasterSpread de vuelta a XML con formato correcto.
+func MarshalMasterSpread(ms *MasterSpread) ([]byte, error) {
+	data, err := xmlutil.MarshalIndentWithHeader(ms, "", "\t")
+	if err != nil {
+		return nil, common.WrapError("spread", "marshal master spread", err)
+	}
+	return data, nil
+}
