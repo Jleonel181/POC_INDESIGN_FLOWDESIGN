@@ -6,6 +6,8 @@ export function createLayoutRoutes(layoutController: LayoutController) {
 
 	router.get("/", layoutController.getAllEditions);
 	router.get("/:editionId/idml", layoutController.generateIdml);
+	router.get("/:editionId/pdf", layoutController.generateDummyPdf);
+	router.get("/:editionId/overview", layoutController.generateOverviewPdf);
 	router.get("/:editionId", layoutController.generateEditionId);
 
 	return router;

@@ -110,6 +110,24 @@ export default function DiagramadorPage({ params }: PageProps) {
               {edition.anchoMm}×{edition.altoMm}mm | Grilla {edition.gridColumns}×{edition.gridRows} | {edition.noPaginas} páginas
             </p>
           </div>
+          <div className="flex gap-2">
+            <a
+              href={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api"}/layout/${editionId}/overview`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 text-sm bg-gray-800 text-white rounded hover:bg-gray-900 transition-colors"
+            >
+              Overview PDF
+            </a>
+            <a
+              href={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api"}/layout/${editionId}/pdf`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 text-sm border border-gray-300 text-gray-700 rounded hover:bg-gray-100 transition-colors"
+            >
+              Dummy PDF (1:1)
+            </a>
+          </div>
         </div>
 
         {edition.facingPages ? (

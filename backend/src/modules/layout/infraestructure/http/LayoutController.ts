@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { GenerateEditionLayoutUseCase } from "../../application/use-cases/GenerateEditionLayoutUseCase";
 import { GetAllEditionsLayoutUseCase } from "../../application/use-cases/GetAllEditionsLayoutUseCase";
 import { GenerateIdmlUseCase } from "../../application/use-cases/GenerateIdmlUseCase";
+import { generateDummyPdf } from "../pdf/DummyPdfGenerator";
+import { generateOverviewPdf } from "../pdf/OverviewPdfGenerator";
 
 // Configuración de la plantilla de folio (MasterSpread).
 // En Docker la imagen copia la plantilla a /app/templates/Pag_Ind.idml.
@@ -72,6 +74,48 @@ export class LayoutController {
                 "Content-Length": idmlBuffer.length.toString()
             });
             res.send(idmlBuffer);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    generateDummyPdf = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> => {
+        try {
+            const editionId = Number(req.params.editionId);
+            const layout = await this.generateEditionLayoutUseCase.execute({ editionId });
+            const pdfBuffer = await generateDummyPdf(layout);
+
+            res.set({
+                "Content-Type": "application/pdf",
+                "Content-Disposition": `attachment; filename="dummy-edicion-${editionId}.pdf"`,
+                "Content-Length": pdfBuffer.length.toString()
+            });
+            res.send(pdfBuffer);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    generateOverviewPdf = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> => {
+        try {
+            const editionId = Number(req.params.editionId);
+            const layout = await this.generateEditionLayoutUseCase.execute({ editionId });
+            const pdfBuffer = await generateOverviewPdf(layout);
+
+            res.set({
+                "Content-Type": "application/pdf",
+                "Content-Disposition": `attachment; filename="overview-edicion-${editionId}.pdf"`,
+                "Content-Length": pdfBuffer.length.toString()
+            });
+            res.send(pdfBuffer);
         } catch (error) {
             next(error);
         }

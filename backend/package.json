@@ -17,6 +17,7 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mysql2": "^3.22.5",
+    "pdfkit": "^0.15.1",
     "pg": "^8.21.0",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^1.0.0"
@@ -26,6 +27,7 @@
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.9.1",
+    "@types/pdfkit": "^0.13.9",
     "jest": "^30.4.2",
     "ts-jest": "^29.4.12",
     "tsx": "^4.22.4",
