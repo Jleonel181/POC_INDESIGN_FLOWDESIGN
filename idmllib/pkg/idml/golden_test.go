@@ -362,6 +362,7 @@ var categoriasCerradas = []string{
 	xmlutil.CategoryAttributeExtra,
 	xmlutil.CategoryElementMissing,
 	xmlutil.CategoryElementExtra,
+	xmlutil.CategoryElementOrder,
 	xmlutil.CategoryTag,
 	xmlutil.CategoryNamespace,
 	xmlutil.CategoryText,

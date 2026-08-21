@@ -383,7 +383,14 @@ type SpreadTextFrame struct {
 	LastUpdatedInterfaceChangeCount string `xml:"LastUpdatedInterfaceChangeCount,attr"`
 
 	// Elementos hijo
-	Properties *common.Properties `xml:"Properties,omitempty"`
+	Properties          *common.Properties   `xml:"Properties,omitempty"`
+	ObjectExportOption  *ObjectExportOption  `xml:"ObjectExportOption,omitempty"`
+	TextFramePreference *TextFramePreference `xml:"TextFramePreference,omitempty"`
+	TextWrapPreference  *TextWrapPreference  `xml:"TextWrapPreference,omitempty"`
+	TransparencySetting *TransparencySetting `xml:"TransparencySetting,omitempty"`
+
+	// childOrder preserva el orden documental de los hijos.
+	childOrder xmlutil.ChildOrder
 
 	// Comodín para todos los demás atributos y elementos
 
@@ -434,17 +441,10 @@ type Oval struct {
 	TextWrapPreference *TextWrapPreference `xml:"TextWrapPreference,omitempty"`
 	Image              *Image              `xml:"Image,omitempty"` // Si la elipse contiene una imagen
 
-	// Comodín para otros elementos
+	// childOrder preserva el orden documental de los hijos.
+	childOrder xmlutil.ChildOrder
 
-	// OtherAttrs recoge los atributos que este tipo todavía no declara, para que no
-	// se pierdan en el ciclo de lectura y escritura. La etiqueta `,any,attr` es de
-	// encoding/xml: al leer recoge solo los atributos que no encajaron en ningún otro
-	// campo, en su orden, y al escribir los emite después de los declarados.
-	//
-	// Límite conocido: encoding/xml corrompe los atributos con prefijo de namespace al
-	// re-emitirlos. No aplica aquí: se inspeccionaron los 590 elementos de estos tipos
-	// en los cinco documentos del corpus y ninguno lleva un atributo con prefijo. Si
-	// algún día aparece uno, este es el sitio que hay que mirar.
+	// Comodín para otros elementos
 	OtherAttrs    []xml.Attr             `xml:",any,attr"`
 	OtherElements []common.RawXMLElement `xml:",any"`
 }
@@ -483,17 +483,10 @@ type Polygon struct {
 	TextWrapPreference *TextWrapPreference `xml:"TextWrapPreference,omitempty"`
 	Image              *Image              `xml:"Image,omitempty"` // Si el polígono contiene una imagen
 
-	// Comodín para otros elementos
+	// childOrder preserva el orden documental de los hijos.
+	childOrder xmlutil.ChildOrder
 
-	// OtherAttrs recoge los atributos que este tipo todavía no declara, para que no
-	// se pierdan en el ciclo de lectura y escritura. La etiqueta `,any,attr` es de
-	// encoding/xml: al leer recoge solo los atributos que no encajaron en ningún otro
-	// campo, en su orden, y al escribir los emite después de los declarados.
-	//
-	// Límite conocido: encoding/xml corrompe los atributos con prefijo de namespace al
-	// re-emitirlos. No aplica aquí: se inspeccionaron los 590 elementos de estos tipos
-	// en los cinco documentos del corpus y ninguno lleva un atributo con prefijo. Si
-	// algún día aparece uno, este es el sitio que hay que mirar.
+	// Comodín para otros elementos
 	OtherAttrs    []xml.Attr             `xml:",any,attr"`
 	OtherElements []common.RawXMLElement `xml:",any"`
 }
@@ -563,17 +556,10 @@ type GraphicLine struct {
 	TextWrapPreference *TextWrapPreference  `xml:"TextWrapPreference,omitempty"`
 	ObjectExportOption *ObjectExportOption  `xml:"ObjectExportOption,omitempty"`
 
-	// Comodín para otros elementos
+	// childOrder preserva el orden documental de los hijos.
+	childOrder xmlutil.ChildOrder
 
-	// OtherAttrs recoge los atributos que este tipo todavía no declara, para que no
-	// se pierdan en el ciclo de lectura y escritura. La etiqueta `,any,attr` es de
-	// encoding/xml: al leer recoge solo los atributos que no encajaron en ningún otro
-	// campo, en su orden, y al escribir los emite después de los declarados.
-	//
-	// Límite conocido: encoding/xml corrompe los atributos con prefijo de namespace al
-	// re-emitirlos. No aplica aquí: se inspeccionaron los 590 elementos de estos tipos
-	// en los cinco documentos del corpus y ninguno lleva un atributo con prefijo. Si
-	// algún día aparece uno, este es el sitio que hay que mirar.
+	// Comodín para otros elementos
 	OtherAttrs    []xml.Attr             `xml:",any,attr"`
 	OtherElements []common.RawXMLElement `xml:",any"`
 }

@@ -3,6 +3,7 @@ package spread
 import (
 	"encoding/xml"
 
+	"github.com/dimelords/idmllib/v2/internal/xmlutil"
 	"github.com/dimelords/idmllib/v2/pkg/common"
 )
 
@@ -15,6 +16,15 @@ type Rectangle struct {
 	ContentType             string `xml:"ContentType,attr,omitempty"` // "TextType", "GraphicType", "Unassigned"
 	StoryTitle              string `xml:"StoryTitle,attr,omitempty"`
 	OverriddenPageItemProps string `xml:"OverriddenPageItemProps,attr"`
+
+	// Propiedades de relleno y trazo — los mismos que ya declaran Oval, Polygon y
+	// GraphicLine. Los necesita el Constructor_Documento para generarlos.
+	FillColor    string `xml:"FillColor,attr,omitempty"`
+	FillTint     string `xml:"FillTint,attr,omitempty"`
+	StrokeWeight string `xml:"StrokeWeight,attr,omitempty"`
+	StrokeType   string `xml:"StrokeType,attr,omitempty"`
+	StrokeColor  string `xml:"StrokeColor,attr,omitempty"`
+	StrokeTint   string `xml:"StrokeTint,attr,omitempty"`
 
 	// Restricciones de layout
 	HorizontalLayoutConstraints string `xml:"HorizontalLayoutConstraints,attr,omitempty"` // ej: "FlexibleDimension FixedDimension FlexibleDimension"
@@ -45,25 +55,19 @@ type Rectangle struct {
 	LastUpdatedInterfaceChangeCount string `xml:"LastUpdatedInterfaceChangeCount,attr"`
 
 	// Elementos hijo
-	Properties         *common.Properties  `xml:"Properties,omitempty"`
-	FrameFittingOption *FrameFittingOption `xml:"FrameFittingOption,omitempty"`
-	ObjectExportOption *ObjectExportOption `xml:"ObjectExportOption,omitempty"`
-	TextWrapPreference *TextWrapPreference `xml:"TextWrapPreference,omitempty"`
-	InCopyExportOption *InCopyExportOption `xml:"InCopyExportOption,omitempty"`
-	Image              *Image              `xml:"Image,omitempty"`
-	PDF                *PDF                `xml:"PDF,omitempty"`
+	Properties          *common.Properties   `xml:"Properties,omitempty"`
+	FrameFittingOption  *FrameFittingOption  `xml:"FrameFittingOption,omitempty"`
+	ObjectExportOption  *ObjectExportOption  `xml:"ObjectExportOption,omitempty"`
+	TextWrapPreference  *TextWrapPreference  `xml:"TextWrapPreference,omitempty"`
+	TransparencySetting *TransparencySetting `xml:"TransparencySetting,omitempty"`
+	InCopyExportOption  *InCopyExportOption  `xml:"InCopyExportOption,omitempty"`
+	Image               *Image               `xml:"Image,omitempty"`
+	PDF                 *PDF                 `xml:"PDF,omitempty"`
+
+	// childOrder preserva el orden documental de los hijos.
+	childOrder xmlutil.ChildOrder
 
 	// Comodín para otros elementos
-
-	// OtherAttrs recoge los atributos que este tipo todavía no declara, para que no
-	// se pierdan en el ciclo de lectura y escritura. La etiqueta `,any,attr` es de
-	// encoding/xml: al leer recoge solo los atributos que no encajaron en ningún otro
-	// campo, en su orden, y al escribir los emite después de los declarados.
-	//
-	// Límite conocido: encoding/xml corrompe los atributos con prefijo de namespace al
-	// re-emitirlos. No aplica aquí: se inspeccionaron los 590 elementos de estos tipos
-	// en los cinco documentos del corpus y ninguno lleva un atributo con prefijo. Si
-	// algún día aparece uno, este es el sitio que hay que mirar.
 	OtherAttrs    []xml.Attr             `xml:",any,attr"`
 	OtherElements []common.RawXMLElement `xml:",any"`
 }
@@ -296,6 +300,96 @@ type PDFAttribute struct {
 
 	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
 	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
+}
+
+// TextFramePreference controla las preferencias del frame de texto: columnas, insets,
+// reglas de columna y notas al pie. Los 19 atributos del corpus.
+type TextFramePreference struct {
+	// Columnas de texto
+	TextColumnCount      string `xml:"TextColumnCount,attr,omitempty"`      // Número de columnas
+	TextColumnGutter     string `xml:"TextColumnGutter,attr,omitempty"`     // Espacio entre columnas (puntos)
+	TextColumnFixedWidth string `xml:"TextColumnFixedWidth,attr,omitempty"` // Ancho fijo de columna (puntos)
+	TextColumnMaxWidth   string `xml:"TextColumnMaxWidth,attr,omitempty"`   // Ancho máximo de columna
+
+	// Justificación vertical
+	VerticalJustification string `xml:"VerticalJustification,attr,omitempty"` // "TopAlign", "BottomAlign", "CenterAlign", "JustifyAlign"
+
+	// Notas al pie
+	FootnotesEnableOverrides   string `xml:"FootnotesEnableOverrides,attr,omitempty"`
+	FootnotesSpanAcrossColumns string `xml:"FootnotesSpanAcrossColumns,attr,omitempty"`
+	FootnotesMinimumSpacing    string `xml:"FootnotesMinimumSpacing,attr,omitempty"`
+	FootnotesSpaceBetween      string `xml:"FootnotesSpaceBetween,attr,omitempty"`
+
+	// Regla de columna
+	ColumnRuleOverride           string `xml:"ColumnRuleOverride,attr,omitempty"`
+	ColumnRuleOffset             string `xml:"ColumnRuleOffset,attr,omitempty"`
+	ColumnRuleTopInset           string `xml:"ColumnRuleTopInset,attr,omitempty"`
+	ColumnRuleInsetChainOverride string `xml:"ColumnRuleInsetChainOverride,attr,omitempty"`
+	ColumnRuleBottomInset        string `xml:"ColumnRuleBottomInset,attr,omitempty"`
+	ColumnRuleStrokeWidth        string `xml:"ColumnRuleStrokeWidth,attr,omitempty"`
+	ColumnRuleStrokeColor        string `xml:"ColumnRuleStrokeColor,attr,omitempty"`
+	ColumnRuleStrokeType         string `xml:"ColumnRuleStrokeType,attr,omitempty"`
+	ColumnRuleStrokeTint         string `xml:"ColumnRuleStrokeTint,attr,omitempty"`
+	ColumnRuleOverprintOverride  string `xml:"ColumnRuleOverprintOverride,attr,omitempty"`
+
+	// Elementos hijo
+	Properties *common.Properties `xml:"Properties,omitempty"` // Contiene InsetSpacing
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
+
+	// OtherElements para hijos no modelados.
+	OtherElements []common.RawXMLElement `xml:",any"`
+}
+
+// TransparencySetting agrupa los ajustes de transparencia de un elemento de página:
+// mezcla, pluma direccional y sombra.
+type TransparencySetting struct {
+	BlendingSetting           *BlendingSetting           `xml:"BlendingSetting,omitempty"`
+	DirectionalFeatherSetting *DirectionalFeatherSetting `xml:"DirectionalFeatherSetting,omitempty"`
+	DropShadowSetting         *DropShadowSetting         `xml:"DropShadowSetting,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
+
+	// OtherElements para hijos no modelados (BevelAndEmbossSetting, etc.).
+	OtherElements []common.RawXMLElement `xml:",any"`
+}
+
+// BlendingSetting controla el modo de mezcla y opacidad.
+type BlendingSetting struct {
+	Opacity   string `xml:"Opacity,attr,omitempty"` // "100", "95", etc.
+	BlendMode string `xml:"BlendMode,attr,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
+}
+
+// DirectionalFeatherSetting controla la pluma direccional.
+type DirectionalFeatherSetting struct {
+	Applied     string `xml:"Applied,attr,omitempty"` // "true"/"false"
+	TopWidth    string `xml:"TopWidth,attr,omitempty"`
+	BottomWidth string `xml:"BottomWidth,attr,omitempty"`
+	LeftWidth   string `xml:"LeftWidth,attr,omitempty"`
+	RightWidth  string `xml:"RightWidth,attr,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
+}
+
+// DropShadowSetting controla la sombra paralela.
+type DropShadowSetting struct {
+	Mode        string `xml:"Mode,attr,omitempty"` // "Drop", "None"
+	BlendMode   string `xml:"BlendMode,attr,omitempty"`
+	Opacity     string `xml:"Opacity,attr,omitempty"`
+	XOffset     string `xml:"XOffset,attr,omitempty"`
+	YOffset     string `xml:"YOffset,attr,omitempty"`
+	Size        string `xml:"Size,attr,omitempty"`
+	Spread      string `xml:"Spread,attr,omitempty"`
+	EffectColor string `xml:"EffectColor,attr,omitempty"` // Referencia a color: "Color/Paper"
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara.
 	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 

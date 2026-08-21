@@ -55,42 +55,55 @@ func (f *SpreadTextFrame) TextCapacity() *TextCapacityInfo {
 		info.GeometricWidth = bounds.Width
 	}
 
-	// Parsear TextFramePreference desde OtherElements
-	var foundPreference bool
-	for _, elem := range f.OtherElements {
-		if elem.XMLName.Local == "TextFramePreference" {
-			foundPreference = true
-
-			// Extract attributes from TextFramePreference
-			for _, attr := range elem.Attrs {
-				switch attr.Name.Local {
-				case "TextColumnFixedWidth":
-					// Este es el ancho real que InDesign usa para el layout de texto
-					if width, err := strconv.ParseFloat(attr.Value, 64); err == nil {
-						info.ColumnWidth = width
-					}
-
-				case "TextColumnCount":
-					if count, err := strconv.Atoi(attr.Value); err == nil && count > 0 {
-						info.ColumnCount = count
-					}
-
-				case "TextColumnGutter":
-					if gutter, err := strconv.ParseFloat(attr.Value, 64); err == nil {
-						info.ColumnGutter = gutter
+	// Usar el campo tipado si está presente (struct parseado con la versión actual).
+	if f.TextFramePreference != nil {
+		tfp := f.TextFramePreference
+		if width, err := strconv.ParseFloat(tfp.TextColumnFixedWidth, 64); err == nil {
+			info.ColumnWidth = width
+		}
+		if count, err := strconv.Atoi(tfp.TextColumnCount); err == nil && count > 0 {
+			info.ColumnCount = count
+		}
+		if gutter, err := strconv.ParseFloat(tfp.TextColumnGutter, 64); err == nil {
+			info.ColumnGutter = gutter
+		}
+		// Parsear InsetSpacing desde Properties
+		if tfp.Properties != nil {
+			data, err := xml.Marshal(tfp.Properties)
+			if err == nil {
+				info.InsetSpacing = parseInsetSpacingFromContent(data)
+			}
+		}
+	} else {
+		// Fallback: buscar en OtherElements (compatibilidad con datos parseados antes
+		// de que el campo tipado existiera, o documentos donde llega por otra vía).
+		var foundPreference bool
+		for _, elem := range f.OtherElements {
+			if elem.XMLName.Local == "TextFramePreference" {
+				foundPreference = true
+				for _, attr := range elem.Attrs {
+					switch attr.Name.Local {
+					case "TextColumnFixedWidth":
+						if width, err := strconv.ParseFloat(attr.Value, 64); err == nil {
+							info.ColumnWidth = width
+						}
+					case "TextColumnCount":
+						if count, err := strconv.Atoi(attr.Value); err == nil && count > 0 {
+							info.ColumnCount = count
+						}
+					case "TextColumnGutter":
+						if gutter, err := strconv.ParseFloat(attr.Value, 64); err == nil {
+							info.ColumnGutter = gutter
+						}
 					}
 				}
+				info.InsetSpacing = parseInsetSpacingFromContent(elem.Content)
+				break
 			}
-
-			// Parsear Properties anidadas para InsetSpacing desde elem.Content
-			info.InsetSpacing = parseInsetSpacingFromContent(elem.Content)
-
-			break
 		}
-	}
-
-	if !foundPreference {
-		return nil
+		if !foundPreference {
+			return nil
+		}
 	}
 
 	// Calcular ancho efectivo

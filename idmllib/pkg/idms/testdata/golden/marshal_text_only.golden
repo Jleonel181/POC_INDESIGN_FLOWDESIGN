@@ -137,26 +137,26 @@
 				</Label>
 			</Properties>
 			<ObjectExportOption AltTextSourceType="SourceXMLStructure" ActualTextSourceType="SourceXMLStructure" CustomAltText="$ID/" CustomActualText="$ID/" ApplyTagType="TagFromStructure" ImageConversionType="JPEG" ImageExportResolution="Ppi300" GIFOptionsPalette="AdaptivePalette" GIFOptionsInterlaced="true" JPEGOptionsQuality="High" JPEGOptionsFormat="BaselineEncoding" ImageAlignment="AlignLeft" ImageSpaceBefore="0" ImageSpaceAfter="0" UseImagePageBreak="false" ImagePageBreak="PageBreakBefore" CustomImageAlignment="false" SpaceUnit="CssPixel" CustomLayout="false" CustomLayoutType="AlignmentAndSpacing" EpubType="$ID/" SizeType="DefaultSize" CustomSize="$ID/" PreserveAppearanceFromLayout="PreserveAppearanceDefault">
-&#x9;&#x9;&#x9;&#x9;<Properties>
+				<Properties>
 &#x9;&#x9;&#x9;&#x9;&#x9;<AltMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
 &#x9;&#x9;&#x9;&#x9;&#x9;<ActualMetadataProperty NamespacePrefix="$ID/" PropertyPath="$ID/" />
 &#x9;&#x9;&#x9;&#x9;</Properties>
-&#x9;&#x9;&#x9;</ObjectExportOption>
+			</ObjectExportOption>
 			<TextFramePreference TextColumnCount="1" TextColumnFixedWidth="134" TextColumnMaxWidth="0">
-&#x9;&#x9;&#x9;&#x9;<Properties>
-&#x9;&#x9;&#x9;&#x9;&#x9;<InsetSpacing type="list">
+				<Properties>
+					<InsetSpacing type="list">
 &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;<ListItem type="unit">0</ListItem>
 &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;<ListItem type="unit">0</ListItem>
 &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;<ListItem type="unit">0</ListItem>
 &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;<ListItem type="unit">0</ListItem>
 &#x9;&#x9;&#x9;&#x9;&#x9;</InsetSpacing>
-&#x9;&#x9;&#x9;&#x9;</Properties>
-&#x9;&#x9;&#x9;</TextFramePreference>
+				</Properties>
+			</TextFramePreference>
 			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
-&#x9;&#x9;&#x9;&#x9;<Properties>
-&#x9;&#x9;&#x9;&#x9;&#x9;<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
-&#x9;&#x9;&#x9;&#x9;</Properties>
-&#x9;&#x9;&#x9;</TextWrapPreference>
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0" />
+				</Properties>
+			</TextWrapPreference>
 		</TextFrame>
 	</Spread>
 	<Story Self="ud1" UserText="true" IsEndnoteStory="false" AppliedTOCStyle="n" TrackChanges="false" StoryTitle="$ID/" AppliedNamedGrid="n">
