@@ -30,4 +30,18 @@
 //   - Fase 2: Parseo completo con estructuras de tipos seguros
 //   - Fase 3: API de modificación de contenido
 //   - Fase 4: Exportación de snippets IDMS
+//
+// # Construcciones fuera de alcance
+//
+// Las siguientes construcciones de InDesign se preservan en el roundtrip (vía
+// OtherElements/OtherAttrs) pero NO se generan por el constructor de documentos:
+//
+//   - Table, Cell (tablas y celdas)
+//   - Footnote (notas al pie)
+//   - Hyperlink (hipervínculos)
+//   - CrossReferenceSource, CrossReferenceFormat (referencias cruzadas)
+//   - KinsokuTable, MojikumiTable (reglas tipográficas CJK)
+//
+// Un JSON de entrada que declare una de estas construcciones es rechazado por el
+// validador con código de salida 1.
 package idml

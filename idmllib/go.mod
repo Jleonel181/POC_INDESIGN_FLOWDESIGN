@@ -1,6 +1,6 @@
 module github.com/dimelords/idmllib/v2
 
-go 1.21.13
+go 1.23
 
 require (
 	github.com/beevik/etree v1.5.1
