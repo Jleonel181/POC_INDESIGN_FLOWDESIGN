@@ -38,7 +38,17 @@ func (s *Story) ExtractText() string {
 	return buf.String()
 }
 
+// StoryChild representa un hijo de StoryElement en orden documental.
+// Es una unión etiquetada: exactamente un campo es no-nil.
+type StoryChild struct {
+	StoryPreference     *StoryPreference
+	InCopyExportOption  *InCopyExportOption
+	ParagraphStyleRange *ParagraphStyleRange
+	Other               *common.RawXMLElement // MetadataPacketPreference, Change, etc.
+}
+
 // StoryElement representa el elemento principal Story que contiene todo el contenido.
+// Usa serialización custom para preservar el orden documental de sus hijos.
 type StoryElement struct {
 	XMLName xml.Name `xml:"Story"`
 
@@ -53,17 +63,26 @@ type StoryElement struct {
 	StoryTitle       string `xml:"StoryTitle,attr,omitempty"`       // Título de la story
 	AppliedNamedGrid string `xml:"AppliedNamedGrid,attr,omitempty"` // Referencia a la grilla con nombre
 
-	// Preferencias de la story
-	StoryPreference *StoryPreference `xml:"StoryPreference,omitempty"`
+	// Preferencias de la story — accesibles directamente por compatibilidad.
+	// Se pueblan desde Children al parsear.
+	StoryPreference *StoryPreference
 
-	// Opciones de exportación InCopy
-	InCopyExportOption *InCopyExportOption `xml:"InCopyExportOption,omitempty"`
+	// Opciones de exportación InCopy — accesibles directamente por compatibilidad.
+	// Se pueblan desde Children al parsear.
+	InCopyExportOption *InCopyExportOption
 
-	// Contenido - rangos de estilo de párrafo
-	ParagraphStyleRanges []ParagraphStyleRange `xml:"ParagraphStyleRange"`
+	// Contenido - rangos de estilo de párrafo — accesibles directamente por
+	// compatibilidad. Se pueblan desde Children al parsear.
+	ParagraphStyleRanges []ParagraphStyleRange
 
-	// Comodín para elementos desconocidos
-	OtherElements []common.RawXMLElement `xml:",any"`
+	// Hijos en orden documental. Es la fuente de verdad de la serialización cuando
+	// está poblado (es decir, cuando se parseó). Cuando está vacío, se emite en
+	// orden de campos (StoryPreference, InCopyExportOption, ParagraphStyleRanges,
+	// OtherElements), que es el comportamiento de un modelo construido desde cero.
+	Children []StoryChild `xml:"-"`
+
+	// Comodín para elementos desconocidos — se puebla desde Children al parsear.
+	OtherElements []common.RawXMLElement
 
 	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
 	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
@@ -106,18 +125,32 @@ type InCopyExportOption struct {
 	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 
+// ParagraphChild representa un hijo de ParagraphStyleRange en orden documental.
+// Es una unión etiquetada: exactamente un campo es no-nil.
+type ParagraphChild struct {
+	CharacterStyleRange *CharacterStyleRange
+	Other               *common.RawXMLElement // Change, HiddenText, etc.
+}
+
 // ParagraphStyleRange representa un rango de párrafos con el mismo estilo de párrafo.
+// Usa serialización custom para preservar el orden documental de sus hijos.
 type ParagraphStyleRange struct {
 	XMLName xml.Name `xml:"ParagraphStyleRange"`
 
 	// Referencia al estilo de párrafo aplicado
 	AppliedParagraphStyle string `xml:"AppliedParagraphStyle,attr"`
 
-	// Rangos de estilo de carácter dentro de este párrafo
-	CharacterStyleRanges []CharacterStyleRange `xml:"CharacterStyleRange"`
+	// Rangos de estilo de carácter dentro de este párrafo — accesibles directamente
+	// por compatibilidad. Se pueblan desde Children al parsear.
+	CharacterStyleRanges []CharacterStyleRange
 
-	// Comodín para elementos desconocidos
-	OtherElements []common.RawXMLElement `xml:",any"`
+	// Hijos en orden documental. Es la fuente de verdad de la serialización cuando
+	// está poblado (es decir, cuando se parseó). Cuando está vacío, se emite en
+	// orden de campos (CharacterStyleRanges, OtherElements).
+	Children []ParagraphChild `xml:"-"`
+
+	// Comodín para elementos desconocidos — se puebla desde Children al parsear.
+	OtherElements []common.RawXMLElement
 
 	// OtherAttrs conserva los atributos que este tipo todavía no declara. Hoy son los
 	// 10 atributos de formato de párrafo que el Documento_Referencia trae y el modelo

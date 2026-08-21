@@ -579,14 +579,23 @@ type GraphicLine struct {
 }
 
 // Group representa una colección de elementos de página agrupados.
+// Los hijos se almacenan como XML crudo (`OtherElements`) para preservar la fidelidad
+// perfecta que ya existe. Para **construir** un grupo con elementos tipados, se usa
+// `Append`, que los agrega tanto a `Items` como al registro de orden.
+//
+// La decisión, y es deliberada: no se decodifican los hijos como structs tipados
+// porque el modelo de GraphicLine y Polygon reordena sus hijos al re-emitirlos, y
+// eso introduciría regresiones donde hoy hay 0 diferencias. El día que GraphicLine
+// tenga orden documental en sus hijos, este tipo podrá pasar a typed decode.
 type Group struct {
 	PageItemBase
 	AppliedObjectStyle string `xml:"AppliedObjectStyle,attr,omitempty"`
 
-	// OtherAttrs recoge los atributos que este tipo todavía no declara, para que no
-	// se pierdan en el ciclo de lectura y escritura. La etiqueta `,any,attr` es de
-	// encoding/xml: al leer recoge solo los atributos que no encajaron en ningún otro
-	// campo, en su orden, y al escribir los emite después de los declarados.
+	// Items son elementos de página **tipados** del grupo. Solo se pueblan por
+	// Append (constructor); los hijos parseados se quedan en OtherElements.
+	Items []PageItem `xml:"-"`
+
+	// OtherAttrs recoge los atributos que este tipo todavía no declara.
 	//
 	// Límite conocido: encoding/xml corrompe los atributos con prefijo de namespace al
 	// re-emitirlos. No aplica aquí: se inspeccionaron los 590 elementos de estos tipos
