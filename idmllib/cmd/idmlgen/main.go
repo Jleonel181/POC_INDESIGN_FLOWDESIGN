@@ -26,6 +26,7 @@ import (
 
 func main() {
 	outPath := flag.String("out", "", "ruta de salida del archivo IDML (por defecto: stdout)")
+	_ = flag.String("base-dir", "", "directorio base para imágenes locales (obligatorio si se usan rutas)")
 	flag.Parse()
 
 	data, err := io.ReadAll(os.Stdin)
