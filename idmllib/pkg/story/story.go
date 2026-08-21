@@ -140,6 +140,19 @@ type ParagraphStyleRange struct {
 	// Referencia al estilo de párrafo aplicado
 	AppliedParagraphStyle string `xml:"AppliedParagraphStyle,attr"`
 
+	// Atributos de formato de párrafo — los 10 que el Constructor_Documento necesita
+	// para generar párrafos con formato. Los que sigan sin declararse caen en OtherAttrs.
+	Justification               string `xml:"Justification,attr,omitempty"`               // "LeftAlign", "CenterAlign", "RightAlign", "FullyJustified"
+	Hyphenation                 string `xml:"Hyphenation,attr,omitempty"`                 // "true"/"false"
+	HyphenationZone             string `xml:"HyphenationZone,attr,omitempty"`             // puntos
+	FirstLineIndent             string `xml:"FirstLineIndent,attr,omitempty"`             // puntos
+	LeftIndent                  string `xml:"LeftIndent,attr,omitempty"`                  // puntos
+	GridAlignment               string `xml:"GridAlignment,attr,omitempty"`               // "AlignBaseline", "None"
+	BulletsAndNumberingListType string `xml:"BulletsAndNumberingListType,attr,omitempty"` // "NoList", "BulletList", "NumberedList"
+	RuleAboveLineWeight         string `xml:"RuleAboveLineWeight,attr,omitempty"`         // puntos
+	RuleBelowLineWeight         string `xml:"RuleBelowLineWeight,attr,omitempty"`         // puntos
+	SplitColumnInsideGutter     string `xml:"SplitColumnInsideGutter,attr,omitempty"`     // puntos
+
 	// Rangos de estilo de carácter dentro de este párrafo — accesibles directamente
 	// por compatibilidad. Se pueblan desde Children al parsear.
 	CharacterStyleRanges []CharacterStyleRange
@@ -152,15 +165,8 @@ type ParagraphStyleRange struct {
 	// Comodín para elementos desconocidos — se puebla desde Children al parsear.
 	OtherElements []common.RawXMLElement
 
-	// OtherAttrs conserva los atributos que este tipo todavía no declara. Hoy son los
-	// 10 atributos de formato de párrafo que el Documento_Referencia trae y el modelo
-	// no declara: Justification, Hyphenation, HyphenationZone, FirstLineIndent,
-	// LeftIndent, GridAlignment, BulletsAndNumberingListType, RuleAboveLineWeight,
-	// RuleBelowLineWeight y SplitColumnInsideGutter.
-	//
-	// La Tarea 15 los declarará como campos tipados, que es lo que el constructor de
-	// documentos necesita para **generarlos**. Para **preservarlos** basta este
-	// comodín, y los que sigan sin declararse seguirán cayendo aquí.
+	// OtherAttrs conserva los atributos que este tipo todavía no declara.
+	// Los que no se nombran arriba siguen cayendo aquí.
 	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
 

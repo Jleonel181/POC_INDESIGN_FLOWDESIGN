@@ -250,14 +250,76 @@ type InCopyExportOption struct {
 }
 
 // ObjectExportOption controla la configuración de exportación para publicación web/digital.
+// Los 30 atributos del corpus más los hijos Properties con AltMetadataProperty y
+// ActualMetadataProperty.
 type ObjectExportOption struct {
 	XMLName xml.Name `xml:"ObjectExportOption"`
-	// Placeholder para las opciones de exportación - la definición completa llegará en la Fase 5
-	OtherElements []common.RawXMLElement `xml:",any"`
 
-	// OtherAttrs conserva los atributos que este tipo todavía no declara. Ver el
-	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
+	// Texto alternativo y accesibilidad
+	AltTextSourceType      string `xml:"AltTextSourceType,attr,omitempty"`
+	ActualTextSourceType   string `xml:"ActualTextSourceType,attr,omitempty"`
+	CustomAltText          string `xml:"CustomAltText,attr,omitempty"`
+	CustomActualText       string `xml:"CustomActualText,attr,omitempty"`
+	ApplyTagType           string `xml:"ApplyTagType,attr,omitempty"`
+	AltTextGenerationError string `xml:"AltTextGenerationError,attr,omitempty"`
+	// AltTextCropSyncRect: no se declara como campo porque aparece con valor vacío en 75
+	// elementos del corpus y ausente en 17. Con omitempty se perdería el vacío; sin él
+	// se añadiría a los que no lo tienen. Se queda en OtherAttrs, que preserva ambos casos.
+	AIGeneratedAltText string `xml:"AIGeneratedAltText,attr,omitempty"`
+
+	// EPUB / ARIA
+	EpubType                string `xml:"EpubType,attr,omitempty"`
+	EpubAriaRole            string `xml:"EpubAriaRole,attr,omitempty"`
+	EpubAriaLabel           string `xml:"EpubAriaLabel,attr,omitempty"`
+	EpubAriaLabelSourceType string `xml:"EpubAriaLabelSourceType,attr,omitempty"`
+
+	// Imagen
+	ImageConversionType   string `xml:"ImageConversionType,attr,omitempty"`
+	ImageExportResolution string `xml:"ImageExportResolution,attr,omitempty"`
+	ImageAlignment        string `xml:"ImageAlignment,attr,omitempty"`
+	ImageSpaceBefore      string `xml:"ImageSpaceBefore,attr,omitempty"`
+	ImageSpaceAfter       string `xml:"ImageSpaceAfter,attr,omitempty"`
+	UseImagePageBreak     string `xml:"UseImagePageBreak,attr,omitempty"`
+	ImagePageBreak        string `xml:"ImagePageBreak,attr,omitempty"`
+	CustomImageAlignment  string `xml:"CustomImageAlignment,attr,omitempty"`
+
+	// GIF
+	GIFOptionsPalette    string `xml:"GIFOptionsPalette,attr,omitempty"`
+	GIFOptionsInterlaced string `xml:"GIFOptionsInterlaced,attr,omitempty"`
+
+	// JPEG
+	JPEGOptionsQuality string `xml:"JPEGOptionsQuality,attr,omitempty"`
+	JPEGOptionsFormat  string `xml:"JPEGOptionsFormat,attr,omitempty"`
+
+	// Layout
+	SpaceUnit                    string `xml:"SpaceUnit,attr,omitempty"`
+	CustomLayout                 string `xml:"CustomLayout,attr,omitempty"`
+	CustomLayoutType             string `xml:"CustomLayoutType,attr,omitempty"`
+	SizeType                     string `xml:"SizeType,attr,omitempty"`
+	CustomSize                   string `xml:"CustomSize,attr,omitempty"`
+	PreserveAppearanceFromLayout string `xml:"PreserveAppearanceFromLayout,attr,omitempty"`
+
+	// Elementos hijo
+	Properties *common.Properties `xml:"Properties,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara.
 	OtherAttrs []xml.Attr `xml:",any,attr"`
+
+	// OtherElements para hijos no modelados.
+	OtherElements []common.RawXMLElement `xml:",any"`
+}
+
+// MetadataPacketPreference conserva los metadatos XMP de un elemento de página o de una
+// story. Su contenido se emite como CDATA dentro de Properties/Contents. El texto se
+// preserva de forma literal sin decodificarlo ni recodificarlo.
+type MetadataPacketPreference struct {
+	Properties *common.Properties `xml:"Properties,omitempty"`
+
+	// OtherAttrs conserva los atributos que este tipo todavía no declara.
+	OtherAttrs []xml.Attr `xml:",any,attr"`
+
+	// OtherElements para hijos no modelados.
+	OtherElements []common.RawXMLElement `xml:",any"`
 }
 
 // PDF representa un archivo PDF colocado dentro de un frame (típicamente un Rectangle).
