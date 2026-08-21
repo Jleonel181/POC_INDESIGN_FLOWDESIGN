@@ -630,3 +630,44 @@ type TransparencyDefaultContainerObject struct {
 	// patrón OtherAttrs en ARCHITECTURE.md y docs/FIDELIDAD.md.
 	OtherAttrs []xml.Attr `xml:",any,attr"`
 }
+
+// --- Constantes exportadas para el orden documental del designmap ---
+// Las usa el ensamblador de paquete (pkg/idml) para registrar hijos nuevos en el
+// ChildOrder del Document al agregar spreads, stories, etc.
+
+const (
+	ChildKindMasterSpread = childRefMasterSpread // "idPkg:MasterSpread"
+	ChildKindSpread       = childRefSpread       // "idPkg:Spread"
+	ChildKindStory        = childRefStory        // "idPkg:Story"
+	ChildKindBackingStory = childRefBackingStory // "idPkg:BackingStory"
+)
+
+// RecordChild registra un hijo nuevo en el índice de orden documental.
+// Se llama después de agregar un elemento a los campos por tipo (Spreads, Stories, etc.)
+// para que la serialización lo emita en la posición correcta: al final de los hijos
+// del mismo tipo que ya traía el documento.
+func (d *Document) RecordChild(kind string) {
+	d.childOrder.Record(kind)
+}
+
+// RemoveChildAt elimina la entrada del ChildOrder en la posición `n` de la clase `kind`.
+// Se usa al eliminar un spread/story del designmap para mantener coherente el registro.
+// Retorna false si la clase no tiene esa posición.
+func (d *Document) RemoveChildAt(kind string, n int) bool {
+	kinds := d.childOrder.Kinds()
+	count := 0
+	for i, k := range kinds {
+		if k == kind {
+			if count == n {
+				// Eliminar del slice
+				d.childOrder.Reset()
+				for _, k2 := range append(kinds[:i], kinds[i+1:]...) {
+					d.childOrder.Record(k2)
+				}
+				return true
+			}
+			count++
+		}
+	}
+	return false
+}

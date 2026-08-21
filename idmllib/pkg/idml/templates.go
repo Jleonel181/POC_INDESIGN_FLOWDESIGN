@@ -154,6 +154,22 @@ type TemplateOptions struct {
 
 	// ColumnGutter espaciado entre columnas en puntos (por defecto: 12)
 	ColumnGutter float64
+
+	// Intent define la intención del documento: "PrintIntent" (por defecto) o
+	// "WebIntent" para documentos digitales.
+	Intent string
+
+	// PageBinding define el sentido de encuadernación: "LeftToRight" (por defecto)
+	// o "RightToLeft" para idiomas RTL.
+	PageBinding string
+
+	// FacingPages activa páginas enfrentadas (por defecto: false).
+	FacingPages bool
+
+	// MeasurementUnits define las unidades de medida para todas las reglas y diálogos.
+	// Valor por defecto: "Points". Opciones comunes: "Points", "Picas", "Millimeters",
+	// "Centimeters", "Inches".
+	MeasurementUnits string
 }
 
 // DefaultTemplateOptions devuelve valores por defecto razonables para US Letter portrait.
@@ -317,6 +333,14 @@ type templateData struct {
 	FrameHalfWidthStr  string
 	FrameHalfHeightStr string
 
+	// DocumentPreference options
+	Intent      string
+	PageBinding string
+	FacingPages string
+
+	// ViewPreference: unidades de medida
+	MeasurementUnits string
+
 	Timestamp  string
 	InstanceID string
 	DocumentID string
@@ -377,6 +401,24 @@ func newTemplateData(opts *TemplateOptions, dims PageDimensions) (*templateData,
 		return nil, common.WrapErrorWithPath("idml", "create from template", PathMetadata, err)
 	}
 
+	// Opciones de DocumentPreference
+	intent := opts.Intent
+	if intent == "" {
+		intent = "PrintIntent"
+	}
+	pageBinding := opts.PageBinding
+	if pageBinding == "" {
+		pageBinding = "LeftToRight"
+	}
+	facingPages := "false"
+	if opts.FacingPages {
+		facingPages = "true"
+	}
+	measurementUnits := opts.MeasurementUnits
+	if measurementUnits == "" {
+		measurementUnits = "Points"
+	}
+
 	return &templateData{
 		DOMVersion:  opts.DOMVersion,
 		Orientation: opts.Orientation,
@@ -394,6 +436,11 @@ func newTemplateData(opts *TemplateOptions, dims PageDimensions) (*templateData,
 		MarginBottomStr: num(opts.Margins.Bottom),
 		MarginLeftStr:   num(opts.Margins.Left),
 		MarginRightStr:  num(opts.Margins.Right),
+
+		Intent:           intent,
+		PageBinding:      pageBinding,
+		FacingPages:      facingPages,
+		MeasurementUnits: measurementUnits,
 
 		// El marco va centrado en la caja de márgenes. El origen vertical del spread
 		// está en el centro de la página, de ahí el desplazamiento de media altura.
