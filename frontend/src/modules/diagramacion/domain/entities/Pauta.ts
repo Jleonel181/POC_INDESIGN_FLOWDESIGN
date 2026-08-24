@@ -14,7 +14,9 @@ export class Pauta {
     public readonly descripcion: string,
     private position: GridPosition,
     private size: GridSize,
-    public readonly indesignBounds?: InDesignBounds
+    public readonly indesignBounds?: InDesignBounds,
+    public readonly contentType: "text" | "image" = "text",
+    public readonly imageBase64?: string
   ) {}
 
   getPosition(): GridPosition {
@@ -31,5 +33,9 @@ export class Pauta {
 
   resize(size: GridSize): void {
     this.size = size;
+  }
+
+  get isImage(): boolean {
+    return this.contentType === "image" && !!this.imageBase64;
   }
 }

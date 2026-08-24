@@ -8,6 +8,10 @@ type DocumentInput struct {
 	Document           DocumentSpec        `json:"document"`
 	Pages              []PageSpec          `json:"pages"`
 	MasterSpreadSource *MasterSpreadSource `json:"masterSpreadSource,omitempty"`
+
+	// BaseDir es el directorio base para resolver rutas de imágenes locales.
+	// Se configura desde el flag -base-dir del CLI, no desde el JSON.
+	BaseDir string `json:"-"`
 }
 
 // DocumentSpec describe las propiedades globales del documento.
@@ -41,11 +45,15 @@ type PageSpec struct {
 
 // FrameSpec describe un marco de texto posicionado en la página.
 type FrameSpec struct {
-	Type    string       `json:"type"`
+	Type    string       `json:"type"` // "text" o "image"
 	Name    string       `json:"name"`
 	Bounds  BoundsSpec   `json:"bounds"`
-	Content string       `json:"content"`
+	Content string       `json:"content"` // texto para type:"text"
 	Options FrameOptions `json:"options"`
+
+	// Campos de imagen (para type:"image")
+	ImagePath   string `json:"imagePath,omitempty"`   // ruta local relativa a -base-dir
+	ImageBase64 string `json:"imageBase64,omitempty"` // imagen en base64 estándar
 }
 
 // BoundsSpec describe los límites de un marco en milímetros.

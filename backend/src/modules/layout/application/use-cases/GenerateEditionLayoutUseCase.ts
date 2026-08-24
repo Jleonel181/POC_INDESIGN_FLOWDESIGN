@@ -71,6 +71,8 @@ export class GenerateEditionLayoutUseCase implements UseCase<Input, EditionLayou
                         cuadros_ancho: pauta.cuadros_ancho,
                         ubicacion_cuadros_x: pauta.ubicacion_cuadros_x!,
                         ubicacion_cuadros_y: pauta.ubicacion_cuadros_y!,
+                        content_type: pauta.content_type,
+                        image_base64: pauta.image_base64 ?? undefined,
                         indesignBounds: {
                             topMm: bounds.yMm,
                             leftMm: bounds.xMm,

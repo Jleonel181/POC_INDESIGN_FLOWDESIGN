@@ -33,7 +33,9 @@ export class DiagramacionMapper {
                 pautaDto.descripcion_pauta,
                 new GridPosition(pautaDto.ubicacion_cuadros_x, pautaDto.ubicacion_cuadros_y),
                 new GridSize(pautaDto.cuadros_ancho, pautaDto.cuadros_alto),
-                pautaDto.indesignBounds
+                pautaDto.indesignBounds,
+                pautaDto.content_type || "text",
+                pautaDto.image_base64
               )
           )
         )

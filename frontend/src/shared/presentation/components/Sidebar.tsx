@@ -12,6 +12,7 @@ type NavItem = {
 const NAV_PRIMARY: NavItem[] = [
   { icon: "dashboard", label: "Dashboard", link: "/" },
   { icon: "auto_stories", label: "Ediciones", link: "/ediciones" },
+  { icon: "image", label: "Artes", link: "/artes" },
   { icon: "notifications", label: "Notificaciones", link: "/notificaciones" },
   { icon: "settings", label: "Configuración", link: "/configuracion" },
 ];

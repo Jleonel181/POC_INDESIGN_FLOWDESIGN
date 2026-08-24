@@ -71,16 +71,16 @@ export function PautaBox({ pauta, cellWidth, cellHeight, onSelect, onUnassigned,
           color: "#1a1a2e",
         }}
       >
-        {pauta.descripcion}
+        {pauta.isImage ? "🖼 " : ""}{pauta.descripcion}
       </span>
 
       {hovered && (
         <button
           onClick={handleUnassign}
           disabled={unassigning}
-          className="absolute 6 left-1/2 -translate-x-1/2 text-[9px] px-2 py-0.5 bg-red-600 text-white rounded shadow hover:bg-red-700 disabled:opacity-50 whitespace-nowrap z-10"
+          className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] px-2 py-0.5 bg-red-600 text-white rounded shadow hover:bg-red-700 disabled:opacity-50 whitespace-nowrap z-10"
         >
-          {unassigning ? "..." : "Desasignar pauta"}
+          {unassigning ? "..." : "Desasignar"}
         </button>
       )}
     </div>

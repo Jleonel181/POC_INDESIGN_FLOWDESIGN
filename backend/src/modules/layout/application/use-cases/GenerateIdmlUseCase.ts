@@ -46,15 +46,27 @@ export class GenerateIdmlUseCase implements UseCase<Input, Buffer> {
                     }
                 }
 
+                const bounds = {
+                    topMm: pauta.indesignBounds.topMm,
+                    leftMm,
+                    bottomMm: pauta.indesignBounds.bottomMm,
+                    rightMm,
+                };
+
+                // Si la pauta es de tipo imagen y tiene datos base64, generar frame de imagen.
+                if (pauta.content_type === "image" && pauta.image_base64) {
+                    return {
+                        type: "image" as const,
+                        name: pauta.descripcion_pauta,
+                        bounds,
+                        imageBase64: pauta.image_base64,
+                    };
+                }
+
                 return {
                     type: "text" as const,
                     name: pauta.descripcion_pauta,
-                    bounds: {
-                        topMm: pauta.indesignBounds.topMm,
-                        leftMm,
-                        bottomMm: pauta.indesignBounds.bottomMm,
-                        rightMm,
-                    },
+                    bounds,
                     content: pauta.descripcion_pauta,
                     options: {},
                 };

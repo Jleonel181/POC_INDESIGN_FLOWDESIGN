@@ -26,7 +26,7 @@ import (
 
 func main() {
 	outPath := flag.String("out", "", "ruta de salida del archivo IDML (por defecto: stdout)")
-	_ = flag.String("base-dir", "", "directorio base para imágenes locales (obligatorio si se usan rutas)")
+	baseDir := flag.String("base-dir", "", "directorio base para imágenes locales (obligatorio si se usan rutas)")
 	flag.Parse()
 
 	data, err := io.ReadAll(os.Stdin)
@@ -44,6 +44,8 @@ func main() {
 		}
 		os.Exit(1)
 	}
+
+	input.BaseDir = *baseDir
 
 	if err := idmlgen.Validate(&input); err != nil {
 		fmt.Fprintf(os.Stderr, "error de validación: %v\n", err)

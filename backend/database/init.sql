@@ -52,6 +52,9 @@ CREATE TABLE pautas (
     ubicacion_cuadros_x INTEGER DEFAULT NULL,
     ubicacion_cuadros_y INTEGER DEFAULT NULL,
     pagina_id INTEGER DEFAULT NULL,
+    content_type VARCHAR(10) NOT NULL DEFAULT 'text',
+    image_base64 TEXT DEFAULT NULL,
+    cover_date DATE DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_pautas_page FOREIGN KEY (pagina_id)

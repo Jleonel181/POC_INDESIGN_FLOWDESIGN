@@ -10,7 +10,10 @@ export class PautaMapper {
             entity.cuadros_ancho,
             entity.ubicacion_cuadros_x,
             entity.ubicacion_cuadros_y,
-            entity.pagina_id
+            entity.pagina_id,
+            (entity.content_type as "text" | "image") || "text",
+            entity.image_base64,
+            entity.cover_date
         );
     }
 
@@ -23,6 +26,9 @@ export class PautaMapper {
         entity.ubicacion_cuadros_x = domain.ubicacion_cuadros_x;
         entity.ubicacion_cuadros_y = domain.ubicacion_cuadros_y;
         entity.pagina_id = domain.paginaId;
+        entity.content_type = domain.content_type;
+        entity.image_base64 = domain.image_base64;
+        entity.cover_date = domain.cover_date;
         return entity;
     }
 }

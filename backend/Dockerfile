@@ -1,5 +1,5 @@
 # Stage 1: Compilar idmlgen (Go)
-FROM golang:1.21-alpine AS go-builder
+FROM golang:1.23-alpine AS go-builder
 WORKDIR /src
 COPY idmllib/go.mod idmllib/go.sum ./
 RUN go mod download

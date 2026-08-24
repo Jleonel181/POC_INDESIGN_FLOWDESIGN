@@ -20,8 +20,8 @@ func Validate(input *DocumentInput) error {
 			if frame.Type == "" {
 				return fmt.Errorf("pages[%d].frames[%d].type: es obligatorio", i, j)
 			}
-			if frame.Type != "text" {
-				return fmt.Errorf("pages[%d].frames[%d].type: solo se soporta \"text\", se recibió %q", i, j, frame.Type)
+			if frame.Type != "text" && frame.Type != "image" {
+				return fmt.Errorf("pages[%d].frames[%d].type: solo se soporta \"text\" o \"image\", se recibió %q", i, j, frame.Type)
 			}
 			b := frame.Bounds
 			if b.BottomMm <= b.TopMm {
@@ -29,6 +29,20 @@ func Validate(input *DocumentInput) error {
 			}
 			if b.RightMm <= b.LeftMm {
 				return fmt.Errorf("pages[%d].frames[%d].bounds: rightMm (%v) debe ser > leftMm (%v)", i, j, b.RightMm, b.LeftMm)
+			}
+			// Validación específica de imágenes
+			if frame.Type == "image" {
+				hasPath := frame.ImagePath != ""
+				hasB64 := frame.ImageBase64 != ""
+				if !hasPath && !hasB64 {
+					return fmt.Errorf("pages[%d].frames[%d]: tipo \"image\" requiere imagePath o imageBase64", i, j)
+				}
+				if hasPath && hasB64 {
+					return fmt.Errorf("pages[%d].frames[%d]: imagePath y imageBase64 son mutuamente excluyentes", i, j)
+				}
+				if hasPath && input.BaseDir == "" {
+					return fmt.Errorf("pages[%d].frames[%d]: imagePath requiere -base-dir", i, j)
+				}
 			}
 		}
 	}

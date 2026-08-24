@@ -10,6 +10,7 @@ import (
 	"github.com/dimelords/idmllib/v2/pkg/document"
 	idmlpkg "github.com/dimelords/idmllib/v2/pkg/idml"
 	"github.com/dimelords/idmllib/v2/pkg/idml/idgen"
+	"github.com/dimelords/idmllib/v2/pkg/idml/images"
 	"github.com/dimelords/idmllib/v2/pkg/spread"
 	"github.com/dimelords/idmllib/v2/pkg/story"
 )
@@ -180,8 +181,15 @@ func Generate(input *DocumentInput) (*idmlpkg.Package, error) {
 		if i == 0 {
 			// Primer spread: usa el de la plantilla.
 			for _, frame := range sg.pages[0].Frames {
-				if err := addTextFrame(pkg, reg, refs, frame, halfHeight); err != nil {
-					return nil, err
+				switch frame.Type {
+				case "image":
+					if err := addImageFrame(pkg, reg, refs, frame, halfHeight, input.BaseDir); err != nil {
+						return nil, err
+					}
+				default: // "text"
+					if err := addTextFrame(pkg, reg, refs, frame, halfHeight); err != nil {
+						return nil, err
+					}
 				}
 			}
 			if len(doc.Guides) > 0 {
@@ -191,7 +199,7 @@ func Generate(input *DocumentInput) (*idmlpkg.Package, error) {
 			}
 		} else {
 			// Spreads adicionales: construidos con structs tipados, guides incluidas.
-			if _, err := addSpreadForPages(pkg, reg, refs, doc, sg.pages, sg.pageNumbers, halfHeight, doc.Guides); err != nil {
+			if _, err := addSpreadForPages(pkg, reg, refs, doc, sg.pages, sg.pageNumbers, halfHeight, doc.Guides, input.BaseDir); err != nil {
 				return nil, err
 			}
 		}
@@ -202,7 +210,7 @@ func Generate(input *DocumentInput) (*idmlpkg.Package, error) {
 
 // addSpreadForPages crea un spread con 1 o 2 páginas y lo registra en el paquete.
 // Usa los structs tipados de pkg/spread en vez de construir XML a mano.
-func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, refs *templateRefs, doc DocumentSpec, pages []PageSpec, pageNumbers []int, halfHeight float64, guides []GuideSpec) (string, error) {
+func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, refs *templateRefs, doc DocumentSpec, pages []PageSpec, pageNumbers []int, halfHeight float64, guides []GuideSpec, baseDir string) (string, error) {
 	spreadID := reg.Generate()
 	pageWidthPt := mmToPt(doc.WidthMm)
 	pageHeightPt := mmToPt(doc.HeightMm)
@@ -305,8 +313,9 @@ func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, refs *template
 		})
 	}
 
-	// Construir los TextFrames
+	// Construir los elementos de página (TextFrames para texto, Rectangles para imágenes)
 	textFrames := make([]spread.SpreadTextFrame, 0)
+	imageRects := make([]spread.Rectangle, 0)
 	for pi, page := range pages {
 		var pageTransformX float64
 		if pageCount == 2 && pi == 0 {
@@ -315,7 +324,6 @@ func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, refs *template
 
 		for _, frame := range page.Frames {
 			frameID := reg.Generate()
-			storyID := reg.Generate()
 
 			topPt := mmToPt(frame.Bounds.TopMm)
 			leftPt := mmToPt(frame.Bounds.LeftMm)
@@ -327,35 +335,49 @@ func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, refs *template
 			centerX := leftPt + w/2 + pageTransformX
 			centerY := topPt + h/2 - halfHeight
 
-			textFrames = append(textFrames, spread.SpreadTextFrame{
-				PageItemBase: spread.PageItemBase{
-					Self:          frameID,
-					Name:          frame.Name,
-					Visible:       "true",
-					ItemLayer:     refs.layerID,
-					ItemTransform: "1 0 0 1 " + num(centerX) + " " + num(centerY),
-				},
-				ParentStory:        storyID,
-				PreviousTextFrame:  "n",
-				NextTextFrame:      "n",
-				ContentType:        "TextType",
-				AppliedObjectStyle: "ObjectStyle/$ID/[Normal Text Frame]",
-				Properties: &common.Properties{
-					PathGeometry: &common.PathGeometry{
-						GeometryPathType: &common.GeometryPathType{
-							PathOpen: "false",
-							PathPointArray: &common.PathPointArray{
-								PathPoints: boxPoints(w/2, h/2),
+			switch frame.Type {
+			case "image":
+				resolved, err := resolveImage(frame, w, h, baseDir)
+				if err != nil {
+					return "", err
+				}
+				imageID := reg.Generate()
+				linkID := reg.Generate()
+				rect := buildImageRectangle(frameID, imageID, linkID, frame.Name, refs.layerID, centerX, centerY, w, h, resolved)
+				imageRects = append(imageRects, rect)
+
+			default: // "text"
+				storyID := reg.Generate()
+				textFrames = append(textFrames, spread.SpreadTextFrame{
+					PageItemBase: spread.PageItemBase{
+						Self:          frameID,
+						Name:          frame.Name,
+						Visible:       "true",
+						ItemLayer:     refs.layerID,
+						ItemTransform: "1 0 0 1 " + num(centerX) + " " + num(centerY),
+					},
+					ParentStory:        storyID,
+					PreviousTextFrame:  "n",
+					NextTextFrame:      "n",
+					ContentType:        "TextType",
+					AppliedObjectStyle: "ObjectStyle/$ID/[Normal Text Frame]",
+					Properties: &common.Properties{
+						PathGeometry: &common.PathGeometry{
+							GeometryPathType: &common.GeometryPathType{
+								PathOpen: "false",
+								PathPointArray: &common.PathPointArray{
+									PathPoints: boxPoints(w/2, h/2),
+								},
 							},
 						},
 					},
-				},
-				OtherElements: buildFrameExtras(frame.Options),
-			})
+					OtherElements: buildFrameExtras(frame.Options),
+				})
 
-			// Crear la story asociada
-			if err := createAndRegisterStory(pkg, storyID, frame); err != nil {
-				return "", err
+				// Crear la story asociada
+				if err := createAndRegisterStory(pkg, storyID, frame); err != nil {
+					return "", err
+				}
 			}
 		}
 	}
@@ -396,6 +418,10 @@ func addSpreadForPages(pkg *idmlpkg.Package, reg *idgen.Registry, refs *template
 	// Agregar text frames al spread
 	for i := range textFrames {
 		sp.InnerSpread.Append(&textFrames[i])
+	}
+	// Agregar image rectangles al spread
+	for i := range imageRects {
+		sp.InnerSpread.Append(&imageRects[i])
 	}
 
 	// Serializar y registrar en el paquete
@@ -730,4 +756,125 @@ func injectMasterSpreadFromTemplate(src *MasterSpreadSource, pkg *idmlpkg.Packag
 	}
 
 	return masterSelf, nil
+}
+
+// resolveImage usa el resolvedor de imágenes para obtener los datos de una imagen.
+func resolveImage(frame FrameSpec, widthPt, heightPt float64, baseDir string) (*images.ResolvedImage, error) {
+	resolver := images.NewResolver(images.ResolverOptions{
+		BaseDir: baseDir,
+	})
+	source := images.ImageSource{
+		Path:   frame.ImagePath,
+		Base64: frame.ImageBase64,
+	}
+	bounds := images.FrameBounds{
+		Width:  widthPt,
+		Height: heightPt,
+	}
+	resolved, err := resolver.Resolve(source, bounds)
+	if err != nil {
+		return nil, fmt.Errorf("frame %q: %w", frame.Name, err)
+	}
+	return resolved, nil
+}
+
+// buildImageRectangle construye un Rectangle con una Image embebida.
+func buildImageRectangle(rectID, imageID, linkID, name, layerID string, centerX, centerY, w, h float64, img *images.ResolvedImage) spread.Rectangle {
+	return spread.Rectangle{
+		PageItemBase: spread.PageItemBase{
+			Self:          rectID,
+			Name:          name,
+			Visible:       "true",
+			ItemLayer:     layerID,
+			ItemTransform: "1 0 0 1 " + num(centerX) + " " + num(centerY),
+		},
+		ContentType:        "GraphicType",
+		AppliedObjectStyle: "ObjectStyle/$ID/[Normal Graphics Frame]",
+		Properties: &common.Properties{
+			PathGeometry: &common.PathGeometry{
+				GeometryPathType: &common.GeometryPathType{
+					PathOpen: "false",
+					PathPointArray: &common.PathPointArray{
+						PathPoints: boxPoints(w/2, h/2),
+					},
+				},
+			},
+		},
+		Image: &spread.Image{
+			FrameContentBase: spread.FrameContentBase{
+				Self:               imageID,
+				Visible:            "true",
+				AppliedObjectStyle: "ObjectStyle/$ID/[None]",
+				ItemTransform:      "1 0 0 1 " + num(-w/2) + " " + num(-h/2),
+			},
+			ActualPpi:    img.ActualPpi,
+			EffectivePpi: img.EffectivePpi,
+			Properties: &common.Properties{
+				OtherElements: buildImageProperties(img, w, h),
+			},
+			Link: &spread.Link{
+				Self:             linkID,
+				LinkResourceURI:  img.LinkResourceURI,
+				StoredState:      img.StoredState,
+				LinkResourceSize: img.LinkResourceSize,
+			},
+		},
+	}
+}
+
+// addImageFrame agrega un Rectangle con Image embebida al primer spread (el de la plantilla).
+func addImageFrame(pkg *idmlpkg.Package, reg *idgen.Registry, refs *templateRefs, frame FrameSpec, halfHeight float64, baseDir string) error {
+	rectID := reg.Generate()
+	imageID := reg.Generate()
+	linkID := reg.Generate()
+
+	topPt := mmToPt(frame.Bounds.TopMm)
+	leftPt := mmToPt(frame.Bounds.LeftMm)
+	bottomPt := mmToPt(frame.Bounds.BottomMm)
+	rightPt := mmToPt(frame.Bounds.RightMm)
+
+	w := rightPt - leftPt
+	h := bottomPt - topPt
+	centerX := leftPt + w/2
+	centerY := topPt + h/2 - halfHeight
+
+	resolved, err := resolveImage(frame, w, h, baseDir)
+	if err != nil {
+		return err
+	}
+
+	rect := buildImageRectangle(rectID, imageID, linkID, frame.Name, refs.layerID, centerX, centerY, w, h, resolved)
+	return pkg.AddRectangle(refs.spreadPath, &rect, idmlpkg.ValidationOptions{})
+}
+
+// buildImageProperties construye los hijos de Properties para una Image embebida.
+// El orden es: Profile, Contents (base64), GraphicBounds — exactamente como lo emite InDesign.
+func buildImageProperties(img *images.ResolvedImage, w, h float64) []common.RawXMLElement {
+	elements := []common.RawXMLElement{
+		{
+			XMLName: xml.Name{Local: "Profile"},
+			Attrs:   []xml.Attr{{Name: xml.Name{Local: "type"}, Value: "string"}},
+			Content: []byte("$ID/None"),
+		},
+	}
+
+	// Solo incluir Contents si hay datos embebidos (base64).
+	if img.Contents != "" {
+		elements = append(elements, common.RawXMLElement{
+			XMLName: xml.Name{Local: "Contents"},
+			Content: []byte(img.Contents),
+		})
+	}
+
+	elements = append(elements, common.RawXMLElement{
+		XMLName: xml.Name{Local: "GraphicBounds"},
+		Attrs: []xml.Attr{
+			{Name: xml.Name{Local: "Left"}, Value: "0"},
+			{Name: xml.Name{Local: "Top"}, Value: "0"},
+			{Name: xml.Name{Local: "Right"}, Value: num(w)},
+			{Name: xml.Name{Local: "Bottom"}, Value: num(h)},
+		},
+	})
+
+	return elements
 }

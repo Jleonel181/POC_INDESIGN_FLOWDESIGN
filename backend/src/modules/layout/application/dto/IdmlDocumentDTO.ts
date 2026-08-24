@@ -43,18 +43,30 @@ export interface IdmlPageDTO {
   frames: IdmlFrameDTO[];
 }
 
-export interface IdmlFrameDTO {
+export type IdmlFrameDTO = IdmlTextFrameDTO | IdmlImageFrameDTO;
+
+export interface IdmlTextFrameDTO {
   type: "text";
   name: string;
-  bounds: {
-    topMm: number;
-    leftMm: number;
-    bottomMm: number;
-    rightMm: number;
-  };
+  bounds: IdmlBoundsDTO;
   content: string;
   options: {
     verticalJustification?: string;
     contentIsRaw?: boolean;
   };
+}
+
+export interface IdmlImageFrameDTO {
+  type: "image";
+  name: string;
+  bounds: IdmlBoundsDTO;
+  /** Imagen codificada en base64 estándar (RFC 4648). */
+  imageBase64: string;
+}
+
+export interface IdmlBoundsDTO {
+  topMm: number;
+  leftMm: number;
+  bottomMm: number;
+  rightMm: number;
 }

@@ -27,14 +27,27 @@ export class ImportPautasFromVentasUseCase implements UseCase<ImportPautasInput,
 
         const pautas: Pauta[] = [];
         for (const ad of ads) {
+            const desc = this.buildDescription(ad);
+
+            // No duplicar: si ya existe con la misma descripción y cover_date, saltar.
+            const existing = await this.pautaRepository.findByDescription(desc);
+            const alreadyImported = existing.some(p => p.cover_date === (ad.coverDate || input.date));
+            if (alreadyImported) {
+                pautas.push(existing.find(p => p.cover_date === (ad.coverDate || input.date))!);
+                continue;
+            }
+
             const pauta = new Pauta(
                 0,
-                this.buildDescription(ad),
+                desc,
                 ad.cuadrosAlto,
                 ad.cuadrosAncho,
                 null,
                 null,
-                null
+                null,
+                "text",
+                null,
+                ad.coverDate || input.date
             );
             const saved = await this.pautaRepository.save(pauta);
             pautas.push(saved);

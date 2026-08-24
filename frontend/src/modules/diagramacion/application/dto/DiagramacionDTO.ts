@@ -28,6 +28,8 @@ export interface DiagramacionDTO {
       cuadros_ancho: number;
       ubicacion_cuadros_x: number;
       ubicacion_cuadros_y: number;
+      content_type?: "text" | "image";
+      image_base64?: string;
       indesignBounds: {
         topMm: number;
         leftMm: number;

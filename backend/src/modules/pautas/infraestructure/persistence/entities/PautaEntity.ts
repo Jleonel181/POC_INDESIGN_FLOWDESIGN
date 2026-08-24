@@ -24,6 +24,15 @@ export class PautaEntity {
     @Column({ name: "pagina_id", type: "integer", nullable: true })
     pagina_id!: number | null;
 
+    @Column({ name: "content_type", type: "varchar", length: 10, default: "text" })
+    content_type!: string;
+
+    @Column({ name: "image_base64", type: "text", nullable: true })
+    image_base64!: string | null;
+
+    @Column({ name: "cover_date", type: "date", nullable: true })
+    cover_date!: string | null;
+
     @ManyToOne(() => PageEntity, (page) => page.pautas, { nullable: true })
     @JoinColumn({ name: "pagina_id" })
     page!: PageEntity | null;
