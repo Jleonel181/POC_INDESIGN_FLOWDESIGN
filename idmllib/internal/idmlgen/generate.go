@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"regexp"
+	"slices"
 	"strings"
 
 	"github.com/dimelords/idmllib/v2/pkg/common"
@@ -643,6 +644,88 @@ func addGuidesToSpread(pkg *idmlpkg.Package, reg *idgen.Registry, refs *template
 	return nil
 }
 
+// extractAppliedMaster extrae el valor del atributo AppliedMaster de un MasterSpread
+// parseado. En IDML real, AppliedMaster está en los <Page> hijos del master, no como
+// atributo del <MasterSpread> mismo. Se toma del primer Page; si todos los Pages
+// apuntan al mismo padre, basta con uno.
+func extractAppliedMaster(ms *spread.MasterSpread) string {
+	// Primero buscar en OtherAttrs por si algún template lo pone en el elemento raíz.
+	for _, attr := range ms.InnerMasterSpread.OtherAttrs {
+		if attr.Name.Local == "AppliedMaster" {
+			return attr.Value
+		}
+	}
+	// En IDML estándar, la referencia al padre está en los Pages del master.
+	if len(ms.InnerMasterSpread.Pages) > 0 {
+		return ms.InnerMasterSpread.Pages[0].AppliedMaster
+	}
+	return ""
+}
+
+// findMasterSpreadPathBySelf busca en el designmap del fuente la ruta del MasterSpread
+// cuyo Self coincida con el ID dado. Retorna "" si no se encuentra.
+func findMasterSpreadPathBySelf(srcPkg *idmlpkg.Package, srcDoc *document.Document, selfID string) string {
+	for _, ref := range srcDoc.MasterSpreads {
+		if masterSpreadSelf(ref.Src) == selfID {
+			return ref.Src
+		}
+	}
+	return ""
+}
+
+// masterChainEntry agrupa la ruta, el Self y los datos crudos de un master spread
+// de la cadena de herencia, en el orden en que deben inyectarse (raíz primero).
+type masterChainEntry struct {
+	path string // "MasterSpreads/MasterSpread_ub0.xml"
+	self string // "ub0"
+	data []byte // XML crudo del archivo
+}
+
+// collectMasterChain recorre la cadena de herencia de un master spread hacia arriba
+// (vía AppliedMaster) y retorna la lista ordenada de raíz (sin padre) a hoja (el
+// master en startPath). Detecta ciclos con un mapa de visitados.
+func collectMasterChain(srcPkg *idmlpkg.Package, srcDoc *document.Document, startPath string) ([]masterChainEntry, error) {
+	var chain []masterChainEntry
+	visited := make(map[string]bool)
+	currentPath := startPath
+
+	for {
+		data, err := srcPkg.GetFileData(currentPath)
+		if err != nil {
+			return nil, fmt.Errorf("error al leer %s: %w", currentPath, err)
+		}
+
+		ms, err := spread.ParseMasterSpread(data)
+		if err != nil {
+			return nil, fmt.Errorf("error al parsear %s: %w", currentPath, err)
+		}
+
+		self := ms.InnerMasterSpread.Self
+		if visited[self] {
+			return nil, fmt.Errorf("ciclo detectado en la cadena de master spreads: %s", self)
+		}
+		visited[self] = true
+
+		chain = append(chain, masterChainEntry{path: currentPath, self: self, data: data})
+
+		parentID := extractAppliedMaster(ms)
+		if parentID == "" || parentID == "n" {
+			break // raíz alcanzada
+		}
+
+		// Buscar la ruta del padre en el designmap del fuente.
+		parentPath := findMasterSpreadPathBySelf(srcPkg, srcDoc, parentID)
+		if parentPath == "" {
+			return nil, fmt.Errorf("master padre %q referenciado por %s no encontrado", parentID, currentPath)
+		}
+		currentPath = parentPath
+	}
+
+	// Invertir: la cadena se construyó de hoja a raíz, se necesita raíz a hoja.
+	slices.Reverse(chain)
+	return chain, nil
+}
+
 // injectMasterSpreadFromTemplate abre un IDML plantilla, busca el MasterSpread con
 // el nombre indicado, y lo inyecta en el paquete destino junto con sus stories
 // asociadas. Retorna el Self del master spread inyectado, que es lo que las páginas
@@ -696,66 +779,69 @@ func injectMasterSpreadFromTemplate(src *MasterSpreadSource, pkg *idmlpkg.Packag
 		return "", fmt.Errorf("no se encontró MasterSpread con Name=%q en %s", src.MasterSpreadName, src.TemplatePath)
 	}
 
-	// Leer el XML crudo del master spread fuente.
-	msData, err := srcPkg.GetFileData(masterPath)
+	// Recolectar la cadena completa de herencia (raíz → hoja).
+	chain, err := collectMasterChain(srcPkg, srcDoc, masterPath)
 	if err != nil {
-		return "", fmt.Errorf("error al leer %s: %w", masterPath, err)
+		return "", err
 	}
-
-	// Parsear para obtener Self y las stories referenciadas.
-	ms, err := spread.ParseMasterSpread(msData)
-	if err != nil {
-		return "", fmt.Errorf("error al parsear %s: %w", masterPath, err)
-	}
-	masterSelf := ms.InnerMasterSpread.Self
-
-	// Inyectar el archivo del master spread en el paquete destino.
-	pkg.SetFileData(masterPath, msData)
 
 	// Registrar en el designmap del destino.
 	dstDoc, err := pkg.Document()
 	if err != nil {
 		return "", fmt.Errorf("error al leer designmap destino: %w", err)
 	}
-	dstDoc.MasterSpreads = append(dstDoc.MasterSpreads, document.ResourceRef{
-		XMLName: xml.Name{
-			Space: "http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging",
-			Local: "MasterSpread",
-		},
-		Src: masterPath,
-	})
 
-	// Copiar las stories referenciadas por los TextFrames del master.
-	for _, tf := range ms.InnerMasterSpread.TextFrames() {
-		if tf.ParentStory == "" || tf.ParentStory == "n" {
-			continue
-		}
-		storyPath := "Stories/Story_" + tf.ParentStory + ".xml"
-		storyData, err := srcPkg.GetFileData(storyPath)
-		if err != nil {
-			// La story puede no existir si es un frame vacío; se omite.
+	// Inyectar toda la cadena, de raíz a hoja.
+	for _, entry := range chain {
+		// Saltar si ya existe en el destino (deduplicación).
+		if _, err := pkg.GetFileData(entry.path); err == nil {
 			continue
 		}
 
-		// Inyectar la story en el destino.
-		pkg.SetFileData(storyPath, storyData)
+		pkg.SetFileData(entry.path, entry.data)
 
-		// Registrar en el designmap.
-		dstDoc.Stories = append(dstDoc.Stories, document.ResourceRef{
+		dstDoc.MasterSpreads = append(dstDoc.MasterSpreads, document.ResourceRef{
 			XMLName: xml.Name{
 				Space: "http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging",
-				Local: "Story",
+				Local: "MasterSpread",
 			},
-			Src: storyPath,
+			Src: entry.path,
 		})
-		if dstDoc.StoryList == "" {
-			dstDoc.StoryList = tf.ParentStory
-		} else {
-			dstDoc.StoryList = dstDoc.StoryList + " " + tf.ParentStory
+
+		// Parsear para copiar stories referenciadas por TextFrames del master.
+		ms, err := spread.ParseMasterSpread(entry.data)
+		if err != nil {
+			continue // datos ya validados en collectMasterChain
+		}
+		for _, tf := range ms.InnerMasterSpread.TextFrames() {
+			if tf.ParentStory == "" || tf.ParentStory == "n" {
+				continue
+			}
+			storyPath := "Stories/Story_" + tf.ParentStory + ".xml"
+			storyData, err := srcPkg.GetFileData(storyPath)
+			if err != nil {
+				// La story puede no existir si es un frame vacío; se omite.
+				continue
+			}
+			pkg.SetFileData(storyPath, storyData)
+
+			dstDoc.Stories = append(dstDoc.Stories, document.ResourceRef{
+				XMLName: xml.Name{
+					Space: "http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging",
+					Local: "Story",
+				},
+				Src: storyPath,
+			})
+			if dstDoc.StoryList == "" {
+				dstDoc.StoryList = tf.ParentStory
+			} else {
+				dstDoc.StoryList = dstDoc.StoryList + " " + tf.ParentStory
+			}
 		}
 	}
 
-	return masterSelf, nil
+	// El Self retornado es el de la hoja (el master solicitado).
+	return chain[len(chain)-1].self, nil
 }
 
 // resolveImage usa el resolvedor de imágenes para obtener los datos de una imagen.
