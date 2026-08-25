@@ -4,21 +4,57 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { apiClient } from "@/shared/infraestructure/http/apiClient";
 
+type Preset = "nuestro-diario" | "custom";
+
+const PRESETS = {
+  "nuestro-diario": {
+    label: "Nuestro Diario",
+    noPaginas: 28,
+    anchoMm: 272.99,
+    altoMm: 336.55,
+    cuadrosAncho: 5,
+    cuadrosAlto: 8,
+    facingPages: true,
+    margenSup: 9.53,
+    margenInf: 9.53,
+    margenIzq: 9.53,
+    margenDer: 9.53,
+    columns: 1,
+  },
+} as const;
+
 export default function NuevaEdicionPage() {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [preset, setPreset] = useState<Preset>("nuestro-diario");
 
-  const [noPaginas, setNoPaginas] = useState(4);
-  const [anchoMm, setAnchoMm] = useState(265);
-  const [altoMm, setAltoMm] = useState(370);
-  const [cuadrosAncho, setCuadrosAncho] = useState(5);
-  const [cuadrosAlto, setCuadrosAlto] = useState(8);
-  const [facingPages, setFacingPages] = useState(false);
-  const [margenSup, setMargenSup] = useState(10);
-  const [margenInf, setMargenInf] = useState(10);
-  const [margenIzq, setMargenIzq] = useState(10);
-  const [margenDer, setMargenDer] = useState(10);
+  const [noPaginas, setNoPaginas] = useState<number>(PRESETS["nuestro-diario"].noPaginas);
+  const [anchoMm, setAnchoMm] = useState<number>(PRESETS["nuestro-diario"].anchoMm);
+  const [altoMm, setAltoMm] = useState<number>(PRESETS["nuestro-diario"].altoMm);
+  const [cuadrosAncho, setCuadrosAncho] = useState<number>(PRESETS["nuestro-diario"].cuadrosAncho);
+  const [cuadrosAlto, setCuadrosAlto] = useState<number>(PRESETS["nuestro-diario"].cuadrosAlto);
+  const [facingPages, setFacingPages] = useState<boolean>(PRESETS["nuestro-diario"].facingPages);
+  const [margenSup, setMargenSup] = useState<number>(PRESETS["nuestro-diario"].margenSup);
+  const [margenInf, setMargenInf] = useState<number>(PRESETS["nuestro-diario"].margenInf);
+  const [margenIzq, setMargenIzq] = useState<number>(PRESETS["nuestro-diario"].margenIzq);
+  const [margenDer, setMargenDer] = useState<number>(PRESETS["nuestro-diario"].margenDer);
+
+  const applyPreset = (key: Preset) => {
+    setPreset(key);
+    if (key === "custom") return;
+    const p = PRESETS[key];
+    setNoPaginas(p.noPaginas);
+    setAnchoMm(p.anchoMm);
+    setAltoMm(p.altoMm);
+    setCuadrosAncho(p.cuadrosAncho);
+    setCuadrosAlto(p.cuadrosAlto);
+    setFacingPages(p.facingPages);
+    setMargenSup(p.margenSup);
+    setMargenInf(p.margenInf);
+    setMargenIzq(p.margenIzq);
+    setMargenDer(p.margenDer);
+  };
 
   const handleSubmit = async () => {
     setError(null);
@@ -60,25 +96,61 @@ export default function NuevaEdicionPage() {
   const cellW = cuadrosAncho > 0 ? contentW / cuadrosAncho : contentW;
   const cellH = cuadrosAlto > 0 ? contentH / cuadrosAlto : contentH;
 
+  const isPreset = preset !== "custom";
+
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <div>
         <h1 className="text-xl font-semibold text-gray-800">Crear nueva edición</h1>
-        <p className="text-sm text-gray-500">Define las dimensiones, grilla y márgenes</p>
+        <p className="text-sm text-gray-500">Selecciona un formato o personaliza las dimensiones</p>
+      </div>
+
+      {/* Selector de preset */}
+      <div className="flex gap-3">
+        <button
+          onClick={() => applyPreset("nuestro-diario")}
+          className={`px-4 py-2 text-sm rounded border transition-colors ${
+            preset === "nuestro-diario"
+              ? "bg-blue-600 text-white border-blue-600"
+              : "bg-white text-gray-700 border-gray-300 hover:border-blue-400"
+          }`}
+        >
+          Nuestro Diario
+        </button>
+        <button
+          onClick={() => applyPreset("custom")}
+          className={`px-4 py-2 text-sm rounded border transition-colors ${
+            preset === "custom"
+              ? "bg-blue-600 text-white border-blue-600"
+              : "bg-white text-gray-700 border-gray-300 hover:border-blue-400"
+          }`}
+        >
+          Personalizado
+        </button>
       </div>
 
       <div className="flex gap-8">
         {/* Formulario */}
         <div className="flex-1 space-y-4">
+          {isPreset && (
+            <div className="bg-blue-50 border border-blue-200 rounded p-3">
+              <p className="text-xs text-blue-700">
+                Formato Nuestro Diario: 272.99×336.55 mm, grilla 5×8, facing pages, márgenes 9.53 mm
+              </p>
+            </div>
+          )}
+
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-1">
               <label className="text-xs text-gray-500">Ancho (mm)</label>
               <input
                 type="number"
                 min={50}
+                step={0.01}
                 value={anchoMm}
-                onChange={(e) => setAnchoMm(Number(e.target.value))}
-                className="text-sm border border-gray-300 rounded px-2 py-1.5"
+                onChange={(e) => { setAnchoMm(Number(e.target.value)); setPreset("custom"); }}
+                disabled={isPreset}
+                className="text-sm border border-gray-300 rounded px-2 py-1.5 disabled:bg-gray-50 disabled:text-gray-500"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -86,9 +158,11 @@ export default function NuevaEdicionPage() {
               <input
                 type="number"
                 min={50}
+                step={0.01}
                 value={altoMm}
-                onChange={(e) => setAltoMm(Number(e.target.value))}
-                className="text-sm border border-gray-300 rounded px-2 py-1.5"
+                onChange={(e) => { setAltoMm(Number(e.target.value)); setPreset("custom"); }}
+                disabled={isPreset}
+                className="text-sm border border-gray-300 rounded px-2 py-1.5 disabled:bg-gray-50 disabled:text-gray-500"
               />
             </div>
           </div>
@@ -100,8 +174,9 @@ export default function NuevaEdicionPage() {
                 type="number"
                 min={1}
                 value={cuadrosAncho}
-                onChange={(e) => setCuadrosAncho(Number(e.target.value))}
-                className="text-sm border border-gray-300 rounded px-2 py-1.5"
+                onChange={(e) => { setCuadrosAncho(Number(e.target.value)); setPreset("custom"); }}
+                disabled={isPreset}
+                className="text-sm border border-gray-300 rounded px-2 py-1.5 disabled:bg-gray-50 disabled:text-gray-500"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -110,8 +185,9 @@ export default function NuevaEdicionPage() {
                 type="number"
                 min={1}
                 value={cuadrosAlto}
-                onChange={(e) => setCuadrosAlto(Number(e.target.value))}
-                className="text-sm border border-gray-300 rounded px-2 py-1.5"
+                onChange={(e) => { setCuadrosAlto(Number(e.target.value)); setPreset("custom"); }}
+                disabled={isPreset}
+                className="text-sm border border-gray-300 rounded px-2 py-1.5 disabled:bg-gray-50 disabled:text-gray-500"
               />
             </div>
           </div>
@@ -132,7 +208,8 @@ export default function NuevaEdicionPage() {
               type="checkbox"
               id="facing"
               checked={facingPages}
-              onChange={(e) => setFacingPages(e.target.checked)}
+              onChange={(e) => { setFacingPages(e.target.checked); setPreset("custom"); }}
+              disabled={isPreset}
               className="rounded border-gray-300"
             />
             <label htmlFor="facing" className="text-sm text-gray-600">Facing pages (spreads)</label>
@@ -146,9 +223,11 @@ export default function NuevaEdicionPage() {
                 <input
                   type="number"
                   min={0}
+                  step={0.01}
                   value={margenSup}
-                  onChange={(e) => setMargenSup(Number(e.target.value))}
-                  className="text-sm border border-gray-300 rounded px-2 py-1"
+                  onChange={(e) => { setMargenSup(Number(e.target.value)); setPreset("custom"); }}
+                  disabled={isPreset}
+                  className="text-sm border border-gray-300 rounded px-2 py-1 disabled:bg-gray-50 disabled:text-gray-500"
                 />
               </div>
               <div className="flex flex-col gap-1">
@@ -156,9 +235,11 @@ export default function NuevaEdicionPage() {
                 <input
                   type="number"
                   min={0}
+                  step={0.01}
                   value={margenInf}
-                  onChange={(e) => setMargenInf(Number(e.target.value))}
-                  className="text-sm border border-gray-300 rounded px-2 py-1"
+                  onChange={(e) => { setMargenInf(Number(e.target.value)); setPreset("custom"); }}
+                  disabled={isPreset}
+                  className="text-sm border border-gray-300 rounded px-2 py-1 disabled:bg-gray-50 disabled:text-gray-500"
                 />
               </div>
               <div className="flex flex-col gap-1">
@@ -166,9 +247,11 @@ export default function NuevaEdicionPage() {
                 <input
                   type="number"
                   min={0}
+                  step={0.01}
                   value={margenIzq}
-                  onChange={(e) => setMargenIzq(Number(e.target.value))}
-                  className="text-sm border border-gray-300 rounded px-2 py-1"
+                  onChange={(e) => { setMargenIzq(Number(e.target.value)); setPreset("custom"); }}
+                  disabled={isPreset}
+                  className="text-sm border border-gray-300 rounded px-2 py-1 disabled:bg-gray-50 disabled:text-gray-500"
                 />
               </div>
               <div className="flex flex-col gap-1">
@@ -176,9 +259,11 @@ export default function NuevaEdicionPage() {
                 <input
                   type="number"
                   min={0}
+                  step={0.01}
                   value={margenDer}
-                  onChange={(e) => setMargenDer(Number(e.target.value))}
-                  className="text-sm border border-gray-300 rounded px-2 py-1"
+                  onChange={(e) => { setMargenDer(Number(e.target.value)); setPreset("custom"); }}
+                  disabled={isPreset}
+                  className="text-sm border border-gray-300 rounded px-2 py-1 disabled:bg-gray-50 disabled:text-gray-500"
                 />
               </div>
             </div>

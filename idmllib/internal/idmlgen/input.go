@@ -80,4 +80,8 @@ type MasterSpreadSource struct {
 	// MasterSpreadName es el atributo Name del <MasterSpread> a extraer.
 	// Ejemplo: "02-Noticias Apertura"
 	MasterSpreadName string `json:"masterSpreadName"`
+
+	// FolioDate es la fecha a inyectar en el encabezado del folio. Reemplaza el
+	// placeholder {{fecha}} en las stories del master. Si está vacío no se sustituye.
+	FolioDate string `json:"folioDate,omitempty"`
 }

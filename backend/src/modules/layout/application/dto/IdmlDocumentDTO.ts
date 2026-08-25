@@ -32,6 +32,8 @@ export interface IdmlMasterSpreadSourceDTO {
   templatePath: string;
   /** Atributo Name del MasterSpread a extraer (ej: "02-Noticias Apertura"). */
   masterSpreadName: string;
+  /** Fecha a inyectar en el encabezado (reemplaza {{fecha}} en las stories del master). */
+  folioDate?: string;
 }
 
 export interface IdmlGuideDTO {

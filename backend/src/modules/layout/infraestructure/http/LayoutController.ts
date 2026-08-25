@@ -13,6 +13,15 @@ const FOLIO_TEMPLATE_PATH = process.env.FOLIO_TEMPLATE_PATH
 const FOLIO_MASTER_SPREAD_NAME = process.env.FOLIO_MASTER_SPREAD_NAME
     || "02-Noticias Apertura";
 
+/** Formatea la fecha del día en español para el encabezado del folio. Ej: "Lunes, 25 de agosto de 2026" */
+function formatFolioDate(): string {
+    const now = new Date();
+    const days = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    const months = ["enero", "febrero", "marzo", "abril", "mayo", "junio",
+        "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+    return `${days[now.getDay()]}, ${now.getDate()} de ${months[now.getMonth()]} de ${now.getFullYear()}`;
+}
+
 
 export class LayoutController {
 
@@ -59,7 +68,7 @@ export class LayoutController {
             const folio = req.query.folio === "true";
 
             const masterSpreadSource = folio
-                ? { templatePath: FOLIO_TEMPLATE_PATH, masterSpreadName: FOLIO_MASTER_SPREAD_NAME }
+                ? { templatePath: FOLIO_TEMPLATE_PATH, masterSpreadName: FOLIO_MASTER_SPREAD_NAME, folioDate: formatFolioDate() }
                 : undefined;
 
             const idmlBuffer = await this.generateIdmlUseCase.execute({

@@ -86,7 +86,10 @@ export class GenerateIdmlUseCase implements UseCase<Input, Buffer> {
                     right: edition.margen_derecho_mm,
                 },
                 facingPages: edition.facing_pages,
-                columns: edition.cuadros_ancho,
+                // Cuando se usa folio (master spread con cabecera), las columnas de InDesign
+                // son irrelevantes — la grilla editorial se define con guías. Usar 1 evita
+                // confusión visual con las guías de columna moradas.
+                columns: masterSpreadSource ? 1 : edition.cuadros_ancho,
                 guides: this.buildGridGuides(edition),
             },
             pages: idmlPages,

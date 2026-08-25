@@ -1,6 +1,7 @@
 package idmlgen
 
 import (
+	"bytes"
 	"encoding/xml"
 	"fmt"
 	"regexp"
@@ -823,6 +824,12 @@ func injectMasterSpreadFromTemplate(src *MasterSpreadSource, pkg *idmlpkg.Packag
 				// La story puede no existir si es un frame vacío; se omite.
 				continue
 			}
+
+			// Sustituir placeholder {{fecha}} con la fecha real del folio.
+			if src.FolioDate != "" {
+				storyData = bytes.ReplaceAll(storyData, []byte("{{fecha}}"), []byte(src.FolioDate))
+			}
+
 			pkg.SetFileData(storyPath, storyData)
 
 			dstDoc.Stories = append(dstDoc.Stories, document.ResourceRef{
